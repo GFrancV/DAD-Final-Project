@@ -1,4 +1,4 @@
-# new_app
+# VCard Project 
 
 ## Project setup
 ```
