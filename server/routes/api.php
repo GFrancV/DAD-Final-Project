@@ -18,3 +18,4 @@ use App\Http\Controllers\api\TransactionController;
 
 
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
+Route::get('categories/{id}/transactions', [TransactionController::class, 'getTransactionsOfCategories']);

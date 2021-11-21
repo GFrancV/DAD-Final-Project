@@ -10,6 +10,7 @@ use App\Models\Categorie;
 class Transaction extends Model
 {
     use HasFactory;
+    protected $table = 'transactions';
 
     public function vcard_owner()
     {
