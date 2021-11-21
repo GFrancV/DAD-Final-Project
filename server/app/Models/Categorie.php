@@ -12,6 +12,12 @@ class Categorie extends Model
     use HasFactory;
     protected $table = 'categories';
 
+    protected $fillable = [
+        'vcard',
+        'type',
+        'name'
+    ];
+
 
     public function vcard_owner()
     {

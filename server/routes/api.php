@@ -18,6 +18,8 @@ use App\Http\Controllers\api\CategorieController;
 */
 
 
-
+//Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
+
+//Categories
 Route::get('vcards/{vcard}/categories', [CategorieController::class, 'getCategoriesOfVcard']);
