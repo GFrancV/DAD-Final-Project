@@ -1,17 +1,25 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow">
+  <nav
+    class="
+      navbar navbar-expand-md navbar-dark
+      bg-dark
+      sticky-top
+      flex-md-nowrap
+      p-0
+      shadow
+    "
+  >
     <div class="container-fluid">
-      <a
-        class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
-        href="#"
-      ><img
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"
+        ><img
           src="./assets/logo.png"
           alt=""
           width="30"
           height="24"
           class="d-inline-block align-text-top"
-        >
-        App name</a>
+        />
+        vCard App</a
+      >
       <button
         id="buttonSidebarExpandId"
         class="navbar-toggler"
@@ -28,20 +36,16 @@
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a
-              class="nav-link"
-              href="#"
-            ><i class="bi bi-person-check-fill"></i>
+            <router-link class="nav-link" :to="{ name: 'Register' }"
+              ><i class="bi bi-person-check-fill"></i>
               Register
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              href="#"
-            ><i class="bi bi-box-arrow-in-right"></i>
+            <router-link class="nav-link" :to="{ name: 'Login' }">
+              <i class="bi bi-box-arrow-in-right"></i>
               Login
-            </a>
+            </router-link>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -56,28 +60,33 @@
                 src="./assets/img/avatar-exemplo-1.jpg"
                 class="rounded-circle z-depth-0 avatar-img"
                 alt="avatar image"
-              >
+              />
               <span class="avatar-text">User Name</span>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <li><a
-                  class="dropdown-item"
-                  href="#"
-                ><i class="bi bi-person-square"></i>Profile</a></li>
-              <li><a
-                  class="dropdown-item"
-                  href="#"
-                ><i class="bi bi-key-fill"></i>Change password</a></li>
               <li>
-                <hr class="dropdown-divider">
+                <router-link class="dropdown-item" :to="{ name: 'User' }"
+                  ><i class="bi bi-person-square"></i>Profile</router-link
+                >
               </li>
-              <li><a
+              <li>
+                <router-link
                   class="dropdown-item"
-                  href="#"
-                ><i class="bi bi-arrow-right"></i>Logout</a></li>
+                  :to="{ name: 'ChangePassword' }"
+                  ><i class="bi bi-key-fill"></i>Change password</router-link
+                >
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="bi bi-arrow-right"></i>Logout</a
+                >
+              </li>
             </ul>
           </li>
         </ul>
@@ -94,127 +103,142 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a
-                class="nav-link active"
+              <router-link
+                class="nav-link"
+                :class="{ active: $route.name === 'Dashboard' }"
                 aria-current="page"
-                href="#"
+                :to="{ name: 'Dashboard' }"
               >
                 <i class="bi bi-house"></i>
                 Dashboard
-              </a>
+              </router-link>
             </li>
-            <li class="nav-item">
-              <a
+            <li
+              class="
+                nav-item
+                d-flex
+                justify-content-between
+                align-items-center
+                pe-3
+              "
+            >
+              <router-link
                 class="nav-link"
-                href="#"
+                :class="{ active: $route.name === 'Categories' }"
+                aria-current="page"
+                :to="{ name: 'Categories' }"
               >
                 <i class="bi bi-list-stars"></i>
-                Current Tasks
+                Categories
+              </router-link>
+              <a class="link-secondary" href="#" aria-label="Add category">
+                <i class="bi bi-xs bi-plus-circle"></i>
               </a>
             </li>
-            <li class="nav-item d-flex justify-content-between align-items-center pe-3">
-              <a
+            <li
+              class="
+                nav-item
+                d-flex
+                justify-content-between
+                align-items-center
+                pe-3
+              "
+            >
+              <router-link
                 class="nav-link w-100 me-3"
-                href="#"
+                :class="{ active: $route.name === 'Payments' }"
+                aria-current="page"
+                :to="{ name: 'Payments' }"
               >
                 <i class="bi bi-list-check"></i>
-                Tasks
-              </a>
-              <a
-                class="link-secondary"
-                href="#"
-                aria-label="Add a new task"
-              >
+                Payment Types
+              </router-link>
+              <a class="link-secondary" href="#" aria-label="Add payment type">
                 <i class="bi bi-xs bi-plus-circle"></i>
               </a>
             </li>
 
             <li class="nav-item">
-              <a
+              <router-link
                 class="nav-link"
-                href="#"
+                :class="{ active: $route.name === 'Transactions' }"
+                aria-current="page"
+                :to="{ name: 'Transactions' }"
               >
                 <i class="bi bi-files"></i>
-                Projects
-              </a>
+                Transactions
+              </router-link>
             </li>
 
             <li class="nav-item">
-              <a
+              <router-link
                 class="nav-link"
-                href="#"
+                :class="{ active: $route.name === 'Users' }"
+                aria-current="page"
+                :to="{ name: 'Users' }"
               >
                 <i class="bi bi-people"></i>
-                Team Members
-              </a>
+                Users
+              </router-link>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-              >
+              <a class="nav-link" href="#">
                 <i class="bi bi-bar-chart-line"></i>
-                Reports
+                EXTRA - NÃO TEM ROTA
               </a>
             </li>
           </ul>
 
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>My Projects</span>
-            <a
-              class="link-secondary"
-              href="#"
-              aria-label="Add a new project"
-            >
+          <h6
+            class="
+              sidebar-heading
+              d-flex
+              justify-content-between
+              align-items-center
+              px-3
+              mt-4
+              mb-1
+              text-muted
+            "
+          >
+            <span>vCards - TODO</span>
+            <a class="link-secondary" href="#" aria-label="Add a new project">
               <i class="bi bi-xs bi-plus-circle"></i>
             </a>
           </h6>
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-              >
-                <i class="bi bi-file-ruled"></i>
-                Some project
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-              ><i class="bi bi-file-ruled"></i>
-                Another project
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="#"
-              ><i class="bi bi-file-ruled"></i>
-                Yet another project
-              </a>
+              <router-link class="nav-link" :to="{ name:'VCard' /*TODO - Adicionar id do vCard*/}"> 
+                <i class="bi bi-credit-card"></i>
+                vCard #1
+              </router-link>
             </li>
           </ul>
 
           <div class="d-block d-md-none">
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <h6
+              class="
+                sidebar-heading
+                d-flex
+                justify-content-between
+                align-items-center
+                px-3
+                mt-4
+                mb-1
+                text-muted
+              "
+            >
               <span>User</span>
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="#"
-                ><i class="bi bi-person-check-fill"></i>
+                <a class="nav-link" href="#"
+                  ><i class="bi bi-person-check-fill"></i>
                   Register
                 </a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="#"
-                >
+                <a class="nav-link" href="#">
                   <i class="bi bi-box-arrow-in-right"></i>
                   Login
                 </a>
@@ -232,38 +256,40 @@
                     src="./assets/img/avatar-exemplo-1.jpg"
                     class="rounded-circle z-depth-0 avatar-img"
                     alt="avatar image"
-                  >
+                  />
                   <span class="avatar-text">User Name</span>
                 </a>
                 <ul
                   class="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink2"
                 >
-                  <li><a
-                      class="dropdown-item"
-                      href="#"
-                    ><i class="bi bi-person-square"></i>Profile</a></li>
-                  <li><a
-                      class="dropdown-item"
-                      href="#"
-                    ><i class="bi bi-key-fill"></i>Change password</a></li>
                   <li>
-                    <hr class="dropdown-divider">
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-person-square"></i>Profile</a
+                    >
                   </li>
-                  <li><a
-                      class="dropdown-item"
-                      href="#"
-                    ><i class="bi bi-arrow-right"></i>Logout</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-key-fill"></i>Change password</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#"
+                      ><i class="bi bi-arrow-right"></i>Logout</a
+                    >
+                  </li>
                 </ul>
               </li>
             </ul>
           </div>
-
         </div>
       </nav>
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <dashboard></dashboard>
+        <router-view></router-view>
       </main>
     </div>
   </div>
@@ -271,14 +297,10 @@
 
 <script>
 // REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
-import Dashboard from "./components/Dashboard.vue"
 
 export default {
-  name: 'RootComponent',
-  components: {
-    Dashboard
-  },
-}
+  name: "RootComponent",
+};
 </script>
 
 <style lang="css">
