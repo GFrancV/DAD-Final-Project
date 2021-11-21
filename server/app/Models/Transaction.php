@@ -6,18 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\VCard;
 use App\Models\Categorie;
+use App\Models\Payment_type;
+
 
 class Transaction extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'transactions';
 
-
     protected $fillable = [
-        //DATETIME?
+        'id',
         'vcard',
         'date',
-        'type',
+        'datetime',
         'value',
         'old_balance',
         'new_balance',
@@ -26,7 +28,7 @@ class Transaction extends Model
         'pair_transaction',
         'pair_vcard',
         'category_id',
-        'description'
+        'description',
     ];
 
     public function vcard_owner()
@@ -37,6 +39,24 @@ class Transaction extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
+
+
+    public function payment_type()
+    {
+        return $this->belongsTo(Payment_type::class, 'payment_type', 'code');
+    }
+
+    /*
+    public function getTypeAttribute()
+    {
+        switch ($this->type) {
+            case 'C':
+                return 'Credit Transaction';
+            case 'D':
+                return 'Debit Transaction';
+        }
+    }
+    */
     
 
 }

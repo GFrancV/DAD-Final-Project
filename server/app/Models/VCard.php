@@ -12,9 +12,10 @@ class VCard extends Model
     use HasFactory;
     protected $table = 'vcards';
     protected $primaryKey = 'phone_number';
-
+    public $timestamps = false;
 
     protected $fillable = [
+        'phone_number',
         'name',
         'email',
         'photo_url',
@@ -24,6 +25,8 @@ class VCard extends Model
         'balance',
         'max_debit'
     ];
+
+
 
     public function transactions()
     {
