@@ -1,16 +1,19 @@
 <template>
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
+    <h1 class="h2">Categories</h1>
   </div>
   <div>
-    <h4>Welcome *UserName || guest*!</h4>
-    <p>TODO - Aqui deve estar o saldo, o cartão, talvez as últimas transações e talvez outras coisas - ver depois </p>
+    <ol>
+      <li>Category #1</li>
+      <li>Category #2</li>
+      <li>Category #3</li>
+    </ol>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: 'Categories',
 }
 </script>
 
