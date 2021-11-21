@@ -12,6 +12,7 @@ use App\Models\Payment_type;
 class Transaction extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $table = 'transactions';
 
     protected $fillable = [
@@ -19,7 +20,6 @@ class Transaction extends Model
         'vcard',
         'date',
         'datetime',
-        'type',
         'value',
         'old_balance',
         'new_balance',
@@ -28,7 +28,7 @@ class Transaction extends Model
         'pair_transaction',
         'pair_vcard',
         'category_id',
-        'description'
+        'description',
     ];
 
     public function vcard_owner()
@@ -46,6 +46,7 @@ class Transaction extends Model
         return $this->belongsTo(Payment_type::class, 'payment_type', 'code');
     }
 
+    /*
     public function getTypeAttribute()
     {
         switch ($this->type) {
@@ -55,6 +56,7 @@ class Transaction extends Model
                 return 'Debit Transaction';
         }
     }
+    */
     
 
 }

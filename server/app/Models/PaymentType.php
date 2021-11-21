@@ -13,6 +13,7 @@ class PaymentType extends Model
 
     protected $table = 'payment_type';
     protected $primaryKey = 'code';
+    public $timestamps = false;
 
     protected $fillable = [
         //DATETIME?

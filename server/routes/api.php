@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\TransactionController;
-
+use App\Http\Controllers\api\CategorieController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +18,4 @@ use App\Http\Controllers\api\TransactionController;
 
 
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
-Route::get('categories/{id}/transactions', [TransactionController::class, 'getTransactionsOfCategories']);
+Route::get('vcards/{vcard}/categories', [CategorieController::class, 'getCategoriesOfVcard']);

@@ -12,6 +12,7 @@ class VCard extends Model
     use HasFactory;
     protected $table = 'vcards';
     protected $primaryKey = 'phone_number';
+    public $timestamps = false;
 
     protected $fillable = [
         'phone_number',
