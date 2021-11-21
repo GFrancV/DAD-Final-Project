@@ -13,6 +13,18 @@ class VCard extends Model
     protected $table = 'vcards';
     protected $primaryKey = 'phone_number';
 
+    protected $fillable = [
+        'phone_number',
+        'name',
+        'email',
+        'photo_url',
+        'password',
+        'confirmation_code',
+        'blocked',
+        'balance',
+        'max_debit'
+    ];
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'vcard', 'phone_number');

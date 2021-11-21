@@ -12,6 +12,13 @@ class Categorie extends Model
     use HasFactory;
     protected $table = 'categories';
 
+    protected $fillable = [
+        'id',
+        'vcard',
+        'type',
+        'name'
+    ];
+
 
     public function vcard_owner()
     {
@@ -21,6 +28,16 @@ class Categorie extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function getTypeCategorie()
+    {
+        switch ($this->type) {
+            case 'C':
+                return 'Credit';
+            case 'D':
+                return 'Debit';
+        }
     }
 
 }
