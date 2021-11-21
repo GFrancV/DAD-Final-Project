@@ -17,16 +17,17 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
-            //DATETIME
+            'datetime' => $this->datetime,
             'type' => $this->type,
             'value' => $this->value,
             'old_balance' => $this->old_balance,
             'new_balance' => $this->new_balance,
             'payment_type' => $this->payment_type,
-            'payment_type_name' => $this->vcard_owner->name,
-            'payment_' => $this->payment_type
-
-
+            'payment_reference' => $this->payment_reference,
+            'pair_transaction' => $this->pair_transaction,
+            'pair_vcard' => $this->pair_vcard,
+            'category_id' => $this->category_id,
+            'description' => $this->description
         ];
     }
 }
