@@ -14,7 +14,7 @@ class Categorie extends Model
 
     public function vcard_owner()
     {
-        return $this->belongsTo(VCard::class, 'vcard');
+        return $this->belongsTo(VCard::class, 'vcard', 'phone_number');
     }
 
     public function transactions()
