@@ -33,17 +33,40 @@
 
   <div>
     <h4>Transactions</h4>
-    <p>TABELA</p>
-  </div>
-
-  <div>
-    <h4>Icons</h4>
-    <p>
-      Icons used for this template:
-      <a href="https://icons.getbootstrap.com/"
-        ><strong>Bootstrap Icons</strong></a
-      >
-    </p>
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">date</th>
+          <th scope="col">type</th>
+          <th scope="col">old_balance</th>
+          <th scope="col">new_balance</th>
+          <th scope="col">payment_type</th>
+          <th scope="col">payment_reference</th>
+          <th scope="col">pair_transaction</th>
+          <th scope="col">pair_vcard</th>
+          <th scope="col">category</th>
+          <th scope="col">description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="transaction in transactions" :key="transaction.id">
+          <th scope="row">{{ transaction.id }}</th>
+          <td>{{ transaction.datetime }}</td>
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.old_balance }}</td>
+          <td>{{ transaction.new_balance }}</td>
+          <td>{{ transaction.payment_type }}</td>
+          <td>{{ transaction.payment_reference }}</td>
+          <td>{{ transaction.pair_transaction || "N/A" }}</td>
+          <td>{{ transaction.pair_vcard || "N/A" }}</td>
+          <td>
+            {{ transaction.category_id || 'N/A' /* TODO - Mudar para nome de categoria */ }}
+          </td>
+          <td>{{ transaction.description || "N/A" }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -56,9 +79,13 @@ export default {
       default: null,
     },
   },
+  computed: {
+
+  },
   data() {
     return {
       categories: [],
+      transactions: [],
     };
   },
   methods: {
@@ -72,9 +99,20 @@ export default {
           console.log(error);
         });
     },
+    getTransactions() {
+      this.$axios
+        .get("vcards/" + this.id + "/transactions")
+        .then((response) => {
+          this.transactions = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
     this.getCategories();
+    this.getTransactions();
   },
 };
 </script>
