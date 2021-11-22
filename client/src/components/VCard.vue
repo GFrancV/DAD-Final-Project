@@ -1,16 +1,16 @@
 <template>
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
+    <h1 class="h2">VCard</h1>
   </div>
   <div>
-    <h4>Welcome *UserName || guest*!</h4>
-    <p>TODO - Aqui deve estar o saldo, o cartão, talvez as últimas transações e talvez outras coisas - ver depois </p>
+    <h4>vCard *id*</h4>
+    <p>TODO - DETALHES DO VCARD -> TELEMÓVEL ASSOCIADO E VALIDADE??? - VER DEPOIS </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: 'VCard',
 }
 </script>
 
