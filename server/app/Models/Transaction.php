@@ -57,6 +57,6 @@ class Transaction extends Model
         }
     }
     */
-    
+
 
 }
