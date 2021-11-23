@@ -1,21 +1,19 @@
 .vcard {
 	position: relative;
-	width: 351px;
-	height: 211px;
-	border-radius: 25px;
-	background: rgba(79, 121, 225, 0.35);
-	backdrop-filter: blur(30px); /* This will produce the blur */
-	border: 1px solid rgba(255, 255, 255, 0.18);
-	-webkit-backdrop-filter: blur(4px);
-	overflow: hidden;
+	width: 300px;
+	height: 180px;
+	background-color: #4e79e0;
+	border-radius: 30px;
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
+	box-shadow: 2px 8px 15px 2px rgba(0,0,0,0.31);
 }
 
 .logo img,
-.chip img,
+.value,
 .number,
 .name,
 .from,
-.to,
+.cv,
 .ring {
 	position: absolute; /* All items inside card should have absolute position */
 }
@@ -23,37 +21,37 @@
 .logo img {
 	top: 35px;
 	right: 40px;
-	width: 80px;
+	width: 60px;
 	height: auto;
 	opacity: 0.8;
 }
 
-.chip img {
-	top: 120px;
-	left: 40px;
-	width: 50px;
-	height: auto;
-	opacity: 0.8;
-}
-
+.value,
 .number,
 .name,
 .from,
-.to {
+.cv {
 	color: rgba(255, 255, 255, 0.8);
 	font-weight: 400;
 	letter-spacing: 2px;
 	text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
+.value{
+	left: 40px;
+	bottom: 110px;
+	font-size: 1.2rem;
+}
+
 .number {
 	left: 40px;
 	bottom: 65px;
 	font-family: "Nunito", sans-serif;
+	font-size: 1rem;
 }
 
 .name {
-	font-size: 0.5rem;
+	font-size: 0.7rem;
 	left: 40px;
 	bottom: 35px;
 }
@@ -64,7 +62,7 @@
 	right: 110px;
 }
 
-.to {
+.cv {
 	font-size: 0.5rem;
 	bottom: 35px;
 	right: 40px;

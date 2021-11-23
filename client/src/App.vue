@@ -324,9 +324,7 @@ export default {
 }
 
 .main-content {
-  background-color: #f4f7fb;
-  margin-top: 30px;
-  margin-left: 25px;
+  background-color: #f4f5f8;
 }
 
 </style>
