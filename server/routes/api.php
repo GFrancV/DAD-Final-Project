@@ -28,10 +28,10 @@ Route::put('transactions/{transaction}', [TransactionController::class, 'update'
 
 //Cateogires
 Route::get('vcards/{vcard}/categories', [CategorieController::class, 'getCategoriesOfVcard']);
-Route::get('categories/{categorie}', [CategorieController::class, 'show']);
+Route::get('categories/{category}', [CategorieController::class, 'show']);
 Route::post('categories', [CategorieController::class, 'store']);
-Route::delete('categories/{categorie}', [CategorieController::class, 'destroy']);
-Route::put('categories/{categorie}', [CategorieController::class, 'update']);
+Route::delete('categories/{category}', [CategorieController::class, 'destroy']);
+Route::put('categories/{category}', [CategorieController::class, 'update']);
 
 //Vcard
 Route::get('vcards/{vcard}', [VcardController::class, 'show']);
