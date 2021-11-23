@@ -39,10 +39,12 @@
       <div class="col-4 content-secondary">
         <h3>My vCard</h3>
         <div class="vcard">
-          $500,26
-          215 **** **** 1532
-          Simon Bolivar
-          12/22
+          <div class="logo"><img src="../assets/img/logo-visa.png" alt="Visa"></div>
+          
+          <div class="number">1234 5678 9012 3456</div>
+          <div class="name">SHOUNAK DAS</div>
+          <div class="from">10/19</div>
+          <div class="to">06/21</div>
         </div>
       </div>
 
@@ -58,6 +60,8 @@ export default {
 </script>
 
 <style scoped lang="css">
+  @import "../assets/css/vcard.css";
+  
   .content {
     background-color: white;
     padding: 25px;
@@ -69,10 +73,4 @@ export default {
     background-color: #edf1f7;
   }
 
-  .vcard {
-    background-color: #4f79e1;
-    padding: 10px;
-    border: 10px;
-    border-radius: 15px;
-  }
 </style>
