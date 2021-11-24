@@ -61,7 +61,7 @@
           <td>{{ transaction.pair_transaction || "N/A" }}</td>
           <td>{{ transaction.pair_vcard || "N/A" }}</td>
           <td>
-            {{ transaction.category_id || 'N/A' /* TODO - Mudar para nome de categoria */ }}
+            {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
           </td>
           <td>{{ transaction.description || "N/A" }}</td>
         </tr>
@@ -93,7 +93,7 @@ export default {
       this.$axios
         .get("vcards/" + this.id + "/categories")
         .then((response) => {
-          this.categories = response.data;
+          this.categories = response.data.data;
         })
         .catch((error) => {
           console.log(error);
@@ -103,7 +103,7 @@ export default {
       this.$axios
         .get("vcards/" + this.id + "/transactions")
         .then((response) => {
-          this.transactions = response.data;
+          this.transactions = response.data.data;
         })
         .catch((error) => {
           console.log(error);
