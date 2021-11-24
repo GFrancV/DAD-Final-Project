@@ -33,7 +33,7 @@ Route::post('vcards/{vcard}/categories', [CategorieController::class, 'store']);
 Route::put('vcards/{vcard}/categories/{category}', [CategorieController::class, 'update']);
 Route::delete('vcards/{vcard}/categories/{category}', [CategorieController::class, 'destroy']);
 //Vcard
-Route::get('vcards/{vcard}/categories/{category}', [VcardController::class, 'show']);
+Route::get('vcards/{vcard}', [VcardController::class, 'show']);
 Route::post('vcards', [VcardController::class, 'store']);
 Route::delete('vcards/{vcard}', [VcardController::class, 'destroy']);
 Route::put('vcards/{vcard}', [VcardController::class, 'update']);
