@@ -14,13 +14,6 @@ class Category extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
-        'vcard',
-        'type',
-        'name'
-    ];
-
-    protected $fillable = [
         'vcard',
         'type',
         'name'
