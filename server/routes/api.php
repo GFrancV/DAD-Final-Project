@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\TransactionController;
-use App\Http\Controllers\api\CategorieController;
+use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\VcardController;
 
 /*
@@ -27,11 +27,11 @@ Route::put('transactions/{transaction}', [TransactionController::class, 'update'
 
 
 //Cateogires
-Route::get('vcards/{vcard}/categories', [CategorieController::class, 'getCategoriesOfVcard']);
-Route::get('categories/{category}', [CategorieController::class, 'show']);
-Route::post('categories', [CategorieController::class, 'store']);
-Route::delete('categories/{category}', [CategorieController::class, 'destroy']);
-Route::put('categories/{category}', [CategorieController::class, 'update']);
+Route::get('vcards/{vcard}/categories', [CategoryController::class, 'getCategoriesOfVcard']);
+Route::get('categories/{category}', [CategoryController::class, 'show']);
+Route::post('categories', [CategoryController::class, 'store']);
+Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
+Route::put('categories/{category}', [CategoryController::class, 'update']);
 
 //Vcard
 Route::get('vcards/{vcard}', [VcardController::class, 'show']);

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\VCard;
 use App\Models\Transaction;
 
-class Categorie extends Model
+class Category extends Model
 {
     use HasFactory;
     protected $table = 'categories';
@@ -37,7 +37,7 @@ class Categorie extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function getTypeCategorie()
+    public function getTypeCategories()
     {
         switch ($this->type) {
             case 'C':

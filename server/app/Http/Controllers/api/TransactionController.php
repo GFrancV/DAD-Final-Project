@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateTransactionRequest;
 use Illuminate\Http\Request;
 use App\Models\VCard;
-use App\Models\Categorie;
+use App\Models\Category;
 use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 
@@ -19,9 +19,9 @@ class TransactionController extends Controller
         return TransactionResource::collection($vcard->transactions);
     }
 
-    public function getTransactionsOfCategories(Categorie $categorie)
+    public function getTransactionsOfCategories(Category $category)
     {
-        return $categorie->transactions;
+        return $category->transactions;
     }
 
     public function show(Transaction $transaction)

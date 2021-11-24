@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateVCardsRequest;
 use App\Http\Resources\VcardResource;
-use App\Models\Categorie;
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\VCard;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class VcardController extends Controller
     public function destroy(VCard $vcard)
     {
         Transaction::where("vcard", $vcard->phone_number)->delete();
-        Categorie::where("vcard", $vcard->phone_number)->delete();
+        Category::where("vcard", $vcard->phone_number)->delete();
         $vcard->delete();
         return new VcardResource($vcard);
     }
