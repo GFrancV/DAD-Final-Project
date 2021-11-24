@@ -40,9 +40,10 @@ class CategorieController extends Controller
         return new CategoryResource($categorie);
     }
 
-    public function destroy(Category $categorie)
+    public function destroy(Vcard $vcard,Category $categorie)
     {
-        Category::where("category_id", $categorie->id)->delete();
+        $vcardProvider = Vcard::where('phone_number',$vcard)->first();
+        Category::where("vcard", $vcardProvider->phone_number)->delete();
         return new CategoryResource($categorie);
     }
 
