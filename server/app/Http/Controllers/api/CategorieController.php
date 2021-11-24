@@ -6,44 +6,44 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoriesRequest;
 use Illuminate\Http\Request;
 use App\Models\VCard;
-use App\Http\Resources\CategorieResource;
-use App\Models\Categorie;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 
 class CategorieController extends Controller
 {
     //
     public function getCategoriesOfVcard(Vcard $vcard)
     {
-        return CategorieResource::collection($vcard->categories);
+        return CategoryResource::collection($vcard->categories);
     }
 
-    public function show(Categorie $categorie, Vcard $vcard)
+    public function show(Category $categorie, Vcard $vcard)
     {
         $vcardProvider = Vcard::where('phone_number',$vcard)->first();
-        $categorie = Categorie::where('vcard',$vcardProvider->phone_number)->first();
-        return new CategorieResource($categorie);
+        $categorie = Category::where('vcard',$vcardProvider->phone_number)->first();
+        return new CategoryResource($categorie);
     }
 
     public function store(StoreCategoriesRequest $request,Vcard $vcard)
     {
         $vcardProvider = Vcard::where('phone_number',$vcard)->first();
-        $newCategorie = Categorie::create($request->validated());
+        $newCategorie = Category::create($request->validated());
         $newCategorie->vcard = $vcardProvider->phone_number;
-        return new CategorieResource($newCategorie);
+        return new CategoryResource($newCategorie);
     }
 
-    public function update(StoreCategoriesRequest $request,Vcard $vcard, Categorie $categorie)
+    public function update(StoreCategoriesRequest $request,Vcard $vcard, Category $categorie)
     {
         $vcardProvider = Vcard::where('phone_number',$vcard)->first();
-        $categorie = Categorie::where('vcard',$vcardProvider->phone_number)->first();
+        $categorie = Category::where('vcard',$vcardProvider->phone_number)->first();
         $categorie->update($request->validated());
-        return new CategorieResource($categorie);
+        return new CategoryResource($categorie);
     }
 
-    public function destroy(Categorie $categorie)
+    public function destroy(Category $categorie)
     {
-        Categorie::where("category_id", $categorie->id)->delete();
-        return new CategorieResource($categorie);
+        Category::where("category_id", $categorie->id)->delete();
+        return new CategoryResource($categorie);
     }
 
 }

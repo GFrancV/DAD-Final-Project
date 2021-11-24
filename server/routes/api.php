@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\TransactionController;
-use App\Http\Controllers\api\CategorieController;
+use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\VcardController;
 
 /*

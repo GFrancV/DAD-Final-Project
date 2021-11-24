@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\VCard;
-use App\Models\Categorie;
+use App\Models\Category;
 use App\Models\Payment_type;
 
 
@@ -35,9 +35,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(VCard::class, 'vcard', 'phone_number');
     }
-    public function categorie()
+    public function category()
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Category::class);
     }
 
 

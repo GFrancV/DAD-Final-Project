@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Transaction;
-use App\Models\Categorie;
+use App\Models\Category;
 
 class VCard extends Model
 {
@@ -34,7 +34,7 @@ class VCard extends Model
     }
     public function categories()
     {
-        return $this->hasMany(Categorie::class, 'vcard', 'phone_number');
+        return $this->hasMany(Category::class, 'vcard', 'phone_number');
     }
 
 }
