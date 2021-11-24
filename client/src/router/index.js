@@ -4,7 +4,6 @@ import Categories from '../components/Categories.vue'
 import Dashboard from '../components/Dashboard.vue'
 import Payments from '../components/Payments.vue'
 import Transactions from '../components/Transactions.vue'
-import VCard from '../components/VCard.vue'
 
 import Users from '../components/users/Users.vue'
 import User from '../components/users/User.vue'
@@ -12,6 +11,8 @@ import User from '../components/users/User.vue'
 import ChangePassword from '../components/auth/ChangePassword.vue'
 import Login from '../components/auth/Login.vue'
 import Register from '../components/auth/Register.vue'
+
+import VCard from '../components/vcards/VCard.vue'
 
 
 const routes = [
@@ -74,9 +75,10 @@ const routes = [
     component: Register
   },
   {
-    path: '/vCard', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA ALGO DO GÉNERO "path: '/vCard/:id',"
+    path: '/vCard/:id', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA ALGO DO GÉNERO "path: '/vCard/:id',"
     name: 'VCard',
-    component: VCard
+    component: VCard,
+    props: route => ({ id: parseInt(route.params.id) })
   }
 ]
 

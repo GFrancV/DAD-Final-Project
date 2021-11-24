@@ -208,7 +208,7 @@
           </h6>
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name:'VCard' /*TODO - Adicionar id do vCard*/}"> 
+              <router-link class="nav-link" :to="{ name:'VCard', params: { id: 900000001 } /*TODO - Adicionar id do vCard dinamicamente*/}"> 
                 <i class="bi bi-credit-card"></i>
                 vCard #1
               </router-link>
