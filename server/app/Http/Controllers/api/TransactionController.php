@@ -21,14 +21,14 @@ class TransactionController extends Controller
 
     public function show(Vcard $vcard,Transaction $transaction)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard)->first();
+        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
         $transaction = Transaction::where('vcard',$vcardProvider->phone_number)->first();
         return new TransactionResource($transaction);
     }
 
     public function store(StoreUpdateTransactionRequest $request,Vcard $vcard)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard)->first();
+        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
         $newTransaction = Transaction::create($request->validated());
         $newTransaction->vcard = $vcardProvider->phone_number;
         return new TransactionResource($newTransaction);
@@ -36,7 +36,7 @@ class TransactionController extends Controller
 
     public function update(StoreUpdateTransactionRequest $request,Vcard $vcard, Transaction $transaction)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard)->first();
+        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
         $transaction = Transaction::where('vcard',$vcardProvider->phone_number)->first();
         $transaction->update($request->validated());
         return new TransactionResource($transaction);
@@ -44,7 +44,7 @@ class TransactionController extends Controller
 
     public function destroy(Vcard $vcard,Transaction $transaction)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard)->first();
+        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
         Transaction::where("vcard", $vcardProvider->phone_number)->delete();
         return new TransactionResource($transaction);
     }
