@@ -1,5 +1,11 @@
 body {
   font-size: .875rem;
+  background-color: #f4f5f8;
+
+}
+
+i {
+  color: #838383;
 }
 
 .bi {
@@ -29,7 +35,7 @@ body {
   /* Behind the navbar */
   padding: 48px 0 0;
   /* Height of navbar */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  box-shadow: inset -1px 0 0 #f4f7fb;
 }
 
 @media (max-width: 767.98px) {
@@ -50,18 +56,29 @@ body {
 
 .sidebar .nav-link {
   font-weight: 500;
-  color: #333;
+  color: #838383;
 }
 
 .sidebar .nav-link.active {
   /* color: #2470dc; */
   color: whitesmoke;
-  background-color: #505050;
+  background-color: #5079e0;
+}
+
+.sidebar .nav-link.active i{
+  color: whitesmoke;
+
 }
 
 .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
+}
+
+.menu {
+  margin-top: 14px;
+  background-color: white;
+
 }
 
 /*
@@ -72,8 +89,14 @@ body {
   padding-top: .75rem;
   padding-bottom: .75rem;
   font-size: 1rem;
-  background-color: rgba(0, 0, 0, .25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  margin-top: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.navbar-brand h5{
+  color: #5176e0;
+  font-size: 26px;
 }
 
 .navbar .navbar-toggler {
@@ -85,6 +108,10 @@ body {
   padding: .75rem 1rem;
   border-width: 0;
   border-radius: 0;
+}
+
+.navbar-separator {
+  border-bottom: 2px solid #edf1f7;
 }
 
 .form-control-dark {

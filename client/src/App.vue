@@ -1,12 +1,14 @@
 <template>
+<div>
+
   <nav
     class="
-      navbar navbar-expand-md navbar-dark
-      bg-dark
+      navbar navbar-expand-md navbar-light
+      bg-light
       sticky-top
       flex-md-nowrap
       p-0
-      shadow
+      navbar-separator
     "
   >
     <div class="container-fluid">
@@ -14,11 +16,11 @@
         ><img
           src="./assets/logo.png"
           alt=""
-          width="30"
-          height="24"
+          height="34"
           class="d-inline-block align-text-top"
+          style="float:left;"
         />
-        vCard App</a
+        <h5>vCard App</h5></a
       >
       <button
         id="buttonSidebarExpandId"
@@ -99,8 +101,8 @@
       <nav
         id="sidebarMenu"
         class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-      >
-        <div class="position-sticky pt-3">
+        >
+        <div class="position-sticky pt-3 menu">
           <ul class="nav flex-column">
             <li class="nav-item">
               <router-link
@@ -109,7 +111,7 @@
                 aria-current="page"
                 :to="{ name: 'Dashboard' }"
               >
-                <i class="bi bi-house"></i>
+                <i class="bi bi-layers mr-2"></i>
                 Dashboard
               </router-link>
             </li>
@@ -150,7 +152,7 @@
                 aria-current="page"
                 :to="{ name: 'Payments' }"
               >
-                <i class="bi bi-list-check"></i>
+                <i class="bi bi-credit-card"></i>
                 Payment Types
               </router-link>
               <a class="link-secondary" href="#" aria-label="Add payment type">
@@ -165,7 +167,7 @@
                 aria-current="page"
                 :to="{ name: 'Transactions' }"
               >
-                <i class="bi bi-files"></i>
+                <i class="bi bi-currency-dollar"></i>
                 Transactions
               </router-link>
             </li>
@@ -287,12 +289,12 @@
           </div>
         </div>
       </nav>
-
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <router-view></router-view>
-      </main>
     </div>
   </div>
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+        <router-view></router-view>
+      </main>
+</div>
 </template>
 
 <script>
@@ -320,4 +322,9 @@ export default {
 .dropdown-item {
   font-size: 0.875rem;
 }
+
+.main-content {
+  background-color: #f4f5f8;
+}
+
 </style>
