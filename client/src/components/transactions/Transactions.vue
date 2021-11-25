@@ -1,75 +1,73 @@
 <template>
   <div>
     <div class="row">
-      
+      <!-- Main container -->
+      <div class="col-sm-5 col-md-8 content-primary">
+        <h5 style="margin-top: 30px;">Transactions: vCard {{ id }}</h5>
+        <div class="content">
+          <button 
+            type="button" 
+            class="btn btn-primary"
+            @click="addTask"
+          >
+            <i class="bi bi-plus" style="color: white;"></i>
+            New Transaction
+          </button>
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">date</th>
+                <th scope="col">type</th>
+                <th scope="col">old_balance</th>
+                <th scope="col">new_balance</th>
+                <th scope="col">payment_type</th>
+                <th scope="col">payment_reference</th>
+                <!--
+                <th scope="col">pair_transaction</th> 
+                <th scope="col">pair_vcard</th>
+                <th scope="col">category</th>
+                <th scope="col">description</th>
+                -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="transaction in transactions" :key="transaction.id">
+                <th scope="row">{{ transaction.id }}</th>
+                <td>{{ transaction.datetime }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.old_balance }}</td>
+                <td>{{ transaction.new_balance }}</td>
+                <td>{{ transaction.payment_type }}</td>
+                <td>{{ transaction.payment_reference }}</td>
+                <!--
+                <td>{{ transaction.pair_transaction || "N/A" }}</td>
+                <td>{{ transaction.pair_vcard || "N/A" }}</td>
+                <td>
+                  {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
+                </td>
+                <td>{{ transaction.description || "N/A" }}</td>
+                -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Secondary container -->
+      <div class="col-sm-5 offset-sm-2 col-md-4 offset-md-0 content-secondary">
+        <div class="secondary-info">
+          <h5 style="margin-top: 30px;">Categories</h5>
+          <div class="content">
+            <ul>
+              <li v-for="category in categories" :key="category.id">
+                {{ category.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <h1 class="h2">VCard {{ id }}</h1>
-  </div>
-  <div>
-    <h4>OWNER</h4>
-    <ul>
-      <li>*Username*</li>
-      <li>*PhoneNumber*</li>
-      <li>TALVEZ *UserType* (Admin/Cliente)</li>
-    </ul>
-  </div>
-
-  <div>
-    <h4>Categories</h4>
-    <ul>
-      <li v-for="category in categories" :key="category.id">
-        {{ category.name }}
-      </li>
-    </ul>
-  </div>
-
-  <div>
-    <h4>Transactions</h4>
-    <div>
-      <button 
-        type="button" 
-        class="btn btn-primary"
-        @click="addTask"
-      >
-        <i class="bi bi-plus" style="color: white;"></i>
-        New Transaction
-      </button>
-    </div>
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">date</th>
-          <th scope="col">type</th>
-          <th scope="col">old_balance</th>
-          <th scope="col">new_balance</th>
-          <th scope="col">payment_type</th>
-          <th scope="col">payment_reference</th>
-          <th scope="col">pair_transaction</th>
-          <th scope="col">pair_vcard</th>
-          <th scope="col">category</th>
-          <th scope="col">description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="transaction in transactions" :key="transaction.id">
-          <th scope="row">{{ transaction.id }}</th>
-          <td>{{ transaction.datetime }}</td>
-          <td>{{ transaction.type }}</td>
-          <td>{{ transaction.old_balance }}</td>
-          <td>{{ transaction.new_balance }}</td>
-          <td>{{ transaction.payment_type }}</td>
-          <td>{{ transaction.payment_reference }}</td>
-          <td>{{ transaction.pair_transaction || "N/A" }}</td>
-          <td>{{ transaction.pair_vcard || "N/A" }}</td>
-          <td>
-            {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
-          </td>
-          <td>{{ transaction.description || "N/A" }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
