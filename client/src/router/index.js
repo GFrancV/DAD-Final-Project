@@ -56,13 +56,6 @@ const routes = [
   },
 
   {
-    path: '/transactions/:id',
-    name: 'Transactions',
-    component: Transactions,
-    props: route => ({ id: parseInt(route.params.id) })
-  },
-
-  {
     path: '/users',
     name: 'Users',
     component: Users
@@ -82,13 +75,25 @@ const routes = [
     name: 'Register',
     component: Register
   },
+  
+  //Transactions routes
+  {
+    path: '/transactions/:id',
+    name: 'Transactions',
+    component: Transactions,
+    props: route => ({ id: parseInt(route.params.id) })
+  },
 
   {
-    path: '/transactions/new',
+    path: '/transactions/:vcard/new',
     name: 'NewTransaction',
     component: Transaction,
-    props: () => ({ id: null })
+    props: (route) => ({ 
+      id: null,
+      vcard: parseInt(route.params.vcard) })
   },
+
+  
 ]
 
 const router = createRouter({

@@ -1,18 +1,16 @@
 <template>
-  <transaction-detail>
-
-  </transaction-detail>
+  <div>
+    <h5 style="margin-top: 30px;">Transactions: vCard {{ id }}</h5>
+    <div class="content">
+        {{ vcard }}
+        
+    </div>
+  </div>
 </template>
 
 <script>
-import TransactionDetail from "./TransactionDetail.vue"
-
 export default {
     name: 'Transactions',
-    components: {
-      TransactionDetail
-    },
-
     props: {
       vcard: {
         type: Number,

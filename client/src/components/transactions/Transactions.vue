@@ -14,14 +14,14 @@
           
         </div>
         <div class="col-sm-4" style="text-align: right;">
-          <button 
+          <router-link 
                 type="button" 
                 class="btn btn-primary"
-                @click="addTask"
+                :to="{ name:'NewTransaction', params: { vcard: 900000001 , id: null} /*TODO - Adicionar id do vCard dinamicamente*/}"
           >
             <i class="bi bi-plus" style="color: white;"></i>
             New Transaction
-          </button>
+          </router-link>
         </div>
       </div>
       <br>
@@ -35,8 +35,8 @@
               <th scope="col">Old balance</th>
               <th scope="col">New balance</th>
               <th scope="col">Payment type</th>
-              <th scope="col">pair_transaction</th>
               <!-- 
+              <th scope="col">pair_transaction</th>
               <th scope="col">pair_vcard</th>
               -->
               <th scope="col">Category</th>
@@ -55,8 +55,8 @@
               <td>{{ transaction.old_balance }}</td>
               <td>{{ transaction.new_balance }}</td>
               <td>{{ transaction.payment_type }}</td>
-              <td>{{ transaction.pair_transaction || "N/A" }}</td>
               <!--
+              <td>{{ transaction.pair_transaction || "N/A" }}</td>
               <td>{{ transaction.pair_vcard || "N/A" }}</td>
               -->
               <td>
@@ -77,10 +77,15 @@
 export default {
   name: 'Transactions',
   props: {
-    id: {
+    vcard: {
       type: Number,
       default: null,
     },
+
+    id: {
+      type: Number,
+      default: null,
+    }
   },
 
   computed: {
@@ -118,7 +123,7 @@ export default {
     },
 
     addTask () {
-      this.$router.push({ name: 'NewTransaction', params: { id: null } })
+      this.$router.push({ name: 'NewTransaction', params: { id: this.id } })
     }
   },
 
