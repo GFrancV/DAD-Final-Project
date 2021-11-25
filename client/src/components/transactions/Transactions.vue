@@ -1,16 +1,9 @@
 <template>
-  <div
-    class="
-      d-flex
-      justify-content-between
-      flex-wrap flex-md-nowrap
-      align-items-center
-      pt-3
-      pb-2
-      mb-3
-      border-bottom
-    "
-  >
+  <div>
+    <div class="row">
+      
+    </div>
+
     <h1 class="h2">VCard {{ id }}</h1>
   </div>
   <div>
@@ -33,6 +26,16 @@
 
   <div>
     <h4>Transactions</h4>
+    <div>
+      <button 
+        type="button" 
+        class="btn btn-primary"
+        @click="addTask"
+      >
+        <i class="bi bi-plus" style="color: white;"></i>
+        New Transaction
+      </button>
+    </div>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -72,22 +75,25 @@
 
 <script>
 export default {
-  name: "VCard",
+  name: 'Transactions',
   props: {
     id: {
       type: Number,
       default: null,
     },
   },
+
   computed: {
 
   },
+
   data() {
     return {
       categories: [],
       transactions: [],
     };
   },
+
   methods: {
     getCategories() {
       this.$axios
@@ -99,6 +105,7 @@ export default {
           console.log(error);
         });
     },
+
     getTransactions() {
       this.$axios
         .get("vcards/" + this.id + "/transactions")
@@ -109,12 +116,17 @@ export default {
           console.log(error);
         });
     },
+
+    addTask () {
+      this.$router.push({ name: 'NewTransaction', params: { id: null } })
+    }
   },
+
   mounted() {
     this.getCategories();
     this.getTransactions();
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

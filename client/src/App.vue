@@ -164,8 +164,8 @@
               <router-link
                 class="nav-link"
                 :class="{ active: $route.name === 'Transactions' }"
+                :to="{ name:'Transactions', params: { id: 900000001 } /*TODO - Adicionar id do vCard dinamicamente*/}"
                 aria-current="page"
-                :to="{ name: 'Transactions' }"
               >
                 <i class="bi bi-currency-dollar"></i>
                 Transactions
@@ -188,32 +188,6 @@
                 <i class="bi bi-bar-chart-line"></i>
                 EXTRA - NÃO TEM ROTA
               </a>
-            </li>
-          </ul>
-
-          <h6
-            class="
-              sidebar-heading
-              d-flex
-              justify-content-between
-              align-items-center
-              px-3
-              mt-4
-              mb-1
-              text-muted
-            "
-          >
-            <span>vCards - TODO</span>
-            <a class="link-secondary" href="#" aria-label="Add a new project">
-              <i class="bi bi-xs bi-plus-circle"></i>
-            </a>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name:'VCard', params: { id: 900000001 } /*TODO - Adicionar id do vCard dinamicamente*/}"> 
-                <i class="bi bi-credit-card"></i>
-                vCard #1
-              </router-link>
             </li>
           </ul>
 

@@ -3,7 +3,10 @@ import Home from '../views/Home.vue'
 import Categories from '../components/Categories.vue'
 import Dashboard from '../components/Dashboard.vue'
 import Payments from '../components/Payments.vue'
-import Transactions from '../components/Transactions.vue'
+
+//Transactions
+import Transactions from '../components/transactions/Transactions.vue'
+import Transaction from "../components/transactions/Transaction.vue"
 
 import Users from '../components/users/Users.vue'
 import User from '../components/users/User.vue'
@@ -56,9 +59,10 @@ const routes = [
   },
 
   {
-    path: '/transactions',
+    path: '/transactions/:id',
     name: 'Transactions',
-    component: Transactions
+    component: Transactions,
+    props: route => ({ id: parseInt(route.params.id) })
   },
 
   {
@@ -87,7 +91,14 @@ const routes = [
     name: 'VCard',
     component: VCard,
     props: route => ({ id: parseInt(route.params.id) })
-  }
+  },
+
+  {
+    path: '/transactions/new',
+    name: 'NewTransaction',
+    component: Transaction,
+    props: () => ({ id: null })
+  },
 ]
 
 const router = createRouter({
