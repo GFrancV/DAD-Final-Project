@@ -1,73 +1,66 @@
 <template>
   <div>
-    <div class="row">
-      <!-- Main container -->
-      <div class="col-sm-5 col-md-8 content-primary">
-        <h5 style="margin-top: 30px;">Transactions: vCard {{ id }}</h5>
-        <div class="content">
+    <h5 style="margin-top: 30px;">Transactions: vCard {{ id }}</h5>
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="bi bi-search"></i>
+            </span>
+          </div>
+          
+        </div>
+        <div class="col-sm-4" style="text-align: right;">
           <button 
-            type="button" 
-            class="btn btn-primary"
-            @click="addTask"
+                type="button" 
+                class="btn btn-primary"
+                @click="addTask"
           >
             <i class="bi bi-plus" style="color: white;"></i>
             New Transaction
           </button>
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">date</th>
-                <th scope="col">type</th>
-                <th scope="col">old_balance</th>
-                <th scope="col">new_balance</th>
-                <th scope="col">payment_type</th>
-                <th scope="col">payment_reference</th>
-                <!--
-                <th scope="col">pair_transaction</th> 
-                <th scope="col">pair_vcard</th>
-                <th scope="col">category</th>
-                <th scope="col">description</th>
-                -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="transaction in transactions" :key="transaction.id">
-                <th scope="row">{{ transaction.id }}</th>
-                <td>{{ transaction.datetime }}</td>
-                <td>{{ transaction.type }}</td>
-                <td>{{ transaction.old_balance }}</td>
-                <td>{{ transaction.new_balance }}</td>
-                <td>{{ transaction.payment_type }}</td>
-                <td>{{ transaction.payment_reference }}</td>
-                <!--
-                <td>{{ transaction.pair_transaction || "N/A" }}</td>
-                <td>{{ transaction.pair_vcard || "N/A" }}</td>
-                <td>
-                  {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
-                </td>
-                <td>{{ transaction.description || "N/A" }}</td>
-                -->
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
-
-      <!-- Secondary container -->
-      <div class="col-sm-5 offset-sm-2 col-md-4 offset-md-0 content-secondary">
-        <div class="secondary-info">
-          <h5 style="margin-top: 30px;">Categories</h5>
-          <div class="content">
-            <ul>
-              <li v-for="category in categories" :key="category.id">
-                {{ category.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <br>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">date</th>
+            <th scope="col">type</th>
+            <th scope="col">old_balance</th>
+            <th scope="col">new_balance</th>
+            <th scope="col">payment_type</th>
+            <th scope="col">payment_reference</th>
+            <th scope="col">pair_transaction</th> 
+            <th scope="col">pair_vcard</th>
+            <th scope="col">category</th>
+            <th scope="col">description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="transaction in transactions" :key="transaction.id">
+            <th scope="row">{{ transaction.id }}</th>
+            <td>{{ transaction.datetime }}</td>
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.old_balance }}</td>
+            <td>{{ transaction.new_balance }}</td>
+            <td>{{ transaction.payment_type }}</td>
+            <td>{{ transaction.payment_reference }}</td>
+            <td>{{ transaction.pair_transaction || "N/A" }}</td>
+            <td>{{ transaction.pair_vcard || "N/A" }}</td>
+            <td>
+              {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
+            </td>
+            <td>{{ transaction.description || "N/A" }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <br>
   </div>
 </template>
 
@@ -127,5 +120,12 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
+.btn-primary {
+  background-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: #3e61b3;
+}
 </style>
