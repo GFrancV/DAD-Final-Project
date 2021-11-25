@@ -25,40 +25,49 @@
         </div>
       </div>
       <br>
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">date</th>
-            <th scope="col">type</th>
-            <th scope="col">old_balance</th>
-            <th scope="col">new_balance</th>
-            <th scope="col">payment_type</th>
-            <th scope="col">payment_reference</th>
-            <th scope="col">pair_transaction</th> 
-            <th scope="col">pair_vcard</th>
-            <th scope="col">category</th>
-            <th scope="col">description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="transaction in transactions" :key="transaction.id">
-            <th scope="row">{{ transaction.id }}</th>
-            <td>{{ transaction.datetime }}</td>
-            <td>{{ transaction.type }}</td>
-            <td>{{ transaction.old_balance }}</td>
-            <td>{{ transaction.new_balance }}</td>
-            <td>{{ transaction.payment_type }}</td>
-            <td>{{ transaction.payment_reference }}</td>
-            <td>{{ transaction.pair_transaction || "N/A" }}</td>
-            <td>{{ transaction.pair_vcard || "N/A" }}</td>
-            <td>
-              {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
-            </td>
-            <td>{{ transaction.description || "N/A" }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-hover" style="width: 100%;">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Info</th>
+              <th scope="col"></th>
+              <th scope="col">Old balance</th>
+              <th scope="col">New balance</th>
+              <th scope="col">Payment type</th>
+              <th scope="col">pair_transaction</th>
+              <!-- 
+              <th scope="col">pair_vcard</th>
+              -->
+              <th scope="col">Category</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="transaction in transactions" :key="transaction.id">
+              <th scope="row">{{ transaction.id }}</th>
+              <td>
+                <p style="font-size:18px; display:inline;"> {{ transaction.payment_reference }} </p>
+                <p class="text-secondary" style="font-size: 12px;"> {{ transaction.datetime }} </p>
+              </td>
+              <td v-if="transaction.type == 'C'"> <i class="bi bi-arrow-bar-down label-success"></i></td>
+              <td v-else class="text-danger"><i class="bi bi-arrow-bar-up label-danger"></i></td>
+              <td>{{ transaction.old_balance }}</td>
+              <td>{{ transaction.new_balance }}</td>
+              <td>{{ transaction.payment_type }}</td>
+              <td>{{ transaction.pair_transaction || "N/A" }}</td>
+              <!--
+              <td>{{ transaction.pair_vcard || "N/A" }}</td>
+              -->
+              <td>
+                <div class="label-primary">{{ transaction.category_name || "uncategorized" }}</div> <!--/* TODO - Mudar para nome de categoria */-->
+              </td>
+              <td v-if="transaction.description == null "><p class="text-secondary" style="font-size: 12px;"> Without description </p></td>
+              <td v-else>{{ transaction.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <br>
   </div>
@@ -127,5 +136,39 @@ export default {
 
 .btn-primary:hover {
   background-color: #3e61b3;
+}
+
+.label-success {
+  text-align: center;
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: #77dd77;
+  color: green;
+  border: 10px 10px 10px 10px;
+  border-radius: 8px;
+}
+
+.label-danger {
+  text-align: center;
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: #f89c99;
+  color: rgb(255, 0, 0);
+  border: 10px 10px 10px 10px;
+  border-radius: 8px;
+}
+
+.label-primary {
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: #abc4fd;
+  color: var(--primary);
+  border: 10px 10px 10px 10px;
+  border-radius: 8px;
 }
 </style>
