@@ -15,9 +15,6 @@ import ChangePassword from '../components/auth/ChangePassword.vue'
 import Login from '../components/auth/Login.vue'
 import Register from '../components/auth/Register.vue'
 
-import VCard from '../components/vcards/VCard.vue'
-
-
 const routes = [
   {
     path: '/',
@@ -84,13 +81,6 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
-  },
-
-  {
-    path: '/vCard/:id', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA ALGO DO GÉNERO "path: '/vCard/:id',"
-    name: 'VCard',
-    component: VCard,
-    props: route => ({ id: parseInt(route.params.id) })
   },
 
   {
