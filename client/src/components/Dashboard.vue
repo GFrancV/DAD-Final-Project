@@ -93,11 +93,9 @@
           <h5>My vCard</h5>
           <div class="vcard">
             <div class="logo"><img src="../assets/img/logo-visa.png" alt="Visa"></div>
-            <div class="number">1234 5678 9012 3456</div>
-            <div class="value">$500.30</div>
-            <div class="name">Simon Bolivar</div>
-            <div class="from">10/19</div>
-            <div class="cv">162</div>
+            <div class="number"> {{ id }} </div>
+            <div class="value">${{ balance }}</div>
+            <div class="name">{{ name }}</div>
           </div>
           <br>
           <br>
@@ -129,6 +127,39 @@
 <script>
 export default {
   name: 'Dashboard',
+  prop: {
+    
+  },
+  
+  props: {
+
+  },
+
+  data() {
+    return {
+      id: 900000001,
+      balance: "",
+      name: "",
+      transactions: [],
+    };
+  },
+
+  methods: {
+    getInfo() {
+      this.$axios
+        .get("vcards/" + this.id)
+        .then((response) => {
+          this.name = response.data.data.name;
+          this.balance = response.data.data.balance;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.getInfo();
+  },
 }
 </script>
 

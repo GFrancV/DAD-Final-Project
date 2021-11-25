@@ -12,8 +12,6 @@
 .value,
 .number,
 .name,
-.from,
-.cv,
 .ring {
 	position: absolute; /* All items inside card should have absolute position */
 }
@@ -28,9 +26,7 @@
 
 .value,
 .number,
-.name,
-.from,
-.cv {
+.name {
 	color: rgba(255, 255, 255, 0.8);
 	font-weight: 400;
 	letter-spacing: 2px;
@@ -56,14 +52,3 @@
 	bottom: 35px;
 }
 
-.from {
-	font-size: 0.5rem;
-	bottom: 35px;
-	right: 110px;
-}
-
-.cv {
-	font-size: 0.5rem;
-	bottom: 35px;
-	right: 40px;
-}

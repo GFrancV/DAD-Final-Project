@@ -21,6 +21,7 @@ const routes = [
     name: 'Home',
     component: Home
   },
+
   {
     path: '/about',
     name: 'About',
@@ -29,31 +30,37 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+
   {
     path: '/password',
     name: 'ChangePassword',
     component: ChangePassword
   },
+
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
   },
+
   {
     path: '/categories',
     name: 'Categories',
     component: Categories
   },
+
   {
     path: '/payments',
     name: 'Payments',
     component: Payments
   },
+
   {
     path: '/transactions',
     name: 'Transactions',
     component: Transactions
   },
+
   {
     path: '/users',
     name: 'Users',
@@ -74,6 +81,7 @@ const routes = [
     name: 'Register',
     component: Register
   },
+
   {
     path: '/vCard/:id', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA ALGO DO GÉNERO "path: '/vCard/:id',"
     name: 'VCard',
