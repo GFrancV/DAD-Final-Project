@@ -16,7 +16,7 @@ export default {
         type: Object,
         required: true,
       },
-      vcard: {
+      idVcard: {
         type: Number,
         default: null,
       },
