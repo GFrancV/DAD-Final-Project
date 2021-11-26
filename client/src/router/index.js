@@ -1,9 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Categories from '../components/Categories.vue'
 import Dashboard from '../components/Dashboard.vue'
 import Payments from '../components/Payments.vue'
 import Transactions from '../components/Transactions.vue'
+
+
+import Categories from '../components/categories/Categories.vue'
+import Category from '../components/categories/Category.vue'
 
 import Users from '../components/users/Users.vue'
 import User from '../components/users/User.vue'
@@ -40,9 +43,16 @@ const routes = [
     component: Dashboard
   },
   {
-    path: '/categories',
+    path: '/vCard/:vcardId/categories',
     name: 'Categories',
-    component: Categories
+    component: Categories,
+    props: route => ({ vcardId: route.params.vcardId })
+  },
+  {
+    path: '/vCard/:vcardId/categories/create',
+    name: 'CategoryCreate',
+    component: Category,
+    props: route => ({ vcardId: route.params.vcardId, id: null })
   },
   {
     path: '/payments',
@@ -60,7 +70,7 @@ const routes = [
     component: Users
   },
   {
-    path: '/users/me', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA "path: '/users/:id',"
+    path: '/users/me',
     name: 'User',
     component: User
   },
@@ -75,10 +85,10 @@ const routes = [
     component: Register
   },
   {
-    path: '/vCard/:id', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA ALGO DO GÉNERO "path: '/vCard/:id',"
+    path: '/vCard/:id',
     name: 'VCard',
     component: VCard,
-    props: route => ({ id: parseInt(route.params.id) })
+    props: route => ({ id: route.params.id })
   }
 ]
 

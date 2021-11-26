@@ -61,7 +61,7 @@
           <td>{{ transaction.pair_transaction || "N/A" }}</td>
           <td>{{ transaction.pair_vcard || "N/A" }}</td>
           <td>
-            {{ transaction.category_name || 'N/A' /* TODO - Mudar para nome de categoria */ }}
+            {{ transaction.category_name || 'N/A' }}
           </td>
           <td>{{ transaction.description || "N/A" }}</td>
         </tr>
