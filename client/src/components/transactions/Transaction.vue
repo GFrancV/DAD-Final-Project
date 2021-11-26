@@ -59,7 +59,7 @@ export default {
 				date: "",
 				type: "",
 				datetime: "",
-				value: 1010.75,
+				value: null,
 				old_balance: "",
 				new_balance: "",
 				payment_type: "",
@@ -84,6 +84,7 @@ export default {
 						console.log(error);
 					});
 			}
+      console.log(this.transaction.idTransaction)
 		},
 
 		save() {
@@ -95,7 +96,7 @@ export default {
 					.then((response) => {
 						this.$toast.success(
 							"Transaction #" +
-								response.data.data.id +
+								response.data.data.idTransaction +
 								" was created successfully."
 						);
 						this.$router.back();

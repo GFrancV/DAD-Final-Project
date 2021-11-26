@@ -21,7 +21,7 @@
 					<router-link
 						type="button"
 						class="btn btn-primary"
-						:to="{ name: 'NewTransaction', params: { vcard: 900000001 } }"
+						:to="{ name: 'NewTransaction', params: { vcard: '900000001' } }"
 					>
 						<i class="bi bi-plus" style="color: white"></i>
 						New Transaction
