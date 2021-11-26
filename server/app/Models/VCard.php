@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Transaction;
 use App\Models\Category;
+use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class VCard extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'vcards';
     protected $primaryKey = 'phone_number';
     public $timestamps = false;

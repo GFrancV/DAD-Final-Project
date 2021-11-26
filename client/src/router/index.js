@@ -1,12 +1,15 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Categories from '../components/Categories.vue'
 import Dashboard from '../components/Dashboard.vue'
 import Payments from '../components/Payments.vue'
 
 //Transactions
 import Transactions from '../components/transactions/Transactions.vue'
 import Transaction from "../components/transactions/Transaction.vue"
+
+
+import Categories from '../components/categories/Categories.vue'
+import Category from '../components/categories/Category.vue'
 
 import Users from '../components/users/Users.vue'
 import User from '../components/users/User.vue'
@@ -44,9 +47,16 @@ const routes = [
   },
 
   {
-    path: '/categories',
+    path: '/vCard/:vcardId/categories',
     name: 'Categories',
-    component: Categories
+    component: Categories,
+    props: route => ({ vcardId: route.params.vcardId })
+  },
+  {
+    path: '/vCard/:vcardId/categories/create',
+    name: 'CategoryCreate',
+    component: Category,
+    props: route => ({ vcardId: route.params.vcardId, id: null })
   },
 
   {
@@ -61,7 +71,7 @@ const routes = [
     component: Users
   },
   {
-    path: '/users/me', //TODO - TEMPORÁRIO, DEVE-SE ALTERAR PARA "path: '/users/:id',"
+    path: '/users/me',
     name: 'User',
     component: User
   },

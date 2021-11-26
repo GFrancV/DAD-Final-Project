@@ -25,14 +25,13 @@ Route::post('vcards/{vcard}/transactions', [TransactionController::class, 'store
 Route::put('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'update']);
 Route::delete('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'destroy']);
 
-
-
-//Cateogires
+//Categories
 Route::get('vcards/{vcard}/categories', [CategoryController::class, 'getCategoriesOfVcard']);
 Route::get('vcards/{vcard}/category/{category}', [CategoryController::class, 'show']);
 Route::post('vcards/{vcard}/categories', [CategoryController::class, 'store']);
 Route::put('vcards/{vcard}/categories/{category}', [CategoryController::class, 'update']);
 Route::delete('vcards/{vcard}/categories/{category}', [CategoryController::class, 'destroy']);
+
 //Vcard
 Route::get('vcards/{vcard}', [VcardController::class, 'show']);
 Route::post('vcards', [VcardController::class, 'store']);

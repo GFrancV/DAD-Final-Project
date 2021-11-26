@@ -6,8 +6,15 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import store from './store'
+import Toaster from "@meforma/vue-toaster"
 
-const app = createApp(App).use(store).use(router)
+let toastOptions = {
+    position: 'top',
+    timeout: 3000,
+    pauseOnHover: true
+}
+
+const app = createApp(App).use(store).use(router).use(Toaster, toastOptions)
 const url = "http://vcard_api.test"
 
 
