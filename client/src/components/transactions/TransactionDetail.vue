@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h5 style="margin-top: 30px;">Transactions: vCard {{ id }}</h5>
+    <h5 v-if="idTransaction == null" style="margin-top: 30px;"> New transaction of vCard {{ vcard }}</h5>
+    <h5 v-else style="margin-top: 30px;" > Transaction {{idTransaction }} of vCard {{ vcard }} </h5>
     <div class="content">
-        {{ vcard }}
-        
+        {{ transactionTitle }}
     </div>
   </div>
 </template>
@@ -12,6 +12,10 @@
 export default {
     name: 'Transactions',
     props: {
+      transaction: {
+        type: Object,
+        required: true,
+      },
       vcard: {
         type: Number,
         default: null,
@@ -19,6 +23,23 @@ export default {
       idTransaction: {
         type: Number,
         default: null,
+      },
+    },
+
+    data () {
+      return {
+        editingTransaction: this.transaction,
+      }
+    },
+
+    computed: {
+      transactionTitle () {
+        if (!this.editingTransaction) {
+          return ""
+        }
+        return this.operationType == "insert"
+          ? "New Project"
+          : "Project #" + this.editingProject.id
       },
     },
 }
