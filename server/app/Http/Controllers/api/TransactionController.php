@@ -19,35 +19,31 @@ class TransactionController extends Controller
         return TransactionResource::collection($vcard->transactions);
     }
 
-    public function show(Vcard $vcard,Transaction $transaction)
+    public function show(Vcard $vcard, Transaction $transaction)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
-        $transaction = Transaction::where('vcard',$vcardProvider->phone_number)->first();
+        $transaction = Transaction::where('vcard', $vcard->phone_number)->first();
         return new TransactionResource($transaction);
     }
 
-    public function store(StoreUpdateTransactionRequest $request,Vcard $vcard)
+    public function store(StoreUpdateTransactionRequest $request, Vcard $vcard)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
         $newTransaction = Transaction::create($request->validated());
-        $newTransaction->vcard = $vcardProvider->phone_number;
+        $newTransaction->vcard = $vcard->phone_number;
+        $newTransaction->save();
         return new TransactionResource($newTransaction);
     }
 
-    public function update(StoreUpdateTransactionRequest $request,Vcard $vcard, Transaction $transaction)
+    public function update(StoreUpdateTransactionRequest $request, Vcard $vcard, Transaction $transaction)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
-        $transaction = Transaction::where('vcard',$vcardProvider->phone_number)->first();
+        $transaction = Transaction::where('vcard', $vcard->phone_number)->first();
         $transaction->update($request->validated());
+        $transaction->save();
         return new TransactionResource($transaction);
     }
 
-    public function destroy(Vcard $vcard,Transaction $transaction)
+    public function destroy(Vcard $vcard, Transaction $transaction)
     {
-        $vcardProvider = Vcard::where('phone_number',$vcard->phone_number)->first();
-        Transaction::where("vcard", $vcardProvider->phone_number)->delete();
+        Transaction::where("vcard", $vcard->phone_number)->delete();
         return new TransactionResource($transaction);
     }
-
-
 }

@@ -18,31 +18,29 @@ class CategoryController extends Controller
 
     public function show(Category $category, Vcard $vcard)
     {
-        $vcardProvider = Vcard::where('phone_number', $vcard->phone_number)->first();
-        $category = Category::where('vcard', $vcardProvider->phone_number)->first();
+        $category = Category::where('vcard', $vcard->phone_number)->first();
         return new CategoryResource($category);
     }
 
     public function store(StoreCategoriesRequest $request, Vcard $vcard)
     {
-        $vcardProvider = Vcard::where('phone_number', $vcard->phone_number)->first();
         $newCategory = Category::create($request->validated());
-        $newCategory->vcard = $vcardProvider->phone_number;
+        $newCategory->vcard = $vcard->phone_number;
+        $newCategory->save();
         return new CategoryResource($newCategory);
     }
 
     public function update(StoreCategoriesRequest $request, Vcard $vcard, Category $category)
     {
-        $vcardProvider = Vcard::where('phone_number', $vcard->phone_number)->first();
-        $category = Category::where('vcard', $vcardProvider->phone_number)->first();
+        $category = Category::where('vcard', $vcard->phone_number)->first();
         $category->update($request->validated());
+        $category->save();
         return new CategoryResource($category);
     }
 
     public function destroy(Vcard $vcard, Category $category)
     {
-        $vcardProvider = Vcard::where('phone_number', $vcard->phone_number)->first();
-        Category::where("vcard", $vcardProvider->phone_number)->delete();
+        Category::where("vcard", $vcard->phone_number)->delete();
         return new CategoryResource($category);
     }
 }
