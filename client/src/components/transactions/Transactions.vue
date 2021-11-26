@@ -14,14 +14,16 @@
           
         </div>
         <div class="col-sm-4" style="text-align: right;">
+          <!-- 
           <router-link 
                 type="button" 
                 class="btn btn-primary"
-                :to="{ name:'NewTransaction', params: { vcard: 900000001 , id: null} /*TODO - Adicionar id do vCard dinamicamente*/}"
+                :to="{ name:'NewTransaction', params: { vcard: 900000001 */ , id: null} /*TODO - Adicionar id do vCard dinamicamente*/}"
           >
             <i class="bi bi-plus" style="color: white;"></i>
             New Transaction
           </router-link>
+          -->
         </div>
       </div>
       <br>
@@ -80,11 +82,12 @@
 export default {
   name: 'Transactions',
   props: {
+    /*
     vcard: {
       type: Number,
       default: null,
     },
-
+    */
     id: {
       type: Number,
       default: null,
