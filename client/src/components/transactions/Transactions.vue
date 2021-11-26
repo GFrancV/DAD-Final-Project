@@ -32,10 +32,11 @@
               <th scope="col">ID</th>
               <th scope="col">Info</th>
               <th scope="col"></th>
-              <th scope="col">Old balance</th>
-              <th scope="col">New balance</th>
+              <th scope="col">Mount</th>
+              <th scope="col">Current balance</th>
               <th scope="col">Payment type</th>
               <!-- 
+              <th scope="col">Old balance</th>
               <th scope="col">pair_transaction</th>
               <th scope="col">pair_vcard</th>
               -->
@@ -51,11 +52,13 @@
                 <p class="text-secondary" style="font-size: 12px;"> {{ transaction.datetime }} </p>
               </td>
               <td v-if="transaction.type == 'C'"> <i class="bi bi-arrow-bar-down label-success"></i></td>
-              <td v-else class="text-danger"><i class="bi bi-arrow-bar-up label-danger"></i></td>
-              <td>{{ transaction.old_balance }}</td>
-              <td>{{ transaction.new_balance }}</td>
+              <td v-else><i class="bi bi-arrow-bar-up label-danger"></i></td>
+              <td v-if="transaction.type == 'C'"> <p style="display:inline; font-weight: 700; color: green;"> + ${{ Math.round((transaction.new_balance - transaction.old_balance) *100)/100 }}</p> </td>
+              <td v-else> <p style="display:inline; font-weight: 700; color: rgb(253, 53, 53);"> - ${{ Math.round((transaction.new_balance - transaction.old_balance) *100)/100 }}</p> </td>
+              <td>${{ transaction.new_balance }}</td>
               <td>{{ transaction.payment_type }}</td>
               <!--
+              <td>{{ transaction.old_balance }}</td>
               <td>{{ transaction.pair_transaction || "N/A" }}</td>
               <td>{{ transaction.pair_vcard || "N/A" }}</td>
               -->
@@ -95,22 +98,11 @@ export default {
   data() {
     return {
       categories: [],
-      transactions: [],
+      transactions: []
     };
   },
 
   methods: {
-    getCategories() {
-      this.$axios
-        .get("vcards/" + this.id + "/categories")
-        .then((response) => {
-          this.categories = response.data.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-
     getTransactions() {
       this.$axios
         .get("vcards/" + this.id + "/transactions")
@@ -128,7 +120,6 @@ export default {
   },
 
   mounted() {
-    this.getCategories();
     this.getTransactions();
   },
 }
