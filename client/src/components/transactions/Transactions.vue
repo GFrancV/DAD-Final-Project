@@ -1,32 +1,42 @@
 <template>
   <div>
-    <h5 style="margin-top: 30px;">Transactions: vCard {{ id }}</h5>
+    <h5 style="margin-top: 30px">Transactions: vCard {{ id }}</h5>
     <div class="content">
       <div class="row">
         <div class="col-sm-8">
           <div class="input-group rounded">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-            aria-describedby="search-addon" />
+            <input
+              type="search"
+              class="form-control rounded"
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="search-addon"
+            />
             <span class="input-group-text border-0" id="search-addon">
               <i class="bi bi-search"></i>
             </span>
           </div>
-          
         </div>
-        <div class="col-sm-4" style="text-align: right;">
-          <router-link 
-                type="button" 
-                class="btn btn-primary"
-                :to="{ name:'NewTransaction', params: { vcard: 900000001 , id: null} /*TODO - Adicionar id do vCard dinamicamente*/}"
+        <div class="col-sm-4" style="text-align: right">
+          <router-link
+            type="button"
+            class="btn btn-primary"
+            :to="{
+              name: 'NewTransaction',
+              params: {
+                vcard: vcard,
+                id: null,
+              } /*TODO - Adicionar id do vCard dinamicamente*/,
+            }"
           >
-            <i class="bi bi-plus" style="color: white;"></i>
+            <i class="bi bi-plus" style="color: white"></i>
             New Transaction
           </router-link>
         </div>
       </div>
-      <br>
+      <br />
       <div class="table-responsive">
-        <table class="table table-hover" style="width: 100%;">
+        <table class="table table-hover" style="width: 100%">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -48,13 +58,41 @@
             <tr v-for="transaction in transactions" :key="transaction.id">
               <th scope="row">{{ transaction.id }}</th>
               <td>
-                <p style="font-size:18px; display:inline;"> {{ transaction.payment_reference }} </p>
-                <p class="text-secondary" style="font-size: 12px;"> {{ transaction.datetime }} </p>
+                <p style="font-size: 18px; display: inline">
+                  {{ transaction.payment_reference }}
+                </p>
+                <p class="text-secondary" style="font-size: 12px">
+                  {{ transaction.datetime }}
+                </p>
               </td>
-              <td v-if="transaction.type == 'C'"> <i class="bi bi-arrow-bar-down label-success"></i></td>
+              <td v-if="transaction.type == 'C'">
+                <i class="bi bi-arrow-bar-down label-success"></i>
+              </td>
               <td v-else><i class="bi bi-arrow-bar-up label-danger"></i></td>
-              <td v-if="transaction.type == 'C'"> <p style="display:inline; font-weight: 700; color: green;"> + ${{ Math.round((transaction.new_balance - transaction.old_balance) *100)/100 }}</p> </td>
-              <td v-else> <p style="display:inline; font-weight: 700; color: rgb(253, 53, 53);"> - ${{ Math.round((transaction.new_balance - transaction.old_balance) *100)/100 }}</p> </td>
+              <td v-if="transaction.type == 'C'">
+                <p style="display: inline; font-weight: 700; color: green">
+                  + ${{
+                    Math.round(
+                      (transaction.new_balance - transaction.old_balance) * 100
+                    ) / 100
+                  }}
+                </p>
+              </td>
+              <td v-else>
+                <p
+                  style="
+                    display: inline;
+                    font-weight: 700;
+                    color: rgb(253, 53, 53);
+                  "
+                >
+                  - ${{
+                    Math.round(
+                      (transaction.new_balance - transaction.old_balance) * 100
+                    ) / 100
+                  }}
+                </p>
+              </td>
               <td>${{ transaction.new_balance }}</td>
               <td>{{ transaction.payment_type }}</td>
               <!--
@@ -63,49 +101,54 @@
               <td>{{ transaction.pair_vcard || "N/A" }}</td>
               -->
               <td>
-                <div class="label-primary">{{ transaction.category_name || "uncategorized" }}</div> <!--/* TODO - Mudar para nome de categoria */-->
+                <div class="label-primary">
+                  {{ transaction.category_name || "uncategorized" }}
+                </div>
+                <!--/* TODO - Mudar para nome de categoria */-->
               </td>
-              <td v-if="transaction.description == null "><p class="text-secondary" style="font-size: 12px;"> Without description </p></td>
+              <td v-if="transaction.description == null">
+                <p class="text-secondary" style="font-size: 12px">
+                  Without description
+                </p>
+              </td>
               <td v-else>{{ transaction.description }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <br>
+    <br />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Transactions',
+  name: "Transactions",
   props: {
     vcard: {
-      type: Number,
+      type: String,
       default: null,
     },
 
     id: {
       type: Number,
       default: null,
-    }
+    },
   },
 
-  computed: {
-
-  },
+  computed: {},
 
   data() {
     return {
       categories: [],
-      transactions: []
+      transactions: [],
     };
   },
 
   methods: {
     getTransactions() {
       this.$axios
-        .get("vcards/" + this.id + "/transactions")
+        .get("vcards/" + this.vcard + "/transactions")
         .then((response) => {
           this.transactions = response.data.data;
         })
@@ -114,15 +157,18 @@ export default {
         });
     },
 
-    addTask () {
-      this.$router.push({ name: 'NewTransaction', params: { id: this.id } })
-    }
+    addTask() {
+      this.$router.push({
+        name: "NewTransaction",
+        params: { vcard: this.vcard, id: this.id },
+      });
+    },
   },
 
   mounted() {
     this.getTransactions();
   },
-}
+};
 </script>
 
 <style scoped lang="css">
