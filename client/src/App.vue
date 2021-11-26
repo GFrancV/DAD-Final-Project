@@ -183,10 +183,7 @@
                   class="nav-link"
                   :class="{ active: $route.name === 'Transactions' }"
                   aria-current="page"
-                  :to="{ name: 'Transactions', params: {
-                      vcard: 900000001,
-                      id: 900000001,
-                    }, }"
+                  :to="{ name: 'Transactions', params: { vcard: '900000001' } }"
                 >
                   <i class="bi bi-currency-dollar"></i>
                   Transactions
@@ -211,25 +208,6 @@
                 </a>
               </li>
             </ul>
-
-            <h6
-              class="
-                sidebar-heading
-                d-flex
-                justify-content-between
-                align-items-center
-                px-3
-                mt-4
-                mb-1
-                text-muted
-              "
-            >
-              <span>vCards - TODO</span>
-              <a class="link-secondary" href="#" aria-label="Add a new project">
-                <i class="bi bi-xs bi-plus-circle"></i>
-              </a>
-            </h6>
-           
 
             <div class="d-block d-md-none">
               <h6
