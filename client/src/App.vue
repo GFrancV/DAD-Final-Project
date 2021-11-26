@@ -183,10 +183,14 @@
                   class="nav-link"
                   :class="{ active: $route.name === 'Transactions' }"
                   aria-current="page"
+<<<<<<< HEAD
                   :to="{ name: 'Transactions', params: {
                       vcard: 900000001,
                       id: 900000001,
                     }, }"
+=======
+                  :to="{ name: 'Transactions', params: { vcard: '900000001' } }"
+>>>>>>> c68935eb4c7b9c9602939ae9a60b1ee18a371cc8
                 >
                   <i class="bi bi-currency-dollar"></i>
                   Transactions
@@ -212,6 +216,7 @@
               </li>
             </ul>
 
+<<<<<<< HEAD
             <h6
               class="
                 sidebar-heading
@@ -231,6 +236,8 @@
             </h6>
            
 
+=======
+>>>>>>> c68935eb4c7b9c9602939ae9a60b1ee18a371cc8
             <div class="d-block d-md-none">
               <h6
                 class="
