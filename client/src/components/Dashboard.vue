@@ -93,11 +93,9 @@
           <h5>My vCard</h5>
           <div class="vcard">
             <div class="logo"><img src="../assets/img/logo-visa.png" alt="Visa"></div>
-            <div class="number">1234 5678 9012 3456</div>
-            <div class="value">$500.30</div>
-            <div class="name">Simon Bolivar</div>
-            <div class="from">10/19</div>
-            <div class="cv">162</div>
+            <div class="number"> {{ id }} </div>
+            <div class="value">${{ balance }}</div>
+            <div class="name">{{ name }}</div>
           </div>
           <br>
           <br>
@@ -129,37 +127,45 @@
 <script>
 export default {
   name: 'Dashboard',
+  prop: {
+    
+  },
+  
+  props: {
+
+  },
+
+  data() {
+    return {
+      id: 900000001,
+      balance: "",
+      name: "",
+      transactions: [],
+    };
+  },
+
+  methods: {
+    getInfo() {
+      this.$axios
+        .get("vcards/" + this.id)
+        .then((response) => {
+          this.name = response.data.data.name;
+          this.balance = response.data.data.balance;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.getInfo();
+  },
 }
 </script>
 
 <style scoped lang="css">
   @import "../assets/css/vcard.css";
-
-  /*Container primary css*/
-  .content-primary{
-    height: 100vh;
-    border-right: 1px solid rgb(233, 233, 233);
-  }
-
-
-  /*Container secondary css*/
-  .content-secondary {
-    background-color: #ecf0f7;
-    height: 100vh;
-  }
-
-  .secondary-info {
-    margin-top: 30px;
-    margin-left: 22px;
-  }
-
-  .content {
-    background-color: white;
-    padding: 25px;
-    border: 3px 3px 3px 3px;
-    border-radius: 25px;
-    margin-right: 18px;
-  }
+  @import "../assets/css/containers.css";
 
   .card {
     border-radius: 25px;

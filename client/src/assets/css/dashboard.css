@@ -1,3 +1,7 @@
+:root {
+  --primary: #4e79e0;
+}
+
 body {
   font-size: .875rem;
   background-color: #f4f5f8;
@@ -62,7 +66,7 @@ i {
 .sidebar .nav-link.active {
   /* color: #2470dc; */
   color: whitesmoke;
-  background-color: #5079e0;
+  background-color: var(--primary);
 }
 
 .sidebar .nav-link.active i{
