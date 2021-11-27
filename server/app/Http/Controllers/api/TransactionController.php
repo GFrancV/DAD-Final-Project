@@ -21,7 +21,7 @@ class TransactionController extends Controller
 
     public function show(Vcard $vcard, Transaction $transaction)
     {
-        $transaction = Transaction::where('vcard', $vcard->phone_number)->first();
+        $transaction = Transaction::where('vcard', $vcard->phone_number)->where('id', $transaction->id)->first();
         return new TransactionResource($transaction);
     }
 

@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function show(Vcard $vcard, Category $category)
     {
-        $category = Category::where('vcard', $vcard->phone_number)->first();
+        $category = Category::where('vcard', $vcard->phone_number)->where('id', $category->id)->first();
         return new CategoryResource($category);
     }
 
