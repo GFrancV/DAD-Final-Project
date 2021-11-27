@@ -58,9 +58,18 @@
     </div>
 
     <div class="mb-3 d-flex justify-content-left">
-      <button type="button" class="btn btn-primary px-3" @click="save">
-        {{ operationType }}
-      </button>
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <button type="button" class="btn btn-primary px-3" @click="save">
+            {{ operationType }}
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button type="button" class="btn btn-secondary px-3" @click="cancel">
+            Cancel
+          </button>
+        </li>
+      </ul>
     </div>
   </form>
 </template>
@@ -79,7 +88,7 @@ export default {
     },
     operationType: {
       type: String,
-      default: "Create", // create / update
+      default: "Create",
     },
     errors: {
       type: Object,
@@ -90,6 +99,7 @@ export default {
   data() {
     return {
       editingCategory: this.category,
+      categoryTitle: "",
     };
   },
   watch: {
@@ -97,25 +107,30 @@ export default {
       this.editingCategory = newCategory;
     },
   },
-  computed: {
-    categoryTitle() {
-      if (!this.editingCategory) {
-        return "";
-      }
-      return this.operationType == "Create"
-        ? "Create Category"
-        : "Category " + this.editingCategory.id;
-    },
-  },
+  computed: {},
   methods: {
     save() {
       this.editingCategory.vcard = this.vcardId;
-      console.log(this.editingCategory);
       this.$emit("save", this.editingCategory);
     },
     cancel() {
       this.$emit("cancel", this.editingCategory);
     },
+    getCategoryTitle() {
+      if (!this.editingCategory) {
+        this.categoryTitle = "";
+      } else {
+        if (this.operationType == "Create") {
+          this.categoryTitle = "Create Category";
+          this.editingCategory.type = "C";
+        } else {
+          this.categoryTitle = "Category " + this.editingCategory.name;
+        }
+      }
+    },
+  },
+  mounted() {
+    this.getCategoryTitle();
   },
 };
 </script>

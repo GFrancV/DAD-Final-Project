@@ -59,7 +59,7 @@ const routes = [
     props: route => ({ vcardId: route.params.vcardId, id: null })
   },
   {
-    path: '/vCard/:vcardId/categories/update',
+    path: '/vCard/:vcardId/categories/:id/update',
     name: 'CategoryUpdate',
     component: Category,
     props: route => ({ vcardId: route.params.vcardId, id: parseInt(route.params.id) })
@@ -91,7 +91,7 @@ const routes = [
     name: 'Register',
     component: Register
   },
-  
+
   //Transactions routes
   {
     path: '/transactions/:id',
@@ -104,12 +104,13 @@ const routes = [
     path: '/transactions/:vcard/new',
     name: 'NewTransaction',
     component: Transaction,
-    props: (route) => ({ 
+    props: (route) => ({
       id: null,
-      vcard: parseInt(route.params.vcard) })
+      vcard: parseInt(route.params.vcard)
+    })
   },
 
-  
+
 ]
 
 const router = createRouter({

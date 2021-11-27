@@ -40,6 +40,14 @@ export default {
       return !this.id || this.id < 0 ? "Create" : "Update";
     },
   },
+  watch: {
+    id: {
+      immediate: true,
+      handler(newValue) {
+        this.loadCategory(newValue);
+      },
+    },
+  },
   methods: {
     dataAsString() {
       return JSON.stringify(this.category);
@@ -51,6 +59,23 @@ export default {
         name: "",
       };
     },
+    loadCategory(id) {
+      this.errors = null;
+      if (!id || id < 0) {
+        this.category = this.newCategory();
+        this.originalValueStr = this.dataAsString();
+      } else {
+        this.$axios
+          .get("vcards/" + this.vcardId + "/categories/" + id)
+          .then((response) => {
+            this.category = response.data.data;
+            this.originalValueStr = this.dataAsString();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
     save(category) {
       this.errors = null;
       if (this.operation == "Create") {
@@ -58,7 +83,7 @@ export default {
           .post("vcards/" + this.vcardId + "/categories", category)
           .then((response) => {
             this.$toast.success(
-              'Category "' + response.data.name + '" was created successfully.'
+              'Category "' + response.data.data.name + '" was created successfully.'
             );
             this.category = response.data;
             this.originalValueStr = this.dataAsString();
@@ -78,13 +103,10 @@ export default {
           });
       } else {
         this.$axios
-          .put(
-            "vcards/" + this.vcardId + "/categories" + this.id,
-            category
-          )
+          .put("vcards/" + this.vcardId + "/categories/" + this.id, category)
           .then((response) => {
             this.$toast.success(
-              'Category "' + response.data.name + '" was updated successfully.'
+              'Category "' + response.data.data.name + '" was updated successfully.'
             );
             this.category = response.data;
             this.originalValueStr = this.dataAsString();
