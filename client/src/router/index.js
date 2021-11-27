@@ -91,7 +91,9 @@ const routes = [
     path: '/transactions/:vcard',
     name: 'Transactions',
     component: Transactions,
-    props: route => ({ idVcard: route.params.vcard })
+    props: route => ({ 
+      idVcard: route.params.vcard 
+    })
   },
 
   {

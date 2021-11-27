@@ -103,12 +103,6 @@
 export default {
 	name: "Transactions",
 	props: {
-		/*
-    vcard: {
-      type: Number,
-      default: null,
-    },
-    */
 		idVcard: {
 			type: String,
 			default: '',
