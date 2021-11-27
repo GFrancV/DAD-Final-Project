@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h5 style="margin-top: 30px">Transactions: vCard {{ id }}</h5>
+		<h5 style="margin-top: 30px">Transactions: vCard {{ idVcard }}</h5>
 		<div class="content">
 			<div class="row">
 				<div class="col-sm-8">
@@ -109,9 +109,9 @@ export default {
       default: null,
     },
     */
-		id: {
-			type: Number,
-			default: null,
+		idVcard: {
+			type: String,
+			default: '',
 		},
 	},
 
@@ -127,7 +127,7 @@ export default {
 	methods: {
 		getTransactions() {
 			this.$axios
-				.get("vcards/" + this.id + "/transactions")
+				.get("vcards/" + this.idVcard + "/transactions")
 				.then((response) => {
 					this.transactions = response.data.data;
 				})
@@ -137,7 +137,7 @@ export default {
 		},
 
 		addTask() {
-			this.$router.push({ name: "NewTransaction", params: { id: this.id } });
+			this.$router.push({ name: "NewTransaction", params: { id: this.idVcard } });
 		},
 	},
 

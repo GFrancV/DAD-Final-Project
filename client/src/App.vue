@@ -186,8 +186,7 @@
 									:to="{
 										name: 'Transactions',
 										params: {
-											vcard: 900000001,
-											id: 900000001,
+											vcard: '900000001',
 										},
 									}"
 								>
