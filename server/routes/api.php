@@ -20,7 +20,7 @@ use App\Http\Controllers\api\VcardController;
 
 //Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
-Route::get('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'show']);
+Route::get('transactions/{transaction}', [TransactionController::class, 'show']);
 Route::post('vcards/{vcard}/transactions', [TransactionController::class, 'store']);
 Route::put('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'update']);
 Route::delete('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'destroy']);

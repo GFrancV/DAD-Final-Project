@@ -19,7 +19,7 @@ class TransactionController extends Controller
         return TransactionResource::collection($vcard->transactions);
     }
 
-    public function show(Vcard $vcard, Transaction $transaction)
+    public function show(Transaction $transaction)
     {
         $transactionSend = Transaction::where('id',$transaction->id)->first();
         return new TransactionResource($transactionSend);

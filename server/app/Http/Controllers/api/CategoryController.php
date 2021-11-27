@@ -16,9 +16,9 @@ class CategoryController extends Controller
         return CategoryResource::collection($vcard->categories)->sortBy('name', SORT_STRING)->values()->all();
     }
 
-    public function show(Category $category, Vcard $vcard)
+    public function show(Vcard $vcard,Category $category)
     {
-        $category = Category::where('vcard', $vcard->phone_number)->first();
+        $categorySend = Category::where('id',$category->id)->first();
         return new CategoryResource($category);
     }
 
