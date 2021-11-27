@@ -58,6 +58,12 @@ const routes = [
     component: Category,
     props: route => ({ vcardId: route.params.vcardId, id: null })
   },
+  {
+    path: '/vCard/:vcardId/categories/update',
+    name: 'CategoryUpdate',
+    component: Category,
+    props: route => ({ vcardId: route.params.vcardId, id: parseInt(route.params.id) })
+  },
 
   {
     path: '/payments',
