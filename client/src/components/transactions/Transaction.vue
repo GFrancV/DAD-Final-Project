@@ -84,7 +84,7 @@ export default {
 						console.log(error);
 					});
 			}
-      console.log(this.transaction.idTransaction)
+			console.log(this.transaction)
 		},
 
 		save() {
