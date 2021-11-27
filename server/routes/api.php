@@ -27,7 +27,7 @@ Route::delete('vcards/{vcard}/transactions/{transaction}', [TransactionControlle
 
 //Categories
 Route::get('vcards/{vcard}/categories', [CategoryController::class, 'getCategoriesOfVcard']);
-Route::get('vcards/{vcard}/category/{category}', [CategoryController::class, 'show']);
+Route::get('vcards/{vcard}/categories/{category}', [CategoryController::class, 'show']);
 Route::post('vcards/{vcard}/categories', [CategoryController::class, 'store']);
 Route::put('vcards/{vcard}/categories/{category}', [CategoryController::class, 'update']);
 Route::delete('vcards/{vcard}/categories/{category}', [CategoryController::class, 'destroy']);

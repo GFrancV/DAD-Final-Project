@@ -16,7 +16,7 @@ class CategoryController extends Controller
         return CategoryResource::collection($vcard->categories)->sortBy('name', SORT_STRING)->values()->all();
     }
 
-    public function show(Category $category, Vcard $vcard)
+    public function show(Vcard $vcard, Category $category)
     {
         $category = Category::where('vcard', $vcard->phone_number)->first();
         return new CategoryResource($category);
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
     public function destroy(Vcard $vcard, Category $category)
     {
-        Category::where("vcard", $vcard->phone_number)->delete();
+        Category::where("vcard", $vcard->phone_number)->where("id", $category->id)->delete();
         return new CategoryResource($category);
     }
 }
