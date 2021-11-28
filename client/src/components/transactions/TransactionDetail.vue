@@ -17,7 +17,7 @@
 				<div class="row" style="margin-top: 20px">
 					<div class="col-auto">
 						<h6><label class="sr-only" for="inputDate">Date of transaction</label></h6>
-						<div class="input-group mb-2">
+						<div v-if="operationType != 'insert'" class="input-group mb-2">
 							<input
 								id="inputDate"
 								class="form-control"
@@ -29,12 +29,25 @@
 								<div class="input-group-text"><i class="bi bi-calendar3"></i></div>
 							</div>
 						</div>
+
+            <div v-else class="input-group mb-2">
+              <input
+								id="inputDate"
+								class="form-control"
+								type="text"
+								:value="currentDate"
+								readonly
+							/>
+							<div class="input-group-prepend">
+								<div class="input-group-text"><i class="bi bi-calendar3"></i></div>
+							</div>
+            </div>
 					</div>
 
 					<div class="col-auto"></div>
 				</div>
 
-				<div class="row">
+				<div class="row" style="margin-top: 20px">
 					<div class="col-sm-8">
 						<h6><label for="inputReference">Reference of payment</label></h6>
 						<input
@@ -69,7 +82,7 @@
 
 				<div class="row" style="margin-top: 20px">
 					<div class="col-sm-3">
-						<h6>Old balance</h6>
+						<label for="inputVCard"><h6>Current balance</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
@@ -88,7 +101,7 @@
 						<i class="bi bi-arrow-right"></i>
 					</div>
 					<div class="col-sm-4">
-						<h6>Mount</h6>
+						<label for="inputVCard"><h6>Mount</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
@@ -107,7 +120,7 @@
 						<i class="bi bi-arrow-right"></i>
 					</div>
 					<div class="col-sm-3">
-						<h6>New balance</h6>
+						<label for="inputVCard"><h6>New balance</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
@@ -126,7 +139,19 @@
 
 				<div class="row">
 					<div class="col">
-						<label for="inputCategory" class="form-label">Categories</label>
+						<h6>
+							<label for="inputyPaymentType"><h6>Payment type</h6></label>
+						</h6>
+						<input
+							id="inputyPaymentType"
+							class="form-control"
+							type="text"
+							:value="editingTransaction.payment_type"
+							readonly
+						/>
+					</div>
+					<div class="col">
+						<label for="inputCategory" class="form-label"><h6>Categories</h6> </label>
 						<select class="form-select" id="inputCategory" v-model="editingTransaction.category_id">
 							<option :value="null">-- Without category --</option>
 							<option v-for="cat in categories" :key="cat.id" :value="cat.id">
@@ -136,10 +161,10 @@
 					</div>
 				</div>
 				<div class="mb-3">
-					<label for="inputNotes" class="form-label">Description</label>
+					<label for="inputDescription"><h6>Description</h6></label>
 					<textarea
 						class="form-control"
-						id="inputNotes"
+						id="inputDescription"
 						rows="4"
 						v-model="editingTransaction.description"
 					></textarea>
@@ -205,6 +230,13 @@ export default {
 			}
 			return this.editingTransaction.type == "D" ? "Debit" : "Credit";
 		},
+
+    currentDate() {
+      const today = new Date()
+      const month = today.getMonth() + 1
+      return today.getDate() + '-' + month + '-' + today.getFullYear() 
+      + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+    },
 	},
 
 	methods: {
