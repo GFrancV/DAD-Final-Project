@@ -142,45 +142,6 @@ export default {
 </script>
 
 <style scoped lang="css">
-.btn-primary {
-	background-color: var(--primary);
-}
+	@import "../../assets/css/style.css";
 
-.btn-primary:hover {
-	background-color: #3e61b3;
-}
-
-.label-success {
-	text-align: center;
-	padding: 2px;
-	padding-left: 4px;
-	padding-right: 4px;
-	background-color: #77dd77;
-	color: green;
-	border: 10px 10px 10px 10px;
-	border-radius: 8px;
-}
-
-.label-danger {
-	text-align: center;
-	padding: 2px;
-	padding-left: 4px;
-	padding-right: 4px;
-	background-color: #f89c99;
-	color: rgb(255, 0, 0);
-	border: 10px 10px 10px 10px;
-	border-radius: 8px;
-}
-
-.label-primary {
-	font-weight: 600;
-	text-align: center;
-	padding: 2px;
-	padding-left: 4px;
-	padding-right: 4px;
-	background-color: #abc4fd;
-	color: var(--primary);
-	border: 10px 10px 10px 10px;
-	border-radius: 8px;
-}
 </style>
