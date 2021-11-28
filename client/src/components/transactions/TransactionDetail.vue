@@ -47,17 +47,28 @@
 					<div class="col-auto"></div>
 				</div>
 
+        <!--Payment reference-->
 				<div class="row" style="margin-top: 20px">
 					<div class="col-sm-8">
 						<h6><label for="inputReference">Reference of payment</label></h6>
 						<input
+              v-if="operationType != 'insert'"
 							id="inputReference"
 							class="form-control"
 							type="text"
 							:value="editingTransaction.payment_reference"
 							readonly
 						/>
+            <input
+              v-else
+							id="inputReference"
+							class="form-control"
+							type="text"
+							:value="editingTransaction.payment_reference"
+						/>
 					</div>
+
+          <!--Transaction type-->
 					<div class="col-sm-4">
 						<h6><label class="sr-only" for="inputType">Type</label></h6>
 						<div class="input-group mb-2">
@@ -81,8 +92,9 @@
 				</div>
 
 				<div class="row" style="margin-top: 20px">
+          <!--Old balance/Current balance-->
 					<div class="col-sm-3">
-						<label for="inputVCard"><h6>Current balance</h6></label>
+						<label for="inputVCard"><h6>Old balance</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
@@ -97,9 +109,12 @@
 							/>
 						</div>
 					</div>
+          
 					<div class="col-sm-1 d-flex justify-content-center align-items-center">
 						<i class="bi bi-arrow-right"></i>
 					</div>
+
+          <!--Mount-->
 					<div class="col-sm-4">
 						<label for="inputVCard"><h6>Mount</h6></label>
 						<div class="input-group mb-3">
@@ -107,6 +122,7 @@
 								<span class="input-group-text">$</span>
 							</div>
 							<input
+                v-if="operationType != 'insert'"
 								id="inputVCard"
 								class="form-control"
 								type="text"
@@ -114,11 +130,22 @@
 								aria-label="vCard number"
 								readonly
 							/>
+              <input
+                v-else
+								id="inputVCard"
+								class="form-control"
+								type="text"
+								:value="editingTransaction.value"
+								aria-label="vCard number"
+							/>
 						</div>
 					</div>
+
 					<div class="col-sm-1 d-flex justify-content-center align-items-center">
 						<i class="bi bi-arrow-right"></i>
 					</div>
+
+          <!--New balance-->
 					<div class="col-sm-3">
 						<label for="inputVCard"><h6>New balance</h6></label>
 						<div class="input-group mb-3">
@@ -138,7 +165,8 @@
 				</div>
 
 				<div class="row">
-					<div class="col">
+          <!--Payment type-->
+					<div  v-if="operationType != 'insert'" class="col">
 						<h6>
 							<label for="inputyPaymentType"><h6>Payment type</h6></label>
 						</h6>
@@ -150,6 +178,19 @@
 							readonly
 						/>
 					</div>
+          <div v-else class="col">
+						<h6>
+							<label for="inputyPaymentType"><h6>Payment type</h6></label>
+						</h6>
+						<input
+							id="inputyPaymentType"
+							class="form-control"
+							type="text"
+							:value="editingTransaction.payment_type"
+						/>
+					</div>
+
+          <!--Category-->
 					<div class="col">
 						<label for="inputCategory" class="form-label"><h6>Categories</h6> </label>
 						<select class="form-select" id="inputCategory" v-model="editingTransaction.category_id">
@@ -205,6 +246,7 @@ export default {
 	data() {
 		return {
 			editingTransaction: this.transaction,
+      currentBalance: 0.00
 		};
 	},
 
@@ -230,7 +272,7 @@ export default {
 			}
 			return this.editingTransaction.type == "D" ? "Debit" : "Credit";
 		},
-
+    
     currentDate() {
       const today = new Date()
       const month = today.getMonth() + 1
@@ -246,7 +288,24 @@ export default {
 		cancel() {
 			this.$emit("cancel", this.editingTransaction);
 		},
+
+    balance(){
+      if (this.operationType == "insert") {
+        this.$axios
+        .get("vcards/" + this.idVcard)
+        .then((response) => {
+          this.editingTransaction.old_balance = response.data.data.balance;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+    }
 	},
+
+  mounted() {
+    this.balance();
+  },
 };
 </script>
 
