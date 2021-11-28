@@ -79,18 +79,18 @@ export default {
 					.get("vcards/" + this.idVcard + "/transactions/" + this.idTransaction)
 					.then((response) => {
 						this.transaction = response.data.data;
+            console.log(this.transaction)
 					})
 					.catch((error) => {
 						console.log(error);
 					});
 			}
-			console.log(this.transaction);
 		},
 
 		save() {
 			if (this.operation == "insert") {
 				this.$axios
-					.post("vcards/" + this.idVcard + "/transactions/" + this.idTransaction)
+					.post("vcards/" + this.idVcard + "/transactions")
 					.then((response) => {
 						this.$toast.success(
 							"Transaction #" + response.data.data.idTransaction + " was created successfully."
@@ -104,20 +104,20 @@ export default {
 							this.$toast.error("Transaction was not created due to unknown server error!");
 						}
 					});
-			} /* else {
-        this.$axios.put('tasks/' + this.id, this.task)
+			} else {
+        this.$axios.put("vcards/" + this.idVcard + "/transactions/" + this.idTransaction)
           .then((response) => {
-            this.$toast.success('Task #' + response.data.data.id + ' was updated successfully.')
+            this.$toast.success('Transaction #' + response.data.data.id + ' was updated successfully.')
           })
           .catch((error) => {
             if (error.response.status == 422) {
-              this.$toast.error('Task #' + this.id + ' was not updated due to validation errors!')
+              this.$toast.error('Transaction #' + this.id + ' was not updated due to validation errors!')
             } else {
-            this.$toast.error('Task #' + this.id + ' was not updated due to unknown server error!')
+            this.$toast.error('Transaction #' + this.id + ' was not updated due to unknown server error!')
             }
           })
       }
-      */
+      console.log(this.transaction)
 		},
 
 		cancel() {
