@@ -105,15 +105,15 @@ export default {
 						}
 					});
 			} else {
-        this.$axios.put("vcards/" + this.idVcard + "/transactions/" + this.idTransaction)
+        this.$axios.put("vcards/" + this.idVcard + "/transactions/" + this.idTransaction, this.transaction)
           .then((response) => {
             this.$toast.success('Transaction #' + response.data.data.id + ' was updated successfully.')
           })
           .catch((error) => {
             if (error.response.status == 422) {
-              this.$toast.error('Transaction #' + this.id + ' was not updated due to validation errors!')
+              this.$toast.error('Transaction #' + this.idTransaction + ' was not updated due to validation errors!')
             } else {
-            this.$toast.error('Transaction #' + this.id + ' was not updated due to unknown server error!')
+            this.$toast.error('Transaction #' + this.idTransaction + ' was not updated due to unknown server error!')
             }
           })
       }
@@ -135,8 +135,6 @@ export default {
 			.catch((error) => {
 				console.log(error);
 			});
-      console.log("xd")
-      console.log(this.categories)
 	},
 };
 </script>
