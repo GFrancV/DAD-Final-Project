@@ -102,7 +102,8 @@ const routes = [
     component: Transaction,
     props: (route) => ({ 
       idVcard: route.params.vcard,
-      idTransaction: parseInt(route.params.id) })
+      idTransaction: parseInt(route.params.id) 
+    })
   },
   
   {
@@ -111,7 +112,8 @@ const routes = [
     component: Transaction,
     props: (route) => ({ 
       idVcard: route.params.vcard,
-      idTransaction: null })
+      idTransaction: null, 
+    })
   },
 
   

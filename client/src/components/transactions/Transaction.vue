@@ -3,6 +3,7 @@
 		:operationType="operation"
 		:idVcard="idVcard"
 		:transaction="transaction"
+    :categories="categories"
 		@save="save"
 		@cancel="cancel"
 	></transaction-detail>
@@ -31,14 +32,13 @@ export default {
 	data() {
 		return {
 			transaction: this.newTransaction(),
+			categories: [],
 		};
 	},
 
 	computed: {
 		operation() {
-			return !this.idTransaction || this.idTransaction < 0
-				? "insert"
-				: "update";
+			return !this.idTransaction || this.idTransaction < 0 ? "insert" : "update";
 		},
 	},
 
@@ -84,32 +84,24 @@ export default {
 						console.log(error);
 					});
 			}
-			console.log(this.transaction)
+			console.log(this.transaction);
 		},
 
 		save() {
 			if (this.operation == "insert") {
 				this.$axios
-					.post(
-						"vcards/" + this.idVcard + "/transactions/" + this.idTransaction
-					)
+					.post("vcards/" + this.idVcard + "/transactions/" + this.idTransaction)
 					.then((response) => {
 						this.$toast.success(
-							"Transaction #" +
-								response.data.data.idTransaction +
-								" was created successfully."
+							"Transaction #" + response.data.data.idTransaction + " was created successfully."
 						);
 						this.$router.back();
 					})
 					.catch((error) => {
 						if (error.response.status == 422) {
-							this.$toast.error(
-								"Transaction was not created due to validation errors!"
-							);
+							this.$toast.error("Transaction was not created due to validation errors!");
 						} else {
-							this.$toast.error(
-								"Transaction was not created due to unknown server error!"
-							);
+							this.$toast.error("Transaction was not created due to unknown server error!");
 						}
 					});
 			} /* else {
@@ -134,7 +126,17 @@ export default {
 	},
 
 	mounted() {
-		
+		this.categories = [];
+		this.$axios
+			.get("vcards/" + this.idVcard + "/categories")
+			.then((response) => {
+				this.categories = response.data;
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+      console.log("xd")
+      console.log(this.categories)
 	},
 };
 </script>
