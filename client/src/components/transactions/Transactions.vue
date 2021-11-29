@@ -37,9 +37,9 @@
 							<th scope="col">Info</th>
 							<th scope="col"></th>
 							<th scope="col">Old balance</th>
-							<th scope="col">Mount</th>
-							<th scope="col">Payment type</th>
+							<th scope="col" style="width: 10%">Mount</th>
 							<th scope="col">New balance</th>
+							<th scope="col">Payment type</th>
 							<!-- 
 							<th scope="col">pair_transaction</th>
 							<th scope="col">pair_vcard</th>
@@ -110,12 +110,12 @@
 							<td>
 								<router-link
 									type="button"
-									class="btn btn-primary"
+									class="btn btn-primary btn-sm"
 									:to="{
 										name: 'Transaction',
 										params: { vcard: '900000001', id: transaction.id },
 									}"
-									><i class="bi-pencil-square" style="color: blue"></i
+									><i class="bi-pencil-square" style="color: white"></i
 								></router-link>
 							</td>
 						</tr>
