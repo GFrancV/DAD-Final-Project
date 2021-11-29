@@ -14,11 +14,14 @@
 					readonly
 				/>
         -->
-        <!--Date-->
+				<!--Date-->
 				<div class="row" style="margin-top: 20px">
+					<!--Date transaction-->
 					<div class="col-auto">
-						<h6><label class="sr-only" for="inputDate">Date of transaction</label></h6>
-						<div v-if="operationType != 'insert'" class="input-group mb-2">
+						<h6>
+							<label class="sr-only" for="inputDate">Date of transaction</label>
+						</h6>
+						<div class="input-group mb-2">
 							<input
 								id="inputDate"
 								class="form-control"
@@ -27,14 +30,9 @@
 								readonly
 							/>
 							<div class="input-group-prepend">
-								<div class="input-group-text"><i class="bi bi-calendar3"></i></div>
-							</div>
-						</div>
-
-						<div v-else class="input-group mb-2">
-							<input id="inputDate" class="form-control" type="text" :value="currentDate" readonly />
-							<div class="input-group-prepend">
-								<div class="input-group-text"><i class="bi bi-calendar3"></i></div>
+								<div class="input-group-text">
+									<i class="bi bi-calendar3"></i>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -51,7 +49,7 @@
 							id="inputReference"
 							class="form-control"
 							type="text"
-							:value="editingTransaction.payment_reference"
+							v-model="editingTransaction.payment_reference"
 							readonly
 						/>
 						<input
@@ -59,7 +57,7 @@
 							id="inputReference"
 							class="form-control"
 							type="text"
-							:value="editingTransaction.payment_reference"
+							v-model="editingTransaction.payment_reference"
 						/>
 					</div>
 
@@ -74,10 +72,13 @@
 								:value="editingTransaction.type"
 								readonly
 							/>
-							<div v-if="editingTransaction.type == 'D'" class="input-group-prepend">
+							<div
+								v-if="editingTransaction.type == 'D'"
+								class="input-group-prepend"
+							>
 								<div class="input-group-text label-danger">
-                  <i class="bi bi-arrow-bar-up label-danger"></i>
-                </div>
+									<i class="bi bi-arrow-bar-up label-danger"></i>
+								</div>
 							</div>
 							<div v-else class="input-group-prepend">
 								<div class="input-group-text label-success">
@@ -107,7 +108,9 @@
 						</div>
 					</div>
 
-					<div class="col-sm-1 d-flex justify-content-center align-items-center">
+					<div
+						class="col-sm-1 d-flex justify-content-center align-items-center"
+					>
 						<i class="bi bi-arrow-right"></i>
 					</div>
 
@@ -139,7 +142,9 @@
 						</div>
 					</div>
 
-					<div class="col-sm-1 d-flex justify-content-center align-items-center">
+					<div
+						class="col-sm-1 d-flex justify-content-center align-items-center"
+					>
 						<i class="bi bi-arrow-right"></i>
 					</div>
 
@@ -150,8 +155,8 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
 							</div>
-              <input
-                v-if="operationType != 'insert'"
+							<input
+								v-if="operationType != 'insert'"
 								id="inputVCard"
 								class="form-control"
 								type="text"
@@ -160,7 +165,7 @@
 								readonly
 							/>
 							<input
-                v-else
+								v-else
 								id="inputVCard"
 								class="form-control"
 								type="text"
@@ -183,7 +188,7 @@
 							id="inputyPaymentType"
 							class="form-control"
 							type="text"
-							:value="editingTransaction.payment_type"
+							v-model="editingTransaction.payment_type"
 							readonly
 						/>
 						<input
@@ -191,14 +196,20 @@
 							id="inputyPaymentType"
 							class="form-control"
 							type="text"
-							:value="editingTransaction.payment_type"
+							v-model="editingTransaction.payment_type"
 						/>
 					</div>
 
 					<!--Category-->
 					<div class="col">
-						<label for="inputCategory" class="form-label"><h6>Categories</h6> </label>
-						<select class="form-select" id="inputCategory" v-model="editingTransaction.category_id">
+						<label for="inputCategory" class="form-label"
+							><h6>Categories</h6>
+						</label>
+						<select
+							class="form-select"
+							id="inputCategory"
+							v-model="editingTransaction.category_id"
+						>
 							<option :value="null">-- Without category --</option>
 							<option v-for="cat in categories" :key="cat.id" :value="cat.id">
 								{{ cat.name }}
@@ -216,8 +227,12 @@
 					></textarea>
 				</div>
 				<div class="mb-3 d-flex justify-content-end">
-					<button type="button" class="btn btn-primary px-5" @click="save">Save</button>
-					<button type="button" class="btn btn-light px-5" @click="cancel">Cancel</button>
+					<button type="button" class="btn btn-primary px-5" @click="save">
+						Save
+					</button>
+					<button type="button" class="btn btn-light px-5" @click="cancel">
+						Cancel
+					</button>
 				</div>
 			</form>
 		</div>
@@ -251,7 +266,7 @@ export default {
 	data() {
 		return {
 			editingTransaction: this.transaction,
-      currentBalance: 0.00
+			currentBalance: 0.0,
 		};
 	},
 
@@ -267,66 +282,98 @@ export default {
 				return "";
 			}
 			return this.operationType == "insert"
-				? "New transaction of vCard " + this.transaction.owner_id
+				? "New transaction of vCard " + this.transaction.vcard
 				: "Transaction " + this.transaction.id + " of vCard " + this.idVcard;
 		},
 
-    currentDate() {
-      const today = new Date()
-      const month = today.getMonth() + 1
-      return today.getDate() + '-' + month + '-' + today.getFullYear()
-      + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-    },
+		newBalance() {
+			var newValue = 0;
+			if (this.editingTransaction.value != null) {
+				newValue =
+					parseFloat(this.editingTransaction.old_balance) -
+					parseFloat(this.editingTransaction.value);
 
-    newBalance() {
-      var newValue = 0
-      if (this.editingTransaction.value != null){
-        newValue = parseFloat(this.editingTransaction.old_balance) - parseFloat(this.editingTransaction.value)
-        
-        return newValue
-      }
-      else{
-        
-        return newValue
-      }
-    }
+				return newValue;
+			} else {
+				return newValue;
+			}
+		},
 	},
 
 	methods: {
+		transactionType() {
+			if (this.operationType == "insert") this.editingTransaction.type = "D";
+		},
+
+		currentDate() {
+			const today = new Date();
+
+			var month = today.getMonth() + 1;
+			if (month < 10) month = "0" + today.getMonth();
+
+			var day = today.getDate();
+			if (day < 10) day = "0" + today.getDate();
+
+			var hour = today.getHours();
+			if (hour < 10) hour = "0" + today.getHours();
+
+			var minutes = today.getMinutes();
+			if (minutes < 10) minutes = "0" + today.getMinutes();
+
+			var seconds = today.getSeconds();
+			if (seconds < 10) seconds = "0" + today.getSeconds();
+
+			this.editingTransaction.date =
+				today.getFullYear() + "-" + month + "-" + day;
+			this.editingTransaction.datetime =
+				today.getFullYear() +
+				"-" +
+				month +
+				"-" +
+				day +
+				" " +
+				hour +
+				":" +
+				minutes +
+				":" +
+				seconds;
+		},
+
+		balance() {
+			if (this.operationType == "insert") {
+				this.$axios
+					.get("vcards/" + this.idVcard)
+					.then((response) => {
+						this.editingTransaction.old_balance = response.data.data.balance;
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
+		},
+
 		save() {
+			this.editingTransaction.owner_id = this.idVcard;
+			this.editingTransaction.new_balance = String(this.newBalance);
+      for (let i = 0; i < this.categories.length; i++) {
+        if (this.categories[i].id == this.editingTransaction.category_id) {
+          this.editingTransaction.category_name = this.categories[i].name
+          break
+        }
+      }
+
 			this.$emit("save", this.editingTransaction);
 		},
 		cancel() {
 			this.$emit("cancel", this.editingTransaction);
 		},
-
-    transactionType() {
-      if (this.operationType == "insert") 
-        this.editingTransaction.type = 'D'
-    },
-
-    balance() {
-      if (this.operationType == "insert") {
-        this.$axios
-        .get("vcards/" + this.idVcard)
-        .then((response) => {
-          this.editingTransaction.old_balance = response.data.data.balance;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      }
-    },
-
-    calculateNewValue () {
-
-    }
 	},
 
-  mounted() {
-    this.balance()
-    this.transactionType()
-  },
+	mounted() {
+		this.transactionType();
+		this.currentDate();
+		this.balance();
+	},
 };
 </script>
 

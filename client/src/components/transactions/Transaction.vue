@@ -3,7 +3,7 @@
 		:operationType="operation"
 		:idVcard="idVcard"
 		:transaction="transaction"
-    :categories="categories"
+		:categories="categories"
 		@save="save"
 		@cancel="cancel"
 	></transaction-detail>
@@ -38,7 +38,9 @@ export default {
 
 	computed: {
 		operation() {
-			return !this.idTransaction || this.idTransaction < 0 ? "insert" : "update";
+			return !this.idTransaction || this.idTransaction < 0
+				? "insert"
+				: "update";
 		},
 	},
 
@@ -54,7 +56,6 @@ export default {
 	methods: {
 		newTransaction() {
 			return {
-				idTransaction: null,
 				owner_id: this.idVcard,
 				date: "",
 				type: "",
@@ -67,6 +68,7 @@ export default {
 				pair_transaction: null,
 				pair_vcard: null,
 				category_id: null,
+        category_name: "",
 				description: "",
 			};
 		},
@@ -79,45 +81,68 @@ export default {
 					.get("vcards/" + this.idVcard + "/transactions/" + this.idTransaction)
 					.then((response) => {
 						this.transaction = response.data.data;
-            console.log(this.transaction)
+						console.log(this.transaction);
 					})
 					.catch((error) => {
 						console.log(error);
 					});
 			}
+      console.log(this.transaction)
 		},
 
-		save() {
+		save(transaction) {
 			if (this.operation == "insert") {
 				this.$axios
-					.post("vcards/" + this.idVcard + "/transactions")
+					.post("vcards/" + this.idVcard + "/transactions", transaction)
 					.then((response) => {
 						this.$toast.success(
-							"Transaction #" + response.data.data.idTransaction + " was created successfully."
+							"Transaction #" +
+								response.data.data.idTransaction +
+								" was created successfully."
 						);
 						this.$router.back();
 					})
 					.catch((error) => {
 						if (error.response.status == 422) {
-							this.$toast.error("Transaction was not created due to validation errors!");
+							this.$toast.error(
+								"Transaction was not created due to validation errors!"
+							);
 						} else {
-							this.$toast.error("Transaction was not created due to unknown server error!");
+							this.$toast.error(
+								"Transaction was not created due to unknown server error!"
+							);
 						}
 					});
 			} else {
-        this.$axios.put("vcards/" + this.idVcard + "/transactions/" + this.idTransaction, this.transaction)
-          .then((response) => {
-            this.$toast.success('Transaction #' + response.data.data.id + ' was updated successfully.')
-          })
-          .catch((error) => {
-            if (error.response.status == 422) {
-              this.$toast.error('Transaction #' + this.idTransaction + ' was not updated due to validation errors!')
-            } else {
-            this.$toast.error('Transaction #' + this.idTransaction + ' was not updated due to unknown server error!')
-            }
-          })
-      }
-      console.log(this.transaction)
+				this.$axios
+					.put(
+						"vcards/" + this.idVcard + "/transactions/" + this.idTransaction,
+						transaction
+					)
+					.then((response) => {
+						this.$toast.success(
+							"Transaction #" +
+								response.data.data.id +
+								" was updated successfully."
+						);
+					})
+					.catch((error) => {
+						if (error.response.status == 422) {
+							this.$toast.error(
+								"Transaction #" +
+									this.idTransaction +
+									" was not updated due to validation errors!"
+							);
+						} else {
+							this.$toast.error(
+								"Transaction #" +
+									this.idTransaction +
+									" was not updated due to unknown server error!"
+							);
+						}
+					});
+			}
+			console.log(this.transaction);
 		},
 
 		cancel() {
