@@ -35,7 +35,7 @@ class TransactionController extends Controller
 
     public function update(StoreUpdateTransactionRequest $request, Vcard $vcard, Transaction $transaction)
     {
-        $transaction = Transaction::where('vcard', $vcard->phone_number)->first();
+        $transaction = Transaction::where('vcard', $vcard->phone_number)->where('id', $transaction->id)->first();
         $transaction->update($request->validated());
         $transaction->save();
         return new TransactionResource($transaction);
@@ -43,7 +43,7 @@ class TransactionController extends Controller
 
     public function destroy(Vcard $vcard, Transaction $transaction)
     {
-        Transaction::where("vcard", $vcard->phone_number)->delete();
+        Transaction::where("vcard", $vcard->phone_number)->where('id', $transaction->id)->delete();
         return new TransactionResource($transaction);
     }
 }
