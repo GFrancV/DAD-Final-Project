@@ -50,8 +50,8 @@ export default {
   data() {
     return {
       credentials: {
-        username: "",
-        password: "",
+        username: '',
+        password: '',
       },
       errors: null,
     };
