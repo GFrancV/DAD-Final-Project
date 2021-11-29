@@ -192,14 +192,22 @@
 							v-model="editingTransaction.payment_type"
 							readonly
 						/>
-						<input
-							v-else
+            <select
+              v-else
+							class="form-select"
 							id="inputyPaymentType"
-							class="form-control"
-							type="text"
 							v-model="editingTransaction.payment_type"
-						/>
-					</div>
+						>
+							<option value="">-- Select payment type --</option>
+							<option>IBAN</option>
+              <option>MASTERCARD</option>
+							<option>MB</option>
+							<option>MBWAY</option>
+							<option>PAYPAL</option>
+              <option>VCARD</option>
+              <option>VISA</option>
+            </select>  
+          </div>
 
 					<!--Category-->
 					<div class="col">
@@ -371,8 +379,8 @@ export default {
         this.$toast.error("Payment type is required");
         error = true
       }
-      if (this.editingTransaction.description.length > 50) {
-        this.$toast.error("The description must not be greater than 50 characters.");
+      if ((this.editingTransaction.description.length < 3 && this.editingTransaction.description.length > 0) || this.editingTransaction.description.length > 50) {
+        this.$toast.error("The description must be at least 3 characters and not be greater than 50 characters.");
         error = true
       }
 
