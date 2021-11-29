@@ -14,7 +14,7 @@ class VcardController extends Controller
 {
     public function show(VCard $vcard)
     {
-        $vcard = VCard::where('vcard', $vcard->phone_number)->first();
+        $vcard = VCard::where('phone_number', $vcard->phone_number)->first();
         return new VcardResource($vcard);
     }
 
@@ -27,7 +27,7 @@ class VcardController extends Controller
 
     public function update(StoreUpdateVCardsRequest $request, Vcard $vcard)
     {
-        $vcard = VCard::where('vcard', $vcard->phone_number)->first();
+        $vcard = VCard::where('phone_number', $vcard->phone_number)->first();
         $vcard->update($request->validated());
         $vcard->save();
         return new VcardResource($vcard);
@@ -37,7 +37,7 @@ class VcardController extends Controller
     {
         Transaction::where("vcard", $vcard->phone_number)->delete();
         Category::where("vcard", $vcard->phone_number)->delete();
-        $vcard = VCard::where('vcard', $vcard->phone_number)->delete();
+        $vcard = VCard::where('phone_number', $vcard->phone_number)->delete();
         return new VcardResource($vcard);
     }
 }
