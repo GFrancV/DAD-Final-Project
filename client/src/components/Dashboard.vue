@@ -138,7 +138,7 @@ export default {
   data() {
     return {
       id: "900000001",
-      balance: "",
+      balance: 0.00,
       name: "",
       transactions: [],
     };

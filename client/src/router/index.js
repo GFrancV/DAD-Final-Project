@@ -80,7 +80,8 @@ const routes = [
   {
     path: '/users/me',
     name: 'User',
-    component: VCard
+    component: VCard,
+    props: { id: "900000001" } //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
   },
   {
     path: '/login',
