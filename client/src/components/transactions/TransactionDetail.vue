@@ -297,14 +297,14 @@ export default {
 
 		newBalance() {
 			var newValue = 0;
-			if (this.editingTransaction.value != null) {
+			if (this.editingTransaction.value != null && this.editingTransaction.value != '') {
 				newValue =
 					parseFloat(this.editingTransaction.old_balance) -
 					parseFloat(this.editingTransaction.value);
 
 				return newValue;
 			} else {
-				return newValue;
+				return 0;
 			}
 		},
 	},
