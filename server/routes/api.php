@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\TransactionController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\VcardController;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,19 @@ use App\Http\Controllers\api\VcardController;
 |
 */
 
+//login
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+
+
+//Users
+
+
+Route::get('users/me', [UserController::class, 'show_me']);
+Route::get('users', [UserController::class, 'index']);
+Route::get('users/{user}', [UserController::class, 'show']);
+Route::put('users/{user}', [UserController::class, 'update']);
 
 //Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
