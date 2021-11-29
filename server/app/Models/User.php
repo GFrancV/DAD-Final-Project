@@ -23,6 +23,8 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $table = 'view_auth_users';
+
     /**
      * The attributes that should be hidden for serialization.
      *
