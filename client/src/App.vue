@@ -83,11 +83,11 @@
                 <li>
                   <hr class="dropdown-divider" />
                 </li>
-                <li>
-                  <a class="dropdown-item" href="#"
-                    ><i class="bi bi-arrow-right"></i>Logout</a
-                  >
-                </li>
+                    <li>
+                      <a class="dropdown-item" @click.prevent="logout"
+                        ><i class="bi bi-arrow-right"></i>Logout</a
+                      >
+                    </li>
               </ul>
             </li>
           </ul>
@@ -183,10 +183,13 @@
                   class="nav-link"
                   :class="{ active: $route.name === 'Transactions' }"
                   aria-current="page"
-                  :to="{ name: 'Transactions', params: {
+                  :to="{
+                    name: 'Transactions',
+                    params: {
                       vcard: 900000001,
                       id: 900000001,
-                    }, }"
+                    },
+                  }"
                 >
                   <i class="bi bi-currency-dollar"></i>
                   Transactions
@@ -229,7 +232,6 @@
                 <i class="bi bi-xs bi-plus-circle"></i>
               </a>
             </h6>
-           
 
             <div class="d-block d-md-none">
               <h6
@@ -273,7 +275,7 @@
                       class="rounded-circle z-depth-0 avatar-img"
                       alt="avatar image"
                     />
-                    <span class="avatar-text">User Name</span>
+                    <span class="avatar-text">{{ userName }}</span>
                   </a>
                   <ul
                     class="dropdown-menu"
@@ -293,7 +295,7 @@
                       <hr class="dropdown-divider" />
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#"
+                      <a class="dropdown-item" @click.prevent="logout"
                         ><i class="bi bi-arrow-right"></i>Logout</a
                       >
                     </li>
@@ -316,6 +318,29 @@
 
 export default {
   name: "RootComponent",
+  methods: {
+    logout () { 
+      this.$store.dispatch('logout') 
+        .then(() => { 
+          this.$toast.success('User has logged out of the application.') 
+          this.$router.push({ name: 'Home' }) 
+        }) 
+        .catch(() => { 
+          this.$toast.error('There was a problem logging out of the application!') 
+        }) 
+    }
+  },
+  computed: { 
+    user () { 
+      return this.$store.state.user 
+    }, 
+    userId () { 
+      return this.$store.state.user ? this.$store.state.user.id : -1 
+    }, 
+    userName () { 
+      return this.$store.state.user ? this.$store.state.user.name : '' 
+    }, 
+  }, 
 };
 </script>
 

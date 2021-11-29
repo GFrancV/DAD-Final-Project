@@ -15,8 +15,8 @@ let toastOptions = {
 }
 
 const app = createApp(App).use(store).use(router).use(Toaster, toastOptions)
-const url = "http://vcard_api.test"
-
+//const url = "http://vcard_api.test"
+const url = "http://localhost:8000"
 
 axios.defaults.baseURL = url + "/api/"
 app.config.globalProperties.$axios = axios
