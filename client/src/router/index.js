@@ -7,12 +7,13 @@ import Payments from '../components/Payments.vue'
 import Transactions from '../components/transactions/Transactions.vue'
 import Transaction from "../components/transactions/Transaction.vue"
 
-
+//Categories
 import Categories from '../components/categories/Categories.vue'
 import Category from '../components/categories/Category.vue'
 
-import Users from '../components/users/Users.vue'
-import User from '../components/users/User.vue'
+//Vcards/Clientes
+import Users from '../components/vcards/Users.OLD.vue'
+import VCard from '../components/vcards/VCard.vue'
 
 import ChangePassword from '../components/auth/ChangePassword.vue'
 import Login from '../components/auth/Login.vue'
@@ -33,19 +34,18 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-
   {
     path: '/password',
     name: 'ChangePassword',
     component: ChangePassword
   },
-
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
   },
 
+  //Categories
   {
     path: '/vCard/:vcardId/categories',
     name: 'Categories',
@@ -71,6 +71,7 @@ const routes = [
     component: Payments
   },
 
+  //VCards/Clientes
   {
     path: '/users',
     name: 'Users',
@@ -79,7 +80,7 @@ const routes = [
   {
     path: '/users/me',
     name: 'User',
-    component: User
+    component: VCard
   },
   {
     path: '/login',
@@ -92,7 +93,7 @@ const routes = [
     component: Register
   },
 
-  //Transactions routes
+  //Transactions
   {
     path: '/transactions/:id',
     name: 'Transactions',
@@ -109,8 +110,6 @@ const routes = [
       vcard: parseInt(route.params.vcard)
     })
   },
-
-
 ]
 
 const router = createRouter({
