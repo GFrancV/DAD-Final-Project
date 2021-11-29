@@ -114,9 +114,9 @@
 						<i class="bi bi-arrow-right"></i>
 					</div>
 
-					<!--Mount-->
+					<!--Amount-->
 					<div class="col-sm-4">
-						<label for="inputVCard"><h6>Mount</h6></label>
+						<label for="inputVCard"><h6>Amount</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
@@ -135,7 +135,8 @@
 								@keyup="calculateNewValue"
 								id="inputVCard"
 								class="form-control"
-								type="text"
+								type="number"
+                required=""
 								v-model="editingTransaction.value"
 								aria-label="vCard number"
 							/>
@@ -352,16 +353,52 @@ export default {
 			}
 		},
 
+    checkForm() {
+      var error = false
+      if (this.editingTransaction.payment_reference == '') {
+        this.$toast.error("Payment reference is required");
+        error = true
+      }
+      if (this.editingTransaction.value == null) {
+        this.$toast.error("Amount is required");
+        error = true
+      }
+      if (this.editingTransaction.new_balance < 0) {
+        this.$toast.error(`New balance can't be a negative number.`);
+        error = true
+      }
+      if (this.editingTransaction.payment_type == '') {
+        this.$toast.error("Payment type is required");
+        error = true
+      }
+      if (this.editingTransaction.description.length > 50) {
+        this.$toast.error("The description must not be greater than 50 characters.");
+        error = true
+      }
+
+      return error
+    },
+
 		save() {
+      //Insert de vcard of transaction
 			this.editingTransaction.vcard = this.idVcard;
-			this.editingTransaction.new_balance = String(this.newBalance);
+      
+      //If is a new transaction insert the new balance
+      if (this.operationType == "insert") 
+        this.editingTransaction.new_balance = String(this.newBalance);
+      
+      //Serch and insert the category name 
 			for (let i = 0; i < this.categories.length; i++) {
 				if (this.categories[i].id == this.editingTransaction.category_id) {
 					this.editingTransaction.category_name = this.categories[i].name;
 					break;
 				}
 			}
-
+      
+      //Check the format of the form
+      if (this.checkForm()) 
+        return
+      
 			this.$emit("save", this.editingTransaction);
 		},
 		cancel() {

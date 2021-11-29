@@ -68,7 +68,7 @@ export default {
 				pair_transaction: null,
 				pair_vcard: null,
 				category_id: null,
-        category_name: "",
+				category_name: "",
 				description: "",
 			};
 		},
@@ -87,7 +87,7 @@ export default {
 						console.log(error);
 					});
 			}
-      console.log(this.transaction)
+			console.log(this.transaction);
 		},
 
 		save(transaction) {
