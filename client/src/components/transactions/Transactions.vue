@@ -46,6 +46,7 @@
 							-->
 							<th scope="col">Category</th>
 							<th scope="col">Description</th>
+							<th scope="col">Tools</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -66,12 +67,26 @@
 							<td>${{ transaction.old_balance }}</td>
 							<td v-if="transaction.type == 'C'">
 								<p style="display: inline; font-weight: 700; color: green">
-									+ ${{ Math.round((transaction.new_balance - transaction.old_balance) * 100) / 100 }}
+									+ ${{
+										Math.round(
+											(transaction.new_balance - transaction.old_balance) * 100
+										) / 100
+									}}
 								</p>
 							</td>
 							<td v-else>
-								<p style="display: inline; font-weight: 700; color: rgb(253, 53, 53)">
-									- ${{ Math.round((transaction.new_balance - transaction.old_balance) * 100) / 100 }}
+								<p
+									style="
+										display: inline;
+										font-weight: 700;
+										color: rgb(253, 53, 53);
+									"
+								>
+									- ${{
+										Math.round(
+											(transaction.new_balance - transaction.old_balance) * 100
+										) / 100
+									}}
 								</p>
 							</td>
 							<td>${{ transaction.new_balance }}</td>
@@ -87,9 +102,22 @@
 								<!--/* TODO - Mudar para nome de categoria */-->
 							</td>
 							<td v-if="transaction.description == null">
-								<p class="text-secondary" style="font-size: 12px">Without description</p>
+								<p class="text-secondary" style="font-size: 12px">
+									Without description
+								</p>
 							</td>
 							<td v-else>{{ transaction.description }}</td>
+							<td>
+								<router-link
+									type="button"
+									class="btn btn-primary"
+									:to="{
+										name: 'Transaction',
+										params: { vcard: '900000001', id: transaction.id },
+									}"
+									><i class="bi-pencil-square" style="color: blue"></i
+								></router-link>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -105,7 +133,7 @@ export default {
 	props: {
 		idVcard: {
 			type: String,
-			default: '',
+			default: "",
 		},
 	},
 
@@ -131,7 +159,10 @@ export default {
 		},
 
 		addTask() {
-			this.$router.push({ name: "NewTransaction", params: { id: this.idVcard } });
+			this.$router.push({
+				name: "NewTransaction",
+				params: { id: this.idVcard },
+			});
 		},
 	},
 
@@ -142,6 +173,5 @@ export default {
 </script>
 
 <style scoped lang="css">
-	@import "../../assets/css/style.css";
-
+@import "../../assets/css/style.css";
 </style>

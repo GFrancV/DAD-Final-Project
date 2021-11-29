@@ -355,12 +355,12 @@ export default {
 		save() {
 			this.editingTransaction.vcard = this.idVcard;
 			this.editingTransaction.new_balance = String(this.newBalance);
-      for (let i = 0; i < this.categories.length; i++) {
-        if (this.categories[i].id == this.editingTransaction.category_id) {
-          this.editingTransaction.category_name = this.categories[i].name
-          break
-        }
-      }
+			for (let i = 0; i < this.categories.length; i++) {
+				if (this.categories[i].id == this.editingTransaction.category_id) {
+					this.editingTransaction.category_name = this.categories[i].name;
+					break;
+				}
+			}
 
 			this.$emit("save", this.editingTransaction);
 		},
