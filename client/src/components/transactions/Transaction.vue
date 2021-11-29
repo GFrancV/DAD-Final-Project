@@ -56,7 +56,7 @@ export default {
 	methods: {
 		newTransaction() {
 			return {
-				owner_id: this.idVcard,
+				vcard: this.idVcard,
 				date: "",
 				type: "",
 				datetime: "",
