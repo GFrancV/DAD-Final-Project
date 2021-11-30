@@ -62,7 +62,7 @@
                   class="rounded-circle z-depth-0 avatar-img"
                   alt="avatar image"
                 />
-                <span class="avatar-text">User Name</span>
+                <span class="avatar-text">{{ userName }}</span>
               </a>
               <ul
                 class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
