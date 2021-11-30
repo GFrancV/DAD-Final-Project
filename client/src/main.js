@@ -22,6 +22,4 @@ axios.defaults.baseURL = url + "/api/"
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.$serverUrl = url
 
-app.config.globalProperties.$vcard = 900000001
-
 app.mount('#app')
