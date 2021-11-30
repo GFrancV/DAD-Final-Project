@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-sm-5 col-md-8 content-primary">
-        <h5 style="margin-top: 30px;">Statistics</h5>
+        <h5 style="margin-top: 30px;">Statistics for {{ id }}</h5>
           <div class="content">
             <div class="row align-items-center">
                 <div class="form-group col-md-3">
