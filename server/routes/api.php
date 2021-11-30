@@ -22,13 +22,16 @@ use App\Http\Controllers\api\UserController;
 //login
 
 Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
-
 
 //Users
 
+Route::middleware('auth:api')->group(function () {
+    Route::get('users/me', [UserController::class, 'show_me']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
 
-Route::get('users/me', [UserController::class, 'show_me']);
+
+
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{user}', [UserController::class, 'show']);
 Route::put('users/{user}', [UserController::class, 'update']);
