@@ -31,87 +31,91 @@
         </div>
         <br />
         <div class="row" style="margin-left: 5px">
-          <!--Show Transactions-->
           <div class="col-md-12">
+          <!--Show Transactions-->
             <h5>Transactions</h5>
             <div class="content">
-              <table class="table table-hover" style="width: 100%">
+              <div class="table-responsive">
+                <table
+                  class="table table-hover table-borderless"
+                  style="width: 100%"
+                >
+                  <!--
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col"></th>
                     <th scope="col">Info</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr
-                    v-for="transaction in transactions.slice(0, 5)"
-                    :key="transaction.id"
-                  >
-                    <td>
-                      <i
-                        v-if="transaction.type == 'C'"
-                        class="bi bi-arrow-bar-down label-success"
-                      ></i>
-                      <i v-else class="bi bi-arrow-bar-up label-danger"></i>
-                    </td>
-                    <td>
-                      {{ transaction.payment_reference }}
-                      <p class="text-secondary" style="font-size: 10px">
-                        {{ transaction.datetime }}
-                      </p>
-                    </td>
-                    <td>
-                      <p
-                        v-if="transaction.type == 'C'"
-                        style="display: inline; font-weight: 700; color: green"
-                      >
-                        + ${{
-                          Math.round(
-                            (transaction.new_balance -
-                              transaction.old_balance) *
-                              100
-                          ) / 100
-                        }}
-                      </p>
-                      <p
-                        v-else
-                        style="
-                          display: inline;
-                          font-weight: 700;
-                          color: rgb(253, 53, 53);
-                        "
-                      >
-                        - ${{
-                          Math.round(
-                            (transaction.new_balance -
-                              transaction.old_balance) *
-                              100
-                          ) / 100
-                        }}
-                      </p>
-                    </td>
-                    <td>
-                      <router-link
-                        type="button"
-                        class="btn btn-primary btn-sm"
-                        :to="{
-                          name: 'Transaction',
-                          params: { vcard: '900000001', id: transaction.id },
-                        }"
-                        ><i class="bi-pencil-square" style="color: white"></i
-                      ></router-link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="row">
-                <div>
-                  <div class="col-md-1"></div>
-                  <div class="col-md-7"></div>
-                  <div class="col-md-4"></div>
-                </div>
+                -->
+                  <tbody>
+                    <tr
+                      v-for="transaction in transactions.slice(0, 5)"
+                      :key="transaction.id"
+                    >
+                      <td>
+                        <i
+                          v-if="transaction.type == 'C'"
+                          class="bi bi-arrow-bar-down label-success"
+                        ></i>
+                        <i v-else class="bi bi-arrow-bar-up label-danger"></i>
+                      </td>
+                      <td>
+                        {{ transaction.payment_reference }}
+                        <p class="text-secondary" style="font-size: 10px">
+                          {{ transaction.datetime }}
+                        </p>
+                      </td>
+                      <td>
+                        <p
+                          v-if="transaction.type == 'C'"
+                          style="
+                            display: inline;
+                            font-weight: 700;
+                            color: green;
+                          "
+                        >
+                          + ${{
+                            Math.round(
+                              (transaction.new_balance -
+                                transaction.old_balance) *
+                                100
+                            ) / 100
+                          }}
+                        </p>
+                        <p
+                          v-else
+                          style="
+                            display: inline;
+                            font-weight: 700;
+                            color: rgb(253, 53, 53);
+                          "
+                        >
+                          - ${{
+                            Math.round(
+                              (transaction.new_balance -
+                                transaction.old_balance) *
+                                100
+                            ) / 100
+                          }}
+                        </p>
+                      </td>
+                      <td>
+                        <router-link
+                          type="button"
+                          class="btn btn-primary btn-sm"
+                          :to="{
+                            name: 'Transaction',
+                            params: { vcard: '900000001', id: transaction.id },
+                          }"
+                          ><i class="bi-pencil-square" style="color: white"></i
+                        ></router-link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -127,14 +131,19 @@
       <div class="col-sm-5 offset-sm-2 col-md-4 offset-md-0 content-secondary">
         <!--Visual vCard-->
         <div class="secondary-info">
-          <h5>My vCard</h5>
-          <div class="vcard">
-            <div class="logo">
-              <img src="../assets/img/logo-visa.png" alt="Visa" />
+          <div class="row">
+            <div class="col">
+              <h5>My vCard</h5>
+              <div class="vcard">
+                <div class="logo">
+                  <img src="../assets/img/logo-visa.png" alt="Visa" />
+                </div>
+                <div class="number">{{ vCardInfo.phone_number }}</div>
+                <div class="value">${{ vCardInfo.balance }}</div>
+                <div class="name">{{ vCardInfo.name }}</div>
+              </div>
+
             </div>
-            <div class="number">{{ vCardInfo.phone_number }}</div>
-            <div class="value">${{ vCardInfo.balance }}</div>
-            <div class="name">{{ vCardInfo.name }}</div>
           </div>
           <br />
           <br />
