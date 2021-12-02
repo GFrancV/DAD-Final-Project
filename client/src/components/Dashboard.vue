@@ -31,60 +31,96 @@
         </div>
         <br />
         <div class="row" style="margin-left: 5px">
-          <div class="col-md-6">
+          <!--Show Transactions-->
+          <div class="col-md-12">
             <h5>Transactions</h5>
             <div class="content">
+              <table class="table table-hover" style="width: 100%">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Info</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="transaction in transactions.slice(0, 5)"
+                    :key="transaction.id"
+                  >
+                    <td>
+                      <i
+                        v-if="transaction.type == 'C'"
+                        class="bi bi-arrow-bar-down label-success"
+                      ></i>
+                      <i v-else class="bi bi-arrow-bar-up label-danger"></i>
+                    </td>
+                    <td>
+                      {{ transaction.payment_reference }}
+                      <p class="text-secondary" style="font-size: 10px">
+                        {{ transaction.datetime }}
+                      </p>
+                    </td>
+                    <td>
+                      <p
+                        v-if="transaction.type == 'C'"
+                        style="display: inline; font-weight: 700; color: green"
+                      >
+                        + ${{
+                          Math.round(
+                            (transaction.new_balance -
+                              transaction.old_balance) *
+                              100
+                          ) / 100
+                        }}
+                      </p>
+                      <p
+                        v-else
+                        style="
+                          display: inline;
+                          font-weight: 700;
+                          color: rgb(253, 53, 53);
+                        "
+                      >
+                        - ${{
+                          Math.round(
+                            (transaction.new_balance -
+                              transaction.old_balance) *
+                              100
+                          ) / 100
+                        }}
+                      </p>
+                    </td>
+                    <td>
+                      <router-link
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        :to="{
+                          name: 'Transaction',
+                          params: { vcard: '900000001', id: transaction.id },
+                        }"
+                        ><i class="bi-pencil-square" style="color: white"></i
+                      ></router-link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <div class="row">
-                <div class="col-md-1">
-                  <i class="bi bi-arrow-bar-down text-success"></i>
+                <div>
+                  <div class="col-md-1"></div>
+                  <div class="col-md-7"></div>
+                  <div class="col-md-4"></div>
                 </div>
-                <div class="col-md-7">
-                  Transfer from Pepe
-                  <p class="text-secondary" style="font-size: 10px">
-                    December 10, 2021
-                  </p>
-                </div>
-                <div class="col-md-4">+ $10.00</div>
-
-                <div class="col-md-1">
-                  <i class="bi bi-arrow-bar-up text-danger"></i>
-                </div>
-                <div class="col-md-7">
-                  Transfer from Pepe
-                  <p class="text-secondary" style="font-size: 10px">
-                    December 10, 2021
-                  </p>
-                </div>
-                <div class="col-md-4">- $10.00</div>
-
-                <div class="col-md-1">
-                  <i class="bi bi-arrow-bar-up text-danger"></i>
-                </div>
-                <div class="col-md-7">
-                  Transfer from Pepe
-                  <p class="text-secondary" style="font-size: 10px">
-                    December 10, 2021
-                  </p>
-                </div>
-                <div class="col-md-4">+ $10.00</div>
-
-                <div class="col-md-1">
-                  <i class="bi bi-arrow-bar-down text-success"></i>
-                </div>
-                <div class="col-md-7">
-                  Transfer from Pepe
-                  <p class="text-secondary" style="font-size: 10px">
-                    December 10, 2021
-                  </p>
-                </div>
-                <div class="col-md-4">+ $10.00</div>
               </div>
             </div>
           </div>
+          <!--
           <div class="col-md-6">
             <h5>Transfer</h5>
             <div class="content"></div>
           </div>
+          -->
         </div>
       </div>
 
@@ -204,9 +240,16 @@ export default {
           console.log(error);
         });
     },
-    getTransactions(){
-
-    }
+    getTransactions() {
+      this.$axios
+        .get("vcards/" + this.id + "/transactions")
+        .then((response) => {
+          this.transactions = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
     this.getInfo();
