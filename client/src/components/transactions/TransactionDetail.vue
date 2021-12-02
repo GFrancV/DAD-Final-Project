@@ -235,13 +235,20 @@
 						v-model="editingTransaction.description"
 					></textarea>
 				</div>
+
 				<div class="mb-3 d-flex justify-content-end">
-					<button type="button" class="btn btn-primary px-5" @click="save">
-						Save
-					</button>
-					<button type="button" class="btn btn-light px-5" @click="cancel">
-						Cancel
-					</button>
+					<ul class="list-inline">
+						<li class="list-inline-item">
+							<button type="button" class="btn btn-primary px-5" @click="save">
+								Save
+							</button>
+						</li>
+						<li class="list-inline-item">
+							<button type="button" class="btn btn-secondary px-5" @click="cancel">
+								Cancel
+							</button>
+						</li>
+					</ul>
 				</div>
 			</form>
 		</div>
