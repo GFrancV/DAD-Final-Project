@@ -39,30 +39,54 @@
           required
         />
       </div>
-    </div>
 
-    <!--TIPO CATEGORIA-->
-    <div class="d-flex">
-      <div class="form-check form-check-inline">
+      <!--CONFIRMATION_CODE - DEVE-SE ALTERAR? //TODO UNHASH-->
+      <div class="mb-3">
+        <label for="inputConfirmationCode" class="form-label"
+          >Confirmation Code</label
+        >
         <input
-          class="form-check-input"
-          type="radio"
-          name="flexRadioDefault"
-          id="creditRadio"
-          value="C"
-          checked
+          type="text"
+          class="form-control"
+          id="inputConfirmationCode"
+          v-model="vcard.confirmation_code"
+          required
         />
-        <label class="form-check-label" for="flexRadioDefault1">Credit</label>
       </div>
-      <div class="form-check form-check-inline">
+
+      <!--PROFILE PHOTO-->
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Profile Photo:</label>
+
+        <div class="mb-3">
+          <img
+            src="../../assets/logo.png"
+            alt=""
+            height="100"
+            class="d-inline-block align-text-top"
+            style="float: left; margin-bottom: 10px;"
+          />
+        </div>
+      </div>
+
+      <div>
         <input
-          class="form-check-input"
-          type="radio"
-          name="flexRadioDefault"
-          id="debitRadio"
-          value="D"
+          class="form-control"
+          ref="fileInput"
+          type="file"
+          @input="pickFile"
         />
-        <label class="form-check-label" for="flexRadioDefault2">Debit</label>
+      </div>
+
+      <div v-if="this.previewImage" class="mb-10" style="margin-top: 5px">
+        <div>
+          {{ newImage }}
+        </div>
+        <div
+          class="imagePreviewWrapper"
+          :style="{ 'background-image': `url(${previewImage})` }"
+          @click="selectImage"
+        ></div>
       </div>
     </div>
 
@@ -94,9 +118,18 @@ export default {
   },
   data() {
     return {
-      vcard: this.loadVcard(),
+      vcard: {},
       errors: null, //Variável para debug
+      previewImage: null,
     };
+  },
+  computed: {
+    newImage() {
+      if (this.previewImage) {
+        return "New Image:";
+      }
+      return "";
+    },
   },
   methods: {
     dataAsString() {
@@ -127,12 +160,56 @@ export default {
           console.log(error);
         });
     },
-    save() {},
-    cancel() {},
-    getVcard() {},
+    save() {
+      this.$axios
+        .put("vcards/" + this.id, this.vcard)
+        .then((response) => {
+          this.$toast.success(
+            'User "' + response.data.data.name + '" was updated successfully.'
+          );
+          this.vcard = response.data.data;
+          this.originalValueStr = this.dataAsString();
+          this.$router.back();
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.$toast.error(
+              'User "' +
+                this.vcard.name +
+                '" was not updated due to validation errors!'
+            );
+            this.errors = error.response.data.errors;
+          } else {
+            this.$toast.error(
+              'Category "' +
+                this.category.name +
+                '" was not updated due to unknown server error!'
+            );
+          }
+        });
+    },
+    cancel() {
+      this.loadVcard();
+      this.previewImage = null;
+    },
+    selectImage() {
+      this.$refs.fileInput.click();
+    },
+    pickFile() {
+      let input = this.$refs.fileInput;
+      let file = input.files;
+      if (file && file[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target.result;
+        };
+        reader.readAsDataURL(file[0]);
+        this.$emit("input", file[0]);
+      }
+    },
   },
   mounted() {
-    this.getVcard();
+    this.loadVcard();
   },
 };
 </script>
