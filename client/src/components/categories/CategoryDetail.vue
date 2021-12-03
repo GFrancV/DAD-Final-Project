@@ -105,21 +105,7 @@ export default {
   watch: {
     category(newCategory) {
       this.editingCategory = newCategory;
-    },
-  },
-  computed: {},
-  methods: {
-    save() {
-      this.editingCategory.vcard = this.vcardId;
-      this.$emit("save", this.editingCategory);
-    },
-    cancel() {
-      this.$emit("cancel", this.editingCategory);
-    },
-    getCategoryTitle() {
-      if (!this.editingCategory) {
-        this.categoryTitle = "";
-      } else {
+      if (!this.categoryTitle) {
         if (this.operationType == "Create") {
           this.categoryTitle = "Create Category";
           this.editingCategory.type = "C";
@@ -129,8 +115,16 @@ export default {
       }
     },
   },
+  methods: {
+    save() {
+      this.editingCategory.vcard = this.vcardId;
+      this.$emit("save", this.editingCategory);
+    },
+    cancel() {
+      this.$emit("cancel", this.editingCategory);
+    },
+  },
   mounted() {
-    this.getCategoryTitle();
   },
 };
 </script>
