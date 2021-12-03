@@ -69,7 +69,8 @@
 								<p style="display: inline; font-weight: 700; color: green">
 									+ ${{
 										Math.round(
-											(transaction.new_balance - transaction.old_balance) * 100
+											(transaction.new_balance - transaction.old_balance) *
+												100
 										) / 100
 									}}
 								</p>
@@ -84,7 +85,8 @@
 								>
 									- ${{
 										Math.round(
-											(transaction.new_balance - transaction.old_balance) * 100
+											(transaction.new_balance - transaction.old_balance) *
+												100
 										) / 100
 									}}
 								</p>
@@ -128,50 +130,50 @@
 </template>
 
 <script>
-export default {
-	name: "Transactions",
-	props: {
-		idVcard: {
-			type: String,
-			default: "",
+	export default {
+		name: "Transactions",
+		props: {
+			idVcard: {
+				type: String,
+				default: "",
+			},
 		},
-	},
 
-	computed: {},
+		computed: {},
 
-	data() {
-		return {
-			categories: [],
-			transactions: [],
-		};
-	},
+		data() {
+			return {
+				categories: [],
+				transactions: [],
+			}
+		},
 
-	methods: {
-		getTransactions() {
-			this.$axios
-				.get("vcards/" + this.idVcard + "/transactions")
-				.then((response) => {
-					this.transactions = response.data.data;
+		methods: {
+			getTransactions() {
+				this.$axios
+					.get("vcards/" + this.idVcard + "/transactions")
+					.then(response => {
+						this.transactions = response.data.data
+					})
+					.catch(error => {
+						console.log(error)
+					})
+			},
+
+			addTask() {
+				this.$router.push({
+					name: "NewTransaction",
+					params: { id: this.idVcard },
 				})
-				.catch((error) => {
-					console.log(error);
-				});
+			},
 		},
 
-		addTask() {
-			this.$router.push({
-				name: "NewTransaction",
-				params: { id: this.idVcard },
-			});
+		mounted() {
+			this.getTransactions()
 		},
-	},
-
-	mounted() {
-		this.getTransactions();
-	},
-};
+	}
 </script>
 
 <style scoped lang="css">
-@import "../../assets/css/style.css";
+	@import "../../assets/css/style.css";
 </style>
