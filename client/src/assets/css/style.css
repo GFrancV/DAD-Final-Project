@@ -44,3 +44,12 @@
 	border: 10px 10px 10px 10px;
 	border-radius: 8px;
 }
+
+.label-count {
+	background-color: var(--primary);
+	padding: 7px 7px 7px 7px;
+	font-weight: 600;
+	color: white;
+	border: 10px 10px 10px 10px;
+	border-radius: 8px;
+}
