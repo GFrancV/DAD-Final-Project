@@ -54,17 +54,45 @@
         />
       </div>
 
+      <div class="mb-3 row">
+        <div class="col">
+          <label for="inputConfirmationCode" class="form-label"
+            >Current Password</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="inputConfirmationCode"
+            v-model="currentPassword"
+            required
+          />
+        </div>
+
+        <div class="col-sm">
+          <label for="inputConfirmationCode" class="form-label"
+            >New Password</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="inputConfirmationCode"
+            v-model="newPassword"
+            required
+          />
+        </div>
+      </div>
+
       <!--PROFILE PHOTO-->
       <div class="mb-3">
         <label for="formFile" class="form-label">Profile Photo:</label>
 
         <div class="mb-3">
           <img
-            src="../../assets/logo.png"
+            :src="profilePhoto"
             alt=""
-            height="100"
+            height="150"
             class="d-inline-block align-text-top"
-            style="float: left; margin-bottom: 10px;"
+            style="float: left; margin-bottom: 10px"
           />
         </div>
       </div>
@@ -121,6 +149,8 @@ export default {
       vcard: {},
       errors: null, //Variável para debug
       previewImage: null,
+      currentPassword: "",
+      newPassword: "",
     };
   },
   computed: {
@@ -129,6 +159,12 @@ export default {
         return "New Image:";
       }
       return "";
+    },
+    profilePhoto() {
+      if (this.vcard.photo_url) {
+        return this.$serverUrl + "/storage/fotos/" + this.vcard.photo_url;
+      }
+      return "./assets/img/avatar-exemplo-1.jpg";
     },
   },
   methods: {
