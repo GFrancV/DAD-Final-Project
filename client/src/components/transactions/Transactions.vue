@@ -35,7 +35,7 @@
 						<tr>
 							<th scope="col">ID</th>
 							<th scope="col">Info</th>
-							<th scope="col"></th>
+							<th scope="col">Date</th>
 							<th scope="col">Old balance</th>
 							<th scope="col" style="width: 10%">Mount</th>
 							<th scope="col">New balance</th>
@@ -43,9 +43,9 @@
 							<!-- 
 							<th scope="col">pair_transaction</th>
 							<th scope="col">pair_vcard</th>
-							-->
 							<th scope="col">Category</th>
 							<th scope="col">Description</th>
+							-->
 							<th scope="col">Tools</th>
 						</tr>
 					</thead>
@@ -56,20 +56,17 @@
 								<p style="font-size: 18px; display: inline">
 									{{ transaction.payment_reference }}
 								</p>
-								<p class="text-secondary" style="font-size: 12px">
-									{{ transaction.datetime }}
-								</p>
+								<p class="text-secondary" style="font-size: 16px"></p>
 							</td>
-							<td v-if="transaction.type == 'C'">
-								<i class="bi bi-arrow-bar-down label-success"></i>
-							</td>
-							<td v-else><i class="bi bi-arrow-bar-up label-danger"></i></td>
+							<td>{{ transaction.datetime }}</td>
 							<td>${{ transaction.old_balance }}</td>
 							<td v-if="transaction.type == 'C'">
 								<p style="display: inline; font-weight: 700; color: green">
-									+ ${{
+									<i class="bi bi-arrow-bar-down label-success"></i>
+									${{
 										Math.round(
-											(transaction.new_balance - transaction.old_balance) * 100
+											(transaction.new_balance - transaction.old_balance) *
+												100
 										) / 100
 									}}
 								</p>
@@ -82,9 +79,11 @@
 										color: rgb(253, 53, 53);
 									"
 								>
-									- ${{
+									<i class="bi bi-arrow-bar-up label-danger"></i>
+									${{
 										Math.round(
-											(transaction.new_balance - transaction.old_balance) * 100
+											(transaction.old_balance - transaction.new_balance) *
+												100
 										) / 100
 									}}
 								</p>
@@ -94,12 +93,10 @@
 							<!--
 							<td>{{ transaction.pair_transaction || "N/A" }}</td>
 							<td>{{ transaction.pair_vcard || "N/A" }}</td>
-							-->
 							<td>
 								<div class="label-primary">
 									{{ transaction.category_name || "uncategorized" }}
 								</div>
-								<!--/* TODO - Mudar para nome de categoria */-->
 							</td>
 							<td v-if="transaction.description == null">
 								<p class="text-secondary" style="font-size: 12px">
@@ -107,6 +104,7 @@
 								</p>
 							</td>
 							<td v-else>{{ transaction.description }}</td>
+							-->
 							<td>
 								<router-link
 									type="button"
@@ -128,50 +126,50 @@
 </template>
 
 <script>
-export default {
-	name: "Transactions",
-	props: {
-		idVcard: {
-			type: String,
-			default: "",
+	export default {
+		name: "Transactions",
+		props: {
+			idVcard: {
+				type: String,
+				default: "",
+			},
 		},
-	},
 
-	computed: {},
+		computed: {},
 
-	data() {
-		return {
-			categories: [],
-			transactions: [],
-		};
-	},
+		data() {
+			return {
+				categories: [],
+				transactions: [],
+			}
+		},
 
-	methods: {
-		getTransactions() {
-			this.$axios
-				.get("vcards/" + this.idVcard + "/transactions")
-				.then((response) => {
-					this.transactions = response.data.data;
+		methods: {
+			getTransactions() {
+				this.$axios
+					.get("vcards/" + this.idVcard + "/transactions")
+					.then(response => {
+						this.transactions = response.data.data
+					})
+					.catch(error => {
+						console.log(error)
+					})
+			},
+
+			addTask() {
+				this.$router.push({
+					name: "NewTransaction",
+					params: { id: this.idVcard },
 				})
-				.catch((error) => {
-					console.log(error);
-				});
+			},
 		},
 
-		addTask() {
-			this.$router.push({
-				name: "NewTransaction",
-				params: { id: this.idVcard },
-			});
+		mounted() {
+			this.getTransactions()
 		},
-	},
-
-	mounted() {
-		this.getTransactions();
-	},
-};
+	}
 </script>
 
 <style scoped lang="css">
-@import "../../assets/css/style.css";
+	@import "../../assets/css/style.css";
 </style>
