@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h4 style="margin-top: 30px">{{ transactionTitle }}</h4>
+		<h2 style="margin-top: 30px">{{ transactionTitle }}</h2>
 		<div class="content">
 			<form class="row g-3 needs-validation" novalidate @submit.prevent="save">
 				<!--
