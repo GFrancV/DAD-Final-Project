@@ -137,19 +137,6 @@
 									<i class="bi bi-list-stars"></i>
 									Categories
 								</router-link>
-								<router-link
-									class="link-secondary"
-									aria-label="Add category"
-									:to="{
-										name: 'CategoryCreate',
-										params: {
-											vcardId: '900000001',
-											id: null,
-										},
-									}"
-								>
-									<i class="bi bi-xs bi-plus-circle"></i>
-								</router-link>
 							</li>
 							<li
 								class="
@@ -169,11 +156,7 @@
 									<i class="bi bi-credit-card"></i>
 									Payment Types
 								</router-link>
-								<a
-									class="link-secondary"
-									href="#"
-									aria-label="Add payment type"
-								>
+								<a class="link-secondary" href="#" aria-label="Add payment type">
 									<i class="bi bi-xs bi-plus-circle"></i>
 								</a>
 							</li>
@@ -313,32 +296,32 @@
 </template>
 
 <script>
-// REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
+	// REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
 
-export default {
-	name: "RootComponent",
-};
+	export default {
+		name: "RootComponent",
+	}
 </script>
 
 <style lang="css">
-@import "./assets/css/dashboard.css";
+	@import "./assets/css/dashboard.css";
 
-.avatar-img {
-	margin: -1.2rem 0.8rem -2rem 0.8rem;
-	width: 3.3rem;
-	height: 3.3rem;
-}
-.avatar-text {
-	line-height: 2.2rem;
-	margin: 1rem 0.5rem -2rem 0;
-	padding-top: 1rem;
-}
+	.avatar-img {
+		margin: -1.2rem 0.8rem -2rem 0.8rem;
+		width: 3.3rem;
+		height: 3.3rem;
+	}
+	.avatar-text {
+		line-height: 2.2rem;
+		margin: 1rem 0.5rem -2rem 0;
+		padding-top: 1rem;
+	}
 
-.dropdown-item {
-	font-size: 0.875rem;
-}
+	.dropdown-item {
+		font-size: 0.875rem;
+	}
 
-.main-content {
-	background-color: #f4f5f8;
-}
+	.main-content {
+		background-color: #f4f5f8;
+	}
 </style>
