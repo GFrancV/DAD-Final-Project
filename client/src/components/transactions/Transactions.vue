@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h5 style="margin-top: 30px">Transactions: vCard {{ idVcard }}</h5>
+		<h2 style="margin-top: 30px">Transactions: vCard {{ idVcard }}</h2>
 		<div class="content">
 			<div class="row">
 				<div class="col-sm-8">
@@ -24,7 +24,7 @@
 						:to="{ name: 'NewTransaction', params: { vcard: '900000001' } }"
 					>
 						<i class="bi bi-plus" style="color: white"></i>
-						New Transaction
+						Add New Transaction
 					</router-link>
 				</div>
 			</div>
