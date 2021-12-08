@@ -70,7 +70,9 @@ const routes = [
     name: 'Payments',
     component: Payments
   },
+  
 
+  ////USERS routes
   {
     path: '/users',
     name: 'Users',
@@ -81,6 +83,15 @@ const routes = [
     name: 'User',
     component: User
   },
+  {
+    path: '/users/:idUser/create',
+    name: 'UserCreate',
+    component: User,
+    props: route => ({ id: route.params.idUser, idUser: null })
+  },
+
+
+  //--------------------
   {
     path: '/login',
     name: 'Login',

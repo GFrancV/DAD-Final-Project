@@ -83,11 +83,11 @@
                 <li>
                   <hr class="dropdown-divider" />
                 </li>
-                    <li>
-                      <a class="dropdown-item" @click.prevent="logout"
-                        ><i class="bi bi-arrow-right"></i>Logout</a
-                      >
-                    </li>
+                <li>
+                  <a class="dropdown-item" @click.prevent="logout"
+                    ><i class="bi bi-arrow-right"></i>Logout</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -201,7 +201,12 @@
                   class="nav-link"
                   :class="{ active: $route.name === 'Users' }"
                   aria-current="page"
-                  :to="{ name: 'Users' }"
+                  :to="{
+                    name: 'Users',
+                    params: {
+                      idUser: 900000001
+                    },
+                  }"
                 >
                   <i class="bi bi-people"></i>
                   Users
@@ -319,28 +324,31 @@
 export default {
   name: "RootComponent",
   methods: {
-    logout () { 
-      this.$store.dispatch('logout') 
-        .then(() => { 
-          this.$toast.success('User has logged out of the application.') 
-          this.$router.push({ name: 'Home' }) 
-        }) 
-        .catch(() => { 
-          this.$toast.error('There was a problem logging out of the application!') 
-        }) 
-    }
+    logout() {
+      this.$store
+        .dispatch("logout")
+        .then(() => {
+          this.$toast.success("User has logged out of the application.");
+          this.$router.push({ name: "Home" });
+        })
+        .catch(() => {
+          this.$toast.error(
+            "There was a problem logging out of the application!"
+          );
+        });
+    },
   },
-  computed: { 
-    user () { 
-      return this.$store.state.user 
-    }, 
-    userId () { 
-      return this.$store.state.user ? this.$store.state.user.id : -1 
-    }, 
-    userName () { 
-      return this.$store.state.user ? this.$store.state.user.name : '' 
-    }, 
-  }, 
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    userId() {
+      return this.$store.state.user ? this.$store.state.user.id : -1;
+    },
+    userName() {
+      return this.$store.state.user ? this.$store.state.user.name : "";
+    },
+  },
 };
 </script>
 
