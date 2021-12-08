@@ -118,4 +118,22 @@ const router = createRouter({
   routes
 })
 
+import store from '../store'
+
+router.beforeEach((to,from, next) => {
+  if ((to.name == 'Login') || (to.name == 'Home')) {
+    next()
+    return
+  }
+  if (to.name == 'User') {
+    if ((store.state.user.type == 'A') || (store.state.user.id == to.params.id)) {
+      next()
+      return
+    }
+    next(false)
+    return
+  }
+  next()
+})
+
 export default router

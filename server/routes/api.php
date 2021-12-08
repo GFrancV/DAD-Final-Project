@@ -28,13 +28,13 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::get('users/me', [UserController::class, 'show_me']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
+    Route::get('users/{user}', [UserController::class, 'show'])->middleware('can:view,user');
+    Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
 });
 
 
 
-Route::get('users', [UserController::class, 'index']);
-Route::get('users/{user}', [UserController::class, 'show']);
-Route::put('users/{user}', [UserController::class, 'update']);
 
 //Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
