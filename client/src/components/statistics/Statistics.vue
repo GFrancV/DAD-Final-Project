@@ -1,48 +1,8 @@
 <template>
 	<div>
 		<h2 style="margin-top: 30px">Statistics</h2>
-		<div class="row">
-			<div class="content col-md-4">
-				<div class="row">
-					<div class="col-md-5">
-						<select id="inputState" class="form-control">
-							<option selected>22/11/2021</option>
-							<option>21/11/2021</option>
-							<option>20/11/2021</option>
-						</select>
-					</div>
-					-
-					<div class="col-md-5">
-						<select id="inputState" class="form-control">
-							<option selected>22/11/2021</option>
-							<option>21/11/2021</option>
-							<option>20/11/2021</option>
-						</select>
-					</div>
-					<div class="col-md-1"><i class="bi bi-calendar3" style="color: #5176e0"></i></div>
-				</div>
-			</div>
-		</div>
-		<br />
-		<div class="content">
-			<h5>Year summary</h5>
-			<br />
-			<div class="row align-items-center">
-				<div class="col-md-12" style="text-align: right">
-					<button v-if="graph" v-on:click="graphType()" type="button" class="btn btn-primary">
-						<i class="bi bi-bar-chart" style="color: white"></i>
-					</button>
-					<button v-else v-on:click="graphType()" type="button" class="btn btn-primary">
-						<i class="bi bi-graph-up" style="color: white"></i>
-					</button>
-				</div>
-			</div>
-
-			<br />
-			<div v-if="graphData != null && graph">
-				<transactions-statistics :graphData="graphData"></transactions-statistics>
-			</div>
-			<column-chart v-else :colors="['#4e79e0']" :data="graphData"></column-chart>
+		<div v-if="graphData">
+			<transactions-statistics :graphData="graphData"></transactions-statistics>
 		</div>
 		<br />
 		<div class="content">
@@ -65,6 +25,7 @@
 		components: {
 			TransactionsStatistics,
 		},
+
 		props: {
 			idVcard: {
 				type: String,
@@ -75,7 +36,6 @@
 			return {
 				transactions: [],
 				graphData: null,
-				graph: true,
 			}
 		},
 		methods: {
@@ -97,11 +57,6 @@
 
 				console.log(array)
 				this.graphData = array
-			},
-
-			graphType() {
-				this.graph = !this.graph
-				console.log(this.graph)
 			},
 		},
 		mounted() {
