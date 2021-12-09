@@ -181,6 +181,23 @@
 							<li class="nav-item">
 								<router-link
 									class="nav-link"
+									:class="{ active: $route.name === 'Statistics' }"
+									aria-current="page"
+									:to="{
+										name: 'Statistics',
+										params: {
+											vcard: '900000001',
+										},
+									}"
+								>
+									<i class="bi bi-currency-dollar"></i>
+									Statistics
+								</router-link>
+							</li>
+
+							<li class="nav-item">
+								<router-link
+									class="nav-link"
 									:class="{ active: $route.name === 'Users' }"
 									aria-current="page"
 									:to="{ name: 'Users' }"
@@ -188,12 +205,6 @@
 									<i class="bi bi-people"></i>
 									Users
 								</router-link>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									<i class="bi bi-bar-chart-line"></i>
-									EXTRA - NÃO TEM ROTA
-								</a>
 							</li>
 						</ul>
 
