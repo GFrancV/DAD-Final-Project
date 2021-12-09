@@ -1,7 +1,7 @@
 <template>
 	<h2 style="margin-top: 30px">Statistics of vCard {{ idVcard }}</h2>
 	<div class="content">
-		<h5>Transactions summary</h5>
+		<h5>Year summary</h5>
 		<br />
 		<div v-if="graphData != null">
 			<transactions-statistics :graphData="graphData"></transactions-statistics>
@@ -31,7 +31,7 @@
 		},
 		methods: {
 			async getMountOfDay() {
-				var array = [["as", 20]]
+				var array = [["", 0]]
 
 				await this.$axios
 					.get("vcards/" + this.idVcard + "/transactions")
@@ -43,9 +43,13 @@
 					})
 
 				for (let i = 0; i < this.transactions.length; i++) {
-					array.push([this.transactions[i].date, parseFloat(this.transactions[i].value)])
+					array.push([
+						this.transactions[i].date.slice(5, 11),
+						this.transactions[i].new_balance,
+					])
 				}
 
+				console.log(array)
 				this.graphData = array
 			},
 		},

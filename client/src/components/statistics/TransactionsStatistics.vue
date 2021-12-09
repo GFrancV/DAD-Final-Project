@@ -1,5 +1,5 @@
 <template>
-	<area-chart :colors="['#4e79e0', '#ffffff']" :data="graphData"></area-chart>
+	<area-chart :colors="['#4e79e0']" :data="graphData"></area-chart>
 </template>
 
 <script>
@@ -14,6 +14,7 @@
 		data() {
 			return {}
 		},
+		methods: {},
 	}
 </script>
 
