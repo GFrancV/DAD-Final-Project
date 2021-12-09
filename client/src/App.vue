@@ -190,7 +190,7 @@
 										},
 									}"
 								>
-									<i class="bi bi-currency-dollar"></i>
+									<i class="bi bi-bar-chart"></i>
 									Statistics
 								</router-link>
 							</li>
