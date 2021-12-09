@@ -11,6 +11,9 @@ import Toaster from "@meforma/vue-toaster"
 //Chars plugin
 import VueChartkick from "vue-chartkick"
 import "chartkick/chart.js"
+//Date picker
+import Datepicker from "vue3-date-time-picker"
+import "vue3-date-time-picker/dist/main.css"
 
 let toastOptions = {
 	position: "top",
@@ -18,7 +21,12 @@ let toastOptions = {
 	pauseOnHover: true,
 }
 
-const app = createApp(App).use(store).use(router).use(Toaster, toastOptions).use(VueChartkick)
+const app = createApp(App)
+	.use(store)
+	.use(router)
+	.use(Toaster, toastOptions)
+	.use(VueChartkick)
+	.component("Datepicker", Datepicker)
 const url = "http://vcard_api.test"
 
 axios.defaults.baseURL = url + "/api/"
