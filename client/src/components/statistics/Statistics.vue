@@ -2,10 +2,11 @@
 	<div>
 		<h2 style="margin-top: 30px">Statistics</h2>
 		<div v-if="transactions">
-			<transactions-statistics :transactions="transactions"></transactions-statistics>
+			<balance-summary :transactions="transactions"></balance-summary>
 		</div>
 		<br />
 		<div class="content">
+			<h5>Expenses by categories</h5>
 			<pie-chart
 				:data="[
 					['Blueberry', 44],
@@ -18,12 +19,12 @@
 </template>
 
 <script>
-	import TransactionsStatistics from "./TransactionsStatistics.vue"
+	import BalanceSummary from "./BalanceSummary.vue"
 
 	export default {
 		name: "Statistics",
 		components: {
-			TransactionsStatistics,
+			BalanceSummary,
 		},
 
 		props: {

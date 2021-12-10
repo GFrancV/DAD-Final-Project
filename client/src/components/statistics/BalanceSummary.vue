@@ -26,7 +26,7 @@
 		<br />
 		<div class="content">
 			<div class="row align-items-center">
-				<div class="col-md-6"></div>
+				<div class="col-md-6"><h5>Balance summary</h5></div>
 				<div class="col-md-6" style="text-align: right">
 					<button v-if="graph" v-on:click="graphType()" type="button" class="btn btn-primary">
 						<i class="bi bi-bar-chart" style="color: white"></i>
