@@ -29,16 +29,47 @@
       </router-link>
     </div>
   </div>
+
+  <user-table
+    :users="$store.getters.users"
+    :showId="false"
+  ></user-table>
 </template>
 
 <script>
+
+import UserTable from "./UserTable.vue"
+
 export default {
   name: "Users",
-    props: {
+  components:{
+    UserTable
+  },
+  props: {
     idUser: {
       type: String,
       default: null,
     },
+  },
+  data() {
+    return {
+      users: [],
+    };
+  },
+  methods: {
+    getUsers() {
+      this.$axios
+        .get("users")
+        .then((response) => {
+          this.users = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.getUsers();
   },
 };
 </script>

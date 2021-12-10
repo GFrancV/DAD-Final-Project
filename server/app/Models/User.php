@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'photo_url',
     ];
 
     protected $table = 'view_auth_users';

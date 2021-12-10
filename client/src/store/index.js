@@ -4,15 +4,40 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    user: null
+    user: null,
+    users: [],
   },
   mutations: {
+
+//---------------------------------------------------
+    //Users mutations
     resetUser(state) {
       state.user = null
     },
     setUser(state, loggedInUser) {
       state.user = loggedInUser
-    }
+    },
+    setUsers (state, users) {
+      state.users = users
+    },
+    insertUser (state, newUser) {
+      state.users.push(newUser)
+    },
+    updateUser (state, updateUser) {
+      let idx = state.users.findIndex((t) => t.id === updateUser.id)
+      if (idx >= 0) {
+        state.users[idx] = updateUser
+      }
+    },
+    deleteUser (state, deleteUser) {
+      let idx = state.users.findIndex((t) => t.id === deleteUser.id)
+      if (idx >= 0) {
+        state.users.splice(idx, 1)
+      }
+    },
+
+//---------------------------------------------------
+
   },
   actions: {
     async login (context, credentials) { 
@@ -37,5 +62,13 @@ export default createStore({
         context.commit('resetUser', null) 
       }
     }
-  }
+  },
+  getters:{
+    users: (state) => {
+      return state.users
+    },
+    totalUsers: (state) => {
+      return state.users.length
+    },
+  },
 })
