@@ -5,8 +5,19 @@
 			<balance-summary :transactions="transactions"></balance-summary>
 		</div>
 		<br />
-		<div v-if="categories && transactions" class="content">
-			<expenses-category :transactions="transactions" :categories="categories"></expenses-category>
+		<div class="row" style="margin-left: 5px">
+			<div class="col-md-8">
+				<div class="content"><h5>Summary table</h5></div>
+			</div>
+			<div class="col-md-4">
+				<div class="content">
+					<expenses-category
+						v-if="categories && transactions"
+						:transactions="transactions"
+						:categories="categories"
+					></expenses-category>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
