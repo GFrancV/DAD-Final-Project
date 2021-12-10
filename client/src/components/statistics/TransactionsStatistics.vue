@@ -1,20 +1,24 @@
 <template>
 	<div>
 		<div class="row">
-			<div class="content col-md-3">
+			<div class="content col-md-5">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-8">
 						<datepicker
 							v-model="date"
 							:enableTimePicker="false"
 							placeholder="Select a date ..."
-							format="yyyy-MM-dd"
+							format="yyyy/MM/dd"
 							range
 							twoCalendars
 							@update:modelValue="pickDate"
 						>
 						</datepicker>
-						{{ date }}
+					</div>
+					<div class="col-md-4">
+						<button v-on:click="getStatistics()" type="button" class="btn btn-primary">
+							<i class="bi bi-arrow-clockwise" style="color: white"></i> Reset filter
+						</button>
 					</div>
 				</div>
 			</div>
@@ -56,8 +60,7 @@
 				graphData: null,
 				graph: true,
 				date: null,
-				formatData: null,
-				filterDate: [["", 0]],
+				formatDate: null,
 			}
 		},
 		computed: {},
@@ -73,7 +76,7 @@
 
 			pickDate() {
 				if (this.date == null) {
-					this.formatData = ""
+					this.formatDate = ""
 				} else {
 					var aux1 = this.date[0]
 					var aux2 = this.date[1]
@@ -91,20 +94,26 @@
 						"-" +
 						(aux2.getDate() < 10 ? "0" + aux2.getDate() : aux2.getDate())
 
-					this.formatData = [date1, date2]
+					this.formatDate = [date1, date2]
 				}
 
 				this.getSpecificsStatistics()
 			},
 
 			getSpecificsStatistics() {
+				var auxData = [["", 0]]
 				for (let i = 0; i < this.transactions.length; i++) {
-					if (this.transactions[i].date == this.formatData[0]) {
-						console.log("sd")
+					if (
+						this.formatDate[0] <= this.transactions[i].date &&
+						this.transactions[i].date <= this.formatDate[1]
+					) {
+						auxData.push([this.transactions[i].date, this.transactions[i].new_balance])
 					}
-					this.filterDate.push([this.transactions[i].date, this.transactions[i].value])
 				}
-				console.log(this.filterDate)
+
+				if (auxData.length == 1) auxData = []
+
+				this.graphData = auxData
 			},
 
 			graphType() {
