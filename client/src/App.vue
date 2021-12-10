@@ -34,68 +34,6 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-<<<<<<< HEAD
-				<div class="collapse navbar-collapse justify-content-end">
-					<ul class="navbar-nav">
-						<li class="nav-item">
-							<router-link class="nav-link" :to="{ name: 'Register' }"
-								><i class="bi bi-person-check-fill"></i>
-								Register
-							</router-link>
-						</li>
-						<li class="nav-item">
-							<router-link class="nav-link" :to="{ name: 'Login' }">
-								<i class="bi bi-box-arrow-in-right"></i>
-								Login
-							</router-link>
-						</li>
-						<li class="nav-item dropdown">
-							<a
-								class="nav-link dropdown-toggle"
-								href="#"
-								id="navbarDropdownMenuLink"
-								role="button"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								<img
-									src="./assets/img/avatar-exemplo-1.jpg"
-									class="rounded-circle z-depth-0 avatar-img"
-									alt="avatar image"
-								/>
-								<span class="avatar-text">User Name</span>
-							</a>
-							<ul
-								class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-								aria-labelledby="navbarDropdownMenuLink"
-							>
-								<li>
-									<router-link class="dropdown-item" :to="{ name: 'User' }"
-										><i class="bi bi-person-square"></i>Profile</router-link
-									>
-								</li>
-								<li>
-									<router-link
-										class="dropdown-item"
-										:to="{ name: 'ChangePassword' }"
-										><i class="bi bi-key-fill"></i>Change password</router-link
-									>
-								</li>
-								<li>
-									<hr class="dropdown-divider" />
-								</li>
-								<li>
-									<a class="dropdown-item" href="#"
-										><i class="bi bi-arrow-right"></i>Logout</a
-									>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-=======
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -156,7 +94,6 @@
         </div>
       </div>
     </nav>
->>>>>>> userApi
 
 		<div class="container-fluid">
 			<div class="row">
@@ -224,140 +161,6 @@
 								</a>
 							</li>
 
-<<<<<<< HEAD
-							<li class="nav-item">
-								<router-link
-									class="nav-link"
-									:class="{ active: $route.name === 'Transactions' }"
-									aria-current="page"
-									:to="{
-										name: 'Transactions',
-										params: {
-											vcard: '900000001',
-										},
-									}"
-								>
-									<i class="bi bi-currency-dollar"></i>
-									Transactions
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link
-									class="nav-link"
-									:class="{ active: $route.name === 'Users' }"
-									aria-current="page"
-									:to="{ name: 'Users' }"
-								>
-									<i class="bi bi-people"></i>
-									Users
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									<i class="bi bi-bar-chart-line"></i>
-									EXTRA - NÃO TEM ROTA
-								</a>
-							</li>
-						</ul>
-
-						<h6
-							class="
-								sidebar-heading
-								d-flex
-								justify-content-between
-								align-items-center
-								px-3
-								mt-4
-								mb-1
-								text-muted
-							"
-						>
-							<span>vCards - TODO</span>
-							<a class="link-secondary" href="#" aria-label="Add a new project">
-								<i class="bi bi-xs bi-plus-circle"></i>
-							</a>
-						</h6>
-
-						<div class="d-block d-md-none">
-							<h6
-								class="
-									sidebar-heading
-									d-flex
-									justify-content-between
-									align-items-center
-									px-3
-									mt-4
-									mb-1
-									text-muted
-								"
-							>
-								<span>User</span>
-							</h6>
-							<ul class="nav flex-column mb-2">
-								<li class="nav-item">
-									<a class="nav-link" href="#"
-										><i class="bi bi-person-check-fill"></i>
-										Register
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#">
-										<i class="bi bi-box-arrow-in-right"></i>
-										Login
-									</a>
-								</li>
-								<li class="nav-item dropdown">
-									<a
-										class="nav-link dropdown-toggle"
-										href="#"
-										id="navbarDropdownMenuLink2"
-										role="button"
-										data-bs-toggle="dropdown"
-										aria-expanded="false"
-									>
-										<img
-											src="./assets/img/avatar-exemplo-1.jpg"
-											class="rounded-circle z-depth-0 avatar-img"
-											alt="avatar image"
-										/>
-										<span class="avatar-text">User Name</span>
-									</a>
-									<ul
-										class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink2"
-									>
-										<li>
-											<a class="dropdown-item" href="#"
-												><i class="bi bi-person-square"></i>Profile</a
-											>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#"
-												><i class="bi bi-key-fill"></i>Change password</a
-											>
-										</li>
-										<li>
-											<hr class="dropdown-divider" />
-										</li>
-										<li>
-											<a class="dropdown-item" href="#"
-												><i class="bi bi-arrow-right"></i>Logout</a
-											>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-			</div>
-		</div>
-		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-			<router-view></router-view>
-		</main>
-	</div>
-=======
               <li class="nav-item">
                 <router-link
                   class="nav-link"
@@ -496,17 +299,11 @@
       <router-view></router-view>
     </main>
   </div>
->>>>>>> userApi
 </template>
 
 <script>
 	// REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
 
-<<<<<<< HEAD
-	export default {
-		name: "RootComponent",
-	}
-=======
 export default {
   name: "RootComponent",
   methods: {
@@ -536,7 +333,6 @@ export default {
     },
   },
 };
->>>>>>> userApi
 </script>
 
 <style lang="css">
