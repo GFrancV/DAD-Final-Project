@@ -40,20 +40,36 @@
         />
       </div>
 
-      <!--CONFIRMATION_CODE - DEVE-SE ALTERAR? //TODO UNHASH-->
-      <div class="mb-3">
-        <label for="inputConfirmationCode" class="form-label"
-          >Confirmation Code</label
-        >
-        <input
-          type="text"
-          class="form-control"
-          id="inputConfirmationCode"
-          v-model="vcard.confirmation_code"
-          required
-        />
+      <!--CONFIRMATION CODE-->
+      <div class="mb-3 row">
+        <div class="col">
+          <label for="inputConfirmationCode" class="form-label"
+            >Current Confirmation Code</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="inputConfirmationCode"
+            v-model="currentCredentials.currentCode"
+            required
+          />
+        </div>
+
+        <div class="col-sm">
+          <label for="inputConfirmationCode" class="form-label"
+            >New Confirmation Code</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="inputConfirmationCode"
+            v-model="this.vcard.confirmation_code"
+            required
+          />
+        </div>
       </div>
 
+      <!--PASSWORD-->
       <div class="mb-3 row">
         <div class="col">
           <label for="inputConfirmationCode" class="form-label"
@@ -63,7 +79,7 @@
             type="text"
             class="form-control"
             id="inputConfirmationCode"
-            v-model="currentPassword"
+            v-model="currentCredentials.currentPassword"
             required
           />
         </div>
@@ -76,7 +92,7 @@
             type="text"
             class="form-control"
             id="inputConfirmationCode"
-            v-model="newPassword"
+            v-model="this.vcard.password"
             required
           />
         </div>
@@ -149,8 +165,10 @@ export default {
       vcard: {},
       errors: null, //Variável para debug
       previewImage: null,
-      currentPassword: "",
-      newPassword: "",
+      currentCredentials: {
+        currentPassword: "",
+        currentCode: "",
+      },
     };
   },
   computed: {
@@ -191,6 +209,8 @@ export default {
         .then((response) => {
           this.vcard = response.data.data;
           this.originalValueStr = this.dataAsString();
+          //this.vcard.password = ""
+          //this.vcard.confirmation_code = ""
         })
         .catch((error) => {
           console.log(error);
@@ -198,7 +218,7 @@ export default {
     },
     save() {
       this.$axios
-        .put("vcards/" + this.id, this.vcard)
+        .put("vcards/" + this.id, this.vcard, { newPassword: "1234" })
         .then((response) => {
           this.$toast.success(
             'User "' + response.data.data.name + '" was updated successfully.'

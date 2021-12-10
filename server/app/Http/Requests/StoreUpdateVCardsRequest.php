@@ -26,8 +26,7 @@ class StoreUpdateVCardsRequest extends FormRequest
         return [
             'name' => 'required|max:50|min:3',
             'email' => 'required|email',
-            'photo_url' => 'nullable|file|image',
-            'blocked' => 'required|numeric|min:0',
+            'photo_url' => 'nullable|string',
             'balance' => 'required|numeric|min:0',
             'max_debit' => 'required|numeric|min:0'
         ];

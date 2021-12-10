@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateVCardsRequest;
-use App\Http\Resources\VcardResource;
+use App\Models\VCard;
 use App\Models\Category;
 use App\Models\Transaction;
-use App\Models\VCard;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\VcardResource;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreUpdateVCardsRequest;
 
 class VcardController extends Controller
 {
     public function show(VCard $vcard)
     {
-        $vcard = VCard::where('phone_number', $vcard->phone_number)->first();
         return new VcardResource($vcard);
     }
 
@@ -25,10 +26,33 @@ class VcardController extends Controller
         return new VcardResource($newVcard);
     }
 
-    public function update(StoreUpdateVCardsRequest $request, Vcard $vcard)
+    public function update(Request $request, VCard $vcard)
     {
-        $vcard = VCard::where('phone_number', $vcard->phone_number)->first();
-        $vcard->update($request->validated());
+        //$vcard = VCard::where('phone_number', $request->vcard)->first();
+        //Verificar password e confirmation_code atuais
+        if (
+            !Hash::check($request->currentCode, $vcard->confirmation_code) ||
+            !Hash::check($request->currentPassword, $vcard->password)
+        ) {
+            return;
+        }
+
+        //Hash confirmation_code e password
+        $newPassword = Hash::make($request->password);
+        $newCode = Hash::make($request->confirmation_code);
+
+        //Validar e atualizar dados restantes
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:50|min:3',
+            'email' => 'required|email',
+            'photo_url' => 'nullable|string',
+            'balance' => 'required|numeric|min:0',
+            'max_debit' => 'required|numeric|min:0'
+        ]);
+
+        $vcard->update($validator->validated());
+
+        $vcard->update(['password' => $newPassword, 'confirmation_code' => $newCode]);
         $vcard->save();
         return new VcardResource($vcard);
     }
