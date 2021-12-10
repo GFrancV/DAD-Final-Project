@@ -1,22 +1,77 @@
 <template>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <div
+    class="
+      d-flex
+      justify-content-between
+      flex-wrap flex-md-nowrap
+      align-items-center
+      pt-3
+      pb-2
+      mb-3
+      border-bottom
+    "
+  >
     <h1 class="h2">Users</h1>
   </div>
   <div>
-    <h4>Some content</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, minus. Voluptatum cum iusto, commodi sunt molestias beatae adipisci architecto aspernatur, molestiae dicta placeat earum fugiat consequatur. Cum reiciendis ex amet!</p>
+    <div class="mb-3 d-flex justify-content-left">
+      <router-link
+        class="link-secondary"
+        aria-label="Add User"
+        :to="{
+          name: 'UserCreate',
+          params: {
+            idUser: '900000001',
+          },
+        }"
+      >
+        <button type="button" class="btn btn-primary px-3">Add New User</button>
+      </router-link>
+    </div>
   </div>
-  <div>
-    <h4>Icons</h4>
-    <p>Icons used for this template: <a href="https://icons.getbootstrap.com/"><strong>Bootstrap Icons</strong></a></p>
-  </div>
+
+  <user-table
+    :users="$store.getters.users"
+    :showId="false"
+  ></user-table>
 </template>
 
 <script>
+
+import UserTable from "./UserTable.vue"
+
 export default {
-  name: 'Users',
-}
+  name: "Users",
+  components:{
+    UserTable
+  },
+  props: {
+    idUser: {
+      type: String,
+      default: null,
+    },
+  },
+  data() {
+    return {
+      users: [],
+    };
+  },
+  methods: {
+    getUsers() {
+      this.$axios
+        .get("users")
+        .then((response) => {
+          this.users = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.getUsers();
+  },
+};
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

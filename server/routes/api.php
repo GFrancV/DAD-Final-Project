@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\TransactionController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\VcardController;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,25 @@ use App\Http\Controllers\api\VcardController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//login
+
+Route::post('login', [AuthController::class, 'login']);
+
+//Users
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('users/me', [UserController::class, 'show_me']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
+
+
+    Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
+    Route::get('users/{user}', [UserController::class, 'show'])->middleware('can:view,user');
+    Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
+});
+
+Route::get('users', [UserController::class, 'index']);
 
 
 //Transactions

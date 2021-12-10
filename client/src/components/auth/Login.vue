@@ -1,6 +1,6 @@
 <template>
-  <form class="row g-3 needs-validation" novalidate>
-    <h3 class="mt-5 mb-3">Login - TODO - COPIADO DA FICHA 7</h3>
+  <form class="row g-3 needs-validation" novalidate @submit.prevent="login">
+    <h3 class="mt-5 mb-3">Login - TODO</h3>
     <hr />
     <div class="mb-3">
       <div class="mb-3">
@@ -35,9 +35,11 @@
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-center">
-      <button type="button" class="btn btn-primary px-5" @click.prevent="login">
-        Login
-      </button>
+      <button
+        type="button"
+        class="btn btn-primary px-5"
+        @click="login"
+      >Login</button>
     </div>
   </form>
 </template>
@@ -48,8 +50,8 @@ export default {
   data() {
     return {
       credentials: {
-        username: "",
-        password: "",
+        username: '',
+        password: '',
       },
       errors: null,
     };
@@ -57,27 +59,18 @@ export default {
   emits: ["login"],
   methods: {
     login() {
-      this.$axios
-        .post("login", this.credentials)
-        .then((response) => {
+      this.$store
+        .dispatch("login", this.credentials)
+        .then(() => {
           this.$toast.success(
             "User " +
-              this.credentials.username +
+              this.$store.state.user.name +
               " has entered the application."
           );
-          this.$axios.defaults.headers.common.Authorization =
-            "Bearer " + response.data.access_token;
-          sessionStorage.setItem("token", response.data.access_token);
-          this.$store.dispatch("loadUser").then(() => {
-            this.$emit("login");
-            this.$router.push({ name: "Home" });
-          });
           this.$emit("login");
-          this.$router.back();
+          this.$router.push({ name: "Home" });
         })
         .catch(() => {
-          delete this.$axios.defaults.headers.common.Authorization;
-          this.$store.commit("resetUser");
           this.credentials.password = "";
           this.$toast.error("User credentials are invalid!");
         });
@@ -86,5 +79,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

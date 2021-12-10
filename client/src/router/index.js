@@ -70,7 +70,9 @@ const routes = [
     name: 'Payments',
     component: Payments
   },
+  
 
+  ////USERS routes
   {
     path: '/users',
     name: 'Users',
@@ -81,6 +83,15 @@ const routes = [
     name: 'User',
     component: User
   },
+  {
+    path: '/users/:idUser/create',
+    name: 'UserCreate',
+    component: User,
+    props: route => ({ id: route.params.idUser, idUser: null })
+  },
+
+
+  //--------------------
   {
     path: '/login',
     name: 'Login',
@@ -128,6 +139,24 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+import store from '../store'
+
+router.beforeEach((to,from, next) => {
+  if ((to.name == 'Login') || (to.name == 'Home')) {
+    next()
+    return
+  }
+  if (to.name == 'User') {
+    if ((store.state.user.type == 'A') || (store.state.user.id == to.params.id)) {
+      next()
+      return
+    }
+    next(false)
+    return
+  }
+  next()
 })
 
 export default router
