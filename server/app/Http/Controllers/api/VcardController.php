@@ -28,18 +28,30 @@ class VcardController extends Controller
 
     public function update(Request $request, VCard $vcard)
     {
-        //$vcard = VCard::where('phone_number', $request->vcard)->first();
-        //Verificar password e confirmation_code atuais
-        if (
-            !Hash::check($request->currentCode, $vcard->confirmation_code) ||
-            !Hash::check($request->currentPassword, $vcard->password)
-        ) {
-            return;
+        $newCode = "";
+        $newPassword = "";
+
+        //Verificar confirmation_code atual
+        if ($request->currentCode == "") {
+            $newCode = $vcard->confirmation_code;
+        } else {
+            if (!Hash::check($request->currentCode, $vcard->confirmation_code)) {
+                return "Wrong current confirmation_code";
+            }
+            //Hash confirmation_code
+            $newPassword = Hash::make($request->password);
         }
 
-        //Hash confirmation_code e password
-        $newPassword = Hash::make($request->password);
-        $newCode = Hash::make($request->confirmation_code);
+        //Verificar password atual
+        if ($request->newPassword == "") {
+            $newPassword = $vcard->password;
+        } else {
+            if (!Hash::check($request->currentPassword, $vcard->password)) {
+                return "Wrong current password";
+            }
+            //Hash password
+            $newCode = Hash::make($request->password);
+        }
 
         //Validar e atualizar dados restantes
         $validator = Validator::make($request->all(), [
