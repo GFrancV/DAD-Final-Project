@@ -4,14 +4,17 @@
 			<div class="content col-md-3">
 				<div class="row">
 					<div class="col-md-12">
-						<Datepicker
+						<datepicker
 							v-model="date"
 							:enableTimePicker="false"
 							placeholder="Select a date ..."
+							format="yyyy-MM-dd"
 							range
 							twoCalendars
-						/>
-						{{ formatData }}
+							@update:modelValue="pickDate"
+						>
+						</datepicker>
+						{{ date }}
 					</div>
 				</div>
 			</div>
@@ -19,9 +22,7 @@
 		<br />
 		<div class="content">
 			<div class="row align-items-center">
-				<div class="col-md-6">
-					<h5>Year summary</h5>
-				</div>
+				<div class="col-md-6"></div>
 				<div class="col-md-6" style="text-align: right">
 					<button v-if="graph" v-on:click="graphType()" type="button" class="btn btn-primary">
 						<i class="bi bi-bar-chart" style="color: white"></i>
@@ -45,46 +46,73 @@
 	export default {
 		name: "TransactionsStatistics",
 		props: {
-			graphData: {
+			transactions: {
 				type: Object,
 				required: true,
 			},
 		},
 		data() {
 			return {
+				graphData: null,
 				graph: true,
 				date: null,
+				formatData: null,
+				filterDate: [["", 0]],
 			}
 		},
-		computed: {
-			formatData() {
-				if (this.date == null) {
-					return 0
-				}
-				var aux1 = this.date[0]
-				var aux2 = this.date[1]
-
-				var date1 =
-					aux1.getFullYear() +
-					"-" +
-					(aux1.getMonth() + 1 < 10 ? "0" + (aux1.getMonth() + 1) : aux1.getMonth() + 1) +
-					"-" +
-					(aux1.getDate() < 10 ? "0" + aux1.getDate() : aux1.getDate())
-				var date2 =
-					aux2.getFullYear() +
-					"-" +
-					(aux2.getMonth() + 1 < 10 ? "0" + (aux2.getMonth() + 1) : aux2.getMonth() + 1) +
-					"-" +
-					(aux2.getDate() < 10 ? "0" + aux2.getDate() : aux2.getDate())
-
-				return date1 + " " + date2
-			},
-		},
+		computed: {},
 		methods: {
+			getStatistics() {
+				var array = [["", 0]]
+				for (let i = 0; i < this.transactions.length; i++) {
+					array.push([this.transactions[i].date.slice(5, 11), this.transactions[i].new_balance])
+				}
+
+				this.graphData = array
+			},
+
+			pickDate() {
+				if (this.date == null) {
+					this.formatData = ""
+				} else {
+					var aux1 = this.date[0]
+					var aux2 = this.date[1]
+
+					var date1 =
+						aux1.getFullYear() +
+						"-" +
+						(aux1.getMonth() + 1 < 10 ? "0" + (aux1.getMonth() + 1) : aux1.getMonth() + 1) +
+						"-" +
+						(aux1.getDate() < 10 ? "0" + aux1.getDate() : aux1.getDate())
+					var date2 =
+						aux2.getFullYear() +
+						"-" +
+						(aux2.getMonth() + 1 < 10 ? "0" + (aux2.getMonth() + 1) : aux2.getMonth() + 1) +
+						"-" +
+						(aux2.getDate() < 10 ? "0" + aux2.getDate() : aux2.getDate())
+
+					this.formatData = [date1, date2]
+				}
+
+				this.getSpecificsStatistics()
+			},
+
+			getSpecificsStatistics() {
+				for (let i = 0; i < this.transactions.length; i++) {
+					if (this.transactions[i].date == this.formatData[0]) {
+						console.log("sd")
+					}
+					this.filterDate.push([this.transactions[i].date, this.transactions[i].value])
+				}
+				console.log(this.filterDate)
+			},
+
 			graphType() {
 				this.graph = !this.graph
-				console.log(this.graph)
 			},
+		},
+		mounted() {
+			this.getStatistics()
 		},
 	}
 </script>
