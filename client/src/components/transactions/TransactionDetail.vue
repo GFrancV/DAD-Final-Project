@@ -205,11 +205,7 @@
 					<!--Category-->
 					<div class="col">
 						<label for="inputCategory" class="form-label"><h6>Categories</h6> </label>
-						<select
-							class="form-select"
-							id="inputCategory"
-							v-model="editingTransaction.category_id"
-						>
+						<select class="form-select" id="inputCategory" v-model="editingTransaction.category_id">
 							<option :value="null">-- Without category --</option>
 							<option v-for="cat in categories" :key="cat.id" :value="cat.id">
 								{{ cat.name }}
@@ -230,14 +226,10 @@
 				<div class="mb-3 d-flex justify-content-end">
 					<ul class="list-inline">
 						<li class="list-inline-item">
-							<button type="button" class="btn btn-primary px-5" @click="save">
-								Save
-							</button>
+							<button type="button" class="btn btn-primary px-5" @click="save">Save</button>
 						</li>
 						<li class="list-inline-item">
-							<button type="button" class="btn btn-secondary px-5" @click="cancel">
-								Cancel
-							</button>
+							<button type="button" class="btn btn-secondary px-5" @click="cancel">Cancel</button>
 						</li>
 					</ul>
 				</div>
@@ -332,17 +324,7 @@
 
 				this.editingTransaction.date = today.getFullYear() + "-" + month + "-" + day
 				this.editingTransaction.datetime =
-					today.getFullYear() +
-					"-" +
-					month +
-					"-" +
-					day +
-					" " +
-					hour +
-					":" +
-					minutes +
-					":" +
-					seconds
+					today.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds
 			},
 
 			balance() {
