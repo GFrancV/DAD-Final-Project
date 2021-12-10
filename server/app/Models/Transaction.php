@@ -46,6 +46,10 @@ class Transaction extends Model
     {
         return $this->belongsTo(Payment_type::class, 'payment_type', 'code');
     }
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'pair_vcard');
+    }
 
     /*
     public function getTypeAttribute()
