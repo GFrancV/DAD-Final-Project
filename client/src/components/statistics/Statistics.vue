@@ -7,7 +7,7 @@
 		<br />
 		<div class="row" style="margin-left: 5px">
 			<div class="col-md-8">
-				<div class="content"><h5>Summary table</h5></div>
+				<table-statistics></table-statistics>
 			</div>
 			<div class="col-md-4">
 				<div class="content">
@@ -25,12 +25,14 @@
 <script>
 	import BalanceSummary from "./BalanceSummary.vue"
 	import ExpensesCategory from "./ExpensesCategory.vue"
+	import TableStatistics from "./TableStatics.vue"
 
 	export default {
 		name: "Statistics",
 		components: {
 			BalanceSummary,
 			ExpensesCategory,
+			TableStatistics,
 		},
 
 		props: {
