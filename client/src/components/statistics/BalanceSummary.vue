@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="row">
-			<div class="content col-md-5">
+			<div class="content col-md-4">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-12">
 						<datepicker
 							v-model="date"
 							:enableTimePicker="false"
@@ -12,13 +12,9 @@
 							range
 							twoCalendars
 							@update:modelValue="pickDate"
+							@cleared="getStatistics"
 						>
 						</datepicker>
-					</div>
-					<div class="col-md-4">
-						<button v-on:click="getStatistics()" type="button" class="btn btn-primary">
-							<i class="bi bi-arrow-clockwise" style="color: white"></i> Reset filter
-						</button>
 					</div>
 				</div>
 			</div>
@@ -48,7 +44,7 @@
 
 <script>
 	export default {
-		name: "TransactionsStatistics",
+		name: "BalanceSummary",
 		props: {
 			transactions: {
 				type: Object,

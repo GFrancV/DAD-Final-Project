@@ -5,26 +5,21 @@
 			<balance-summary :transactions="transactions"></balance-summary>
 		</div>
 		<br />
-		<div class="content">
-			<h5>Expenses by categories</h5>
-			<pie-chart
-				:data="[
-					['Blueberry', 44],
-					['Strawberry', 23],
-				]"
-				:donut="true"
-			></pie-chart>
+		<div v-if="categories" class="content">
+			<expenses-category :transactions="transactions" :categories="categories"></expenses-category>
 		</div>
 	</div>
 </template>
 
 <script>
 	import BalanceSummary from "./BalanceSummary.vue"
+	import ExpensesCategory from "./ExpensesCategory.vue"
 
 	export default {
 		name: "Statistics",
 		components: {
 			BalanceSummary,
+			ExpensesCategory,
 		},
 
 		props: {
@@ -36,6 +31,7 @@
 		data() {
 			return {
 				transactions: null,
+				categories: null,
 			}
 		},
 		methods: {
@@ -49,9 +45,21 @@
 						console.log(error)
 					})
 			},
+
+			getCategories() {
+				this.$axios
+					.get("vcards/" + this.idVcard + "/categories")
+					.then(response => {
+						this.categories = response.data
+					})
+					.catch(error => {
+						console.log(error)
+					})
+			},
 		},
 		mounted() {
 			this.getTransactions()
+			this.getCategories()
 		},
 	}
 </script>
