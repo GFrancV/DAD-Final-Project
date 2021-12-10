@@ -22,3 +22,21 @@
 	margin-top: 30px;
 	margin-left: 22px;
 }
+
+.content-success {
+	padding: 5px;
+	padding-left: 20px;
+	background-color: #ffc1b3;
+	color: #bd4226;
+	border: 10px 10px 10px 10px;
+	border-radius: 8px;
+}
+
+.content-danger {
+	padding: 5px;
+	padding-left: 20px;
+	background-color: #aeb6ff;
+	color: #505bc7;
+	border: 10px 10px 10px 10px;
+	border-radius: 8px;
+}

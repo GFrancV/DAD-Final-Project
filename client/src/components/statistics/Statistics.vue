@@ -1,13 +1,11 @@
 <template>
 	<div>
 		<h2 style="margin-top: 30px">Statistics</h2>
-		<div v-if="transactions">
-			<balance-summary :transactions="transactions"></balance-summary>
-		</div>
+		<balance-summary v-if="transactions" :transactions="transactions"></balance-summary>
 		<br />
 		<div class="row" style="margin-left: 5px">
 			<div class="col-md-8">
-				<table-statistics></table-statistics>
+				<table-statistics v-if="transactions" :transactions="transactions"></table-statistics>
 			</div>
 			<div class="col-md-4">
 				<div class="content">

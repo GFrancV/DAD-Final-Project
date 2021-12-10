@@ -1,6 +1,6 @@
 <template>
 	<h5>Expenses by categories</h5>
-	<pie-chart :data="graphData" :donut="true" :round="2"></pie-chart>
+	<pie-chart :data="graphData" :donut="true" :round="2" prefix="$"></pie-chart>
 </template>
 
 <script>
