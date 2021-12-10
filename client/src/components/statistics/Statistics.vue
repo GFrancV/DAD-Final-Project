@@ -5,7 +5,7 @@
 			<balance-summary :transactions="transactions"></balance-summary>
 		</div>
 		<br />
-		<div v-if="categories" class="content">
+		<div v-if="categories && transactions" class="content">
 			<expenses-category :transactions="transactions" :categories="categories"></expenses-category>
 		</div>
 	</div>

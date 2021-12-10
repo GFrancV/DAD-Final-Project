@@ -1,7 +1,6 @@
 <template>
 	<h5>Expenses by categories</h5>
 	<pie-chart :data="graphData" :donut="true"></pie-chart>
-	{{ categories }}
 </template>
 
 <script>
@@ -27,14 +26,19 @@
 		},
 		methods: {
 			getStatistics() {
-				var array = [["", 0]]
+				var array = []
 				for (let i = 0; i < this.categories.length; i++) {
 					var count = 0
 					for (let j = 0; j < this.transactions.length; j++) {
-						if (this.categories[i].name == this.transactions[j].category_name) {
+						if (
+							this.categories[i].name == this.transactions[j].category_name &&
+							this.transactions[j].type == "D"
+						) {
 							count = count + this.transactions[j].value
 						}
 					}
+					if (count == 0) continue
+
 					array.push([this.categories[i].name, count])
 				}
 

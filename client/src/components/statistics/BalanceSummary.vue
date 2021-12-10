@@ -34,9 +34,7 @@
 			</div>
 
 			<br />
-			<div v-if="graph">
-				<area-chart :colors="['#4e79e0']" :data="graphData"></area-chart>
-			</div>
+			<area-chart v-if="graph" :colors="['#4e79e0']" :data="graphData" grid="true"></area-chart>
 			<column-chart v-else :colors="['#4e79e0']" :data="graphData"></column-chart>
 		</div>
 	</div>
@@ -97,7 +95,7 @@
 			},
 
 			getSpecificsStatistics() {
-				var auxData = [["", 0]]
+				var auxData = []
 				for (let i = 0; i < this.transactions.length; i++) {
 					if (
 						this.formatDate[0] <= this.transactions[i].date &&
