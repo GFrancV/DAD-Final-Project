@@ -39,7 +39,7 @@ class VcardController extends Controller
                 return "Wrong current confirmation_code";
             }
             //Hash confirmation_code
-            $newPassword = Hash::make($request->password);
+            $newCode = Hash::make($request->confirmation_code);
         }
 
         //Verificar password atual
