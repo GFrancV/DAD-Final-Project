@@ -1,37 +1,38 @@
 <template>
-	<form class="row g-3 needs-validation" novalidate @submit.prevent="login">
-		<h3 class="mt-5 mb-3">Login - TODO</h3>
-		<hr />
-		<div class="mb-3">
+	<h2 style="margin-top: 30px">Login</h2>
+	<div class="content">
+		<form class="row g-3 needs-validation" novalidate @submit.prevent="login">
 			<div class="mb-3">
-				<label for="inputUsername" class="form-label">Username</label>
-				<input
-					type="text"
-					class="form-control"
-					id="inputUsername"
-					required
-					v-model="credentials.username"
-				/>
-				<field-error-message :errors="errors" fieldName="username"></field-error-message>
+				<div class="mb-3">
+					<label for="inputUsername" class="form-label">Username</label>
+					<input
+						type="text"
+						class="form-control"
+						id="inputUsername"
+						required
+						v-model="credentials.username"
+					/>
+					<field-error-message :errors="errors" fieldName="username"></field-error-message>
+				</div>
 			</div>
-		</div>
-		<div class="mb-3">
 			<div class="mb-3">
-				<label for="inputPassword" class="form-label">Password</label>
-				<input
-					type="password"
-					class="form-control"
-					id="inputPassword"
-					required
-					v-model="credentials.password"
-				/>
-				<field-error-message :errors="errors" fieldName="password"></field-error-message>
+				<div class="mb-3">
+					<label for="inputPassword" class="form-label">Password</label>
+					<input
+						type="password"
+						class="form-control"
+						id="inputPassword"
+						required
+						v-model="credentials.password"
+					/>
+					<field-error-message :errors="errors" fieldName="password"></field-error-message>
+				</div>
 			</div>
-		</div>
-		<div class="mb-3 d-flex justify-content-center">
-			<button type="button" class="btn btn-primary px-5" @click="login">Login</button>
-		</div>
-	</form>
+			<div class="mb-3 d-flex justify-content-center">
+				<button type="button" class="btn btn-primary px-5" @click="login">Login</button>
+			</div>
+		</form>
+	</div>
 </template>
 
 <script>
