@@ -1,24 +1,42 @@
 /*Container primary css*/
-.content-primary{
-  height: 100vh;
-  border-right: 1px solid rgb(233, 233, 233);
+.content-primary {
+	height: 100vh;
+	border-right: 1px solid rgb(233, 233, 233);
 }
 
 /*Container secondary css*/
 .content-secondary {
-  background-color: #ecf0f7;
-  height: 100vh;
+	background-color: #ecf0f7;
+	height: 100vh;
 }
 
 .content {
-  background-color: white;
-  padding: 25px;
-  border: 3px 3px 3px 3px;
-  border-radius: 25px;
-  margin-right: 18px;
+	background-color: white;
+	padding: 25px;
+	border: 3px 3px 3px 3px;
+	border-radius: 25px;
+	margin-right: 18px;
 }
 
 .secondary-info {
-  margin-top: 30px;
-  margin-left: 22px;
+	margin-top: 30px;
+	margin-left: 22px;
+}
+
+.content-success {
+	padding: 5px;
+	padding-left: 20px;
+	background-color: #ffc1b3;
+	color: #bd4226;
+	border: 10px 10px 10px 10px;
+	border-radius: 8px;
+}
+
+.content-danger {
+	padding: 5px;
+	padding-left: 20px;
+	background-color: #aeb6ff;
+	color: #505bc7;
+	border: 10px 10px 10px 10px;
+	border-radius: 8px;
 }
