@@ -115,7 +115,7 @@
 									:to="{
 										name: 'Categories',
 										params: {
-											vcardId: '900000001',
+											vcardId: userId,
 										},
 									}"
 								>
@@ -146,8 +146,7 @@
 									:to="{
 										name: 'Transactions',
 										params: {
-											vcard: 900000001,
-											id: 900000001,
+											vcard: userId,
 										},
 									}"
 								>
@@ -164,7 +163,7 @@
 									:to="{
 										name: 'Users',
 										params: {
-											idUser: 900000001,
+											idUser: userId,
 										},
 									}"
 								>
@@ -181,7 +180,7 @@
 									:to="{
 										name: 'Statistics',
 										params: {
-											vcard: '900000001',
+											vcard: userId,
 										},
 									}"
 								>
@@ -256,8 +255,6 @@
 </template>
 
 <script>
-	// REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
-
 	export default {
 		name: "RootComponent",
 		data() {
@@ -271,7 +268,7 @@
 				return this.$store.state.user
 			},
 			userId() {
-				return this.$store.state.user ? this.$store.state.user.id : -1
+				return this.$store.state.user ? this.$store.state.user.id.toString() : -1
 			},
 			userName() {
 				return this.$store.state.user ? this.$store.state.user.name : ""

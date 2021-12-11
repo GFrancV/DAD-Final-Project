@@ -13,7 +13,7 @@
 					:to="{
 						name: 'CategoryCreate',
 						params: {
-							vcardId: '900000001',
+							vcardId: vcardId,
 						},
 					}"
 				>
@@ -43,7 +43,7 @@
 											:to="{
 												name: 'CategoryUpdate',
 												params: {
-													vcardId: '900000001',
+													vcardId: vcardId,
 													id: category.id,
 												},
 											}"
