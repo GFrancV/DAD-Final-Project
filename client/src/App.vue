@@ -34,18 +34,19 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
+				<!--Drop down for desktop-->
 				<div class="collapse navbar-collapse justify-content-end">
 					<ul class="navbar-nav">
-						<li class="nav-item">
-							<router-link class="nav-link" :to="{ name: 'Register' }"
-								><i class="bi bi-person-check-fill"></i>
-								Register
-							</router-link>
-						</li>
-						<li class="nav-item">
+						<li v-if="userName == ''" class="nav-item">
 							<router-link class="nav-link" :to="{ name: 'Login' }">
 								<i class="bi bi-box-arrow-in-right"></i>
 								Login
+							</router-link>
+						</li>
+						<li v-if="userName == ''" class="nav-item">
+							<router-link class="nav-link" :to="{ name: 'Register' }"
+								><i class="bi bi-person-check-fill"></i>
+								Register
 							</router-link>
 						</li>
 						<li class="nav-item dropdown">
@@ -58,16 +59,13 @@
 								aria-expanded="false"
 							>
 								<img
-									src="./assets/img/avatar-exemplo-1.jpg"
+									:src="userPhotoUrl"
 									class="rounded-circle z-depth-0 avatar-img"
 									alt="avatar image"
 								/>
 								<span class="avatar-text">{{ userName }}</span>
 							</a>
-							<ul
-								class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-								aria-labelledby="navbarDropdownMenuLink"
-							>
+							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
 								<li>
 									<router-link class="dropdown-item" :to="{ name: 'User' }"
 										><i class="bi bi-person-square"></i>Profile</router-link
@@ -106,7 +104,7 @@
 									:to="{ name: 'Dashboard' }"
 								>
 									<i class="bi bi-layers mr-2"></i>
-									Dashboard
+									Dashboard {{ user }}
 								</router-link>
 							</li>
 							<li class="nav-item d-flex justify-content-between align-items-center pe-3">
@@ -193,51 +191,20 @@
 							</li>
 						</ul>
 
-						<h6
-							class="
-								sidebar-heading
-								d-flex
-								justify-content-between
-								align-items-center
-								px-3
-								mt-4
-								mb-1
-								text-muted
-							"
-						>
-							<span>vCards - TODO</span>
-							<a class="link-secondary" href="#" aria-label="Add a new project">
-								<i class="bi bi-xs bi-plus-circle"></i>
-							</a>
-						</h6>
-
+						<!-- Dropdown for phone-->
 						<div class="d-block d-md-none">
-							<h6
-								class="
-									sidebar-heading
-									d-flex
-									justify-content-between
-									align-items-center
-									px-3
-									mt-4
-									mb-1
-									text-muted
-								"
-							>
-								<span>User</span>
-							</h6>
 							<ul class="nav flex-column mb-2">
-								<li class="nav-item">
-									<a class="nav-link" href="#"
-										><i class="bi bi-person-check-fill"></i>
-										Register
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#">
+								<li v-if="userName == ''" class="nav-item">
+									<router-link class="nav-link" :to="{ name: 'Login' }">
 										<i class="bi bi-box-arrow-in-right"></i>
 										Login
-									</a>
+									</router-link>
+								</li>
+								<li v-if="userName == ''" class="nav-item">
+									<router-link class="nav-link" :to="{ name: 'Register' }"
+										><i class="bi bi-person-check-fill"></i>
+										Register
+									</router-link>
 								</li>
 								<li class="nav-item dropdown">
 									<a
@@ -249,7 +216,7 @@
 										aria-expanded="false"
 									>
 										<img
-											src="./assets/img/avatar-exemplo-1.jpg"
+											:src="userPhotoUrl"
 											class="rounded-circle z-depth-0 avatar-img"
 											alt="avatar image"
 										/>
@@ -293,6 +260,29 @@
 
 	export default {
 		name: "RootComponent",
+		data() {
+			return {
+				prueba: 1,
+			}
+		},
+
+		computed: {
+			user() {
+				return this.$store.state.user
+			},
+			userId() {
+				return this.$store.state.user ? this.$store.state.user.id : -1
+			},
+			userName() {
+				return this.$store.state.user ? this.$store.state.user.name : ""
+			},
+			userPhotoUrl() {
+				let urlPhoto = this.$store.state.user ? this.$store.state.user.photo_url : null
+
+				return urlPhoto ? this.$serverUrl + "/storage/fotos/" + urlPhoto : "img/avatar-default.png"
+			},
+		},
+
 		methods: {
 			logout() {
 				this.$store
@@ -304,17 +294,6 @@
 					.catch(() => {
 						this.$toast.error("There was a problem logging out of the application!")
 					})
-			},
-		},
-		computed: {
-			user() {
-				return this.$store.state.user
-			},
-			userId() {
-				return this.$store.state.user ? this.$store.state.user.id : -1
-			},
-			userName() {
-				return this.$store.state.user ? this.$store.state.user.name : ""
 			},
 		},
 	}
