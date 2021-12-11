@@ -95,7 +95,7 @@
 			<div class="row">
 				<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
 					<div class="position-sticky pt-3 menu">
-						<ul class="nav flex-column">
+						<ul v-if="userType == 'V'" class="nav flex-column">
 							<li class="nav-item">
 								<router-link
 									class="nav-link"
@@ -104,7 +104,7 @@
 									:to="{ name: 'Dashboard' }"
 								>
 									<i class="bi bi-layers mr-2"></i>
-									Dashboard {{ user }}
+									Dashboard
 								</router-link>
 							</li>
 							<li class="nav-item d-flex justify-content-between align-items-center pe-3">
@@ -158,23 +158,6 @@
 							<li class="nav-item">
 								<router-link
 									class="nav-link"
-									:class="{ active: $route.name === 'Users' }"
-									aria-current="page"
-									:to="{
-										name: 'Users',
-										params: {
-											idUser: userId,
-										},
-									}"
-								>
-									<i class="bi bi-people"></i>
-									Users
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link
-									class="nav-link"
 									:class="{ active: $route.name === 'Statistics' }"
 									aria-current="page"
 									:to="{
@@ -186,6 +169,40 @@
 								>
 									<i class="bi bi-bar-chart"></i>
 									Statistics
+								</router-link>
+							</li>
+						</ul>
+
+						<!--Administrator tools-->
+						<ul v-if="userType == 'A'" class="nav flex-column">
+							<h4
+								class="
+									sidebar-heading
+									d-flex
+									justify-content-between
+									align-items-center
+									px-3
+									mt-4
+									mb-1
+									text-muted
+								"
+							>
+								<span>Administrator tool</span>
+							</h4>
+							<li class="nav-item">
+								<router-link
+									class="nav-link"
+									:class="{ active: $route.name === 'Users' }"
+									aria-current="page"
+									:to="{
+										name: 'Users',
+										params: {
+											idUser: userId,
+										},
+									}"
+								>
+									<i class="bi bi-people"></i>
+									Users
 								</router-link>
 							</li>
 						</ul>
@@ -269,6 +286,9 @@
 			},
 			userId() {
 				return this.$store.state.user ? this.$store.state.user.id.toString() : -1
+			},
+			userType() {
+				return this.$store.state.user ? this.$store.state.user.user_type : -1
 			},
 			userName() {
 				return this.$store.state.user ? this.$store.state.user.name : ""
