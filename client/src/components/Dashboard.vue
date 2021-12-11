@@ -66,7 +66,7 @@
 													:to="{
 														name: 'Transaction',
 														params: {
-															vcard: '900000001',
+															vcard: vCardId,
 															id: transaction.id,
 														},
 													}"
@@ -83,7 +83,7 @@
 								:to="{
 									name: 'Transactions',
 									params: {
-										vcard: '900000001',
+										vcard: vCardId,
 									},
 								}"
 							>
@@ -103,7 +103,7 @@
 										:to="{
 											name: 'CategoryUpdate',
 											params: {
-												vcardId: '900000001',
+												vcardId: vCardId,
 												id: category.id,
 											},
 										}"
@@ -118,7 +118,7 @@
 								:to="{
 									name: 'Categories',
 									params: {
-										vcardId: '900000001',
+										vcardId: vCardId,
 									},
 								}"
 							>
@@ -210,7 +210,7 @@
 
 		data() {
 			return {
-				id: 900000001,
+				vCardId: this.$store.state.user.id.toString(),
 				vCardInfo: [],
 				transactions: [],
 				categories: [],
@@ -220,7 +220,7 @@
 		methods: {
 			getInfo() {
 				this.$axios
-					.get("vcards/" + this.id)
+					.get("vcards/" + this.vCardId)
 					.then(response => {
 						this.vCardInfo = response.data.data
 					})
@@ -230,7 +230,7 @@
 			},
 			getTransactions() {
 				this.$axios
-					.get("vcards/" + this.id + "/transactions")
+					.get("vcards/" + this.vCardId + "/transactions")
 					.then(response => {
 						this.transactions = response.data.data
 					})
@@ -240,7 +240,7 @@
 			},
 			getCategories() {
 				this.$axios
-					.get("vcards/" + this.id + "/categories")
+					.get("vcards/" + this.vCardId + "/categories")
 					.then(response => {
 						this.categories = response.data
 					})

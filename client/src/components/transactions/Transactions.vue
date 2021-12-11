@@ -21,7 +21,7 @@
 					<router-link
 						type="button"
 						class="btn btn-primary"
-						:to="{ name: 'NewTransaction', params: { vcard: '900000001' } }"
+						:to="{ name: 'NewTransaction', params: { vcard: idVcard } }"
 					>
 						<i class="bi bi-plus" style="color: white"></i>
 						Add New Transaction
@@ -63,29 +63,13 @@
 							<td v-if="transaction.type == 'C'">
 								<p style="display: inline; font-weight: 700; color: green">
 									<i class="bi bi-arrow-bar-down label-success"></i>
-									${{
-										Math.round(
-											(transaction.new_balance - transaction.old_balance) *
-												100
-										) / 100
-									}}
+									${{ Math.round((transaction.new_balance - transaction.old_balance) * 100) / 100 }}
 								</p>
 							</td>
 							<td v-else>
-								<p
-									style="
-										display: inline;
-										font-weight: 700;
-										color: rgb(253, 53, 53);
-									"
-								>
+								<p style="display: inline; font-weight: 700; color: rgb(253, 53, 53)">
 									<i class="bi bi-arrow-bar-up label-danger"></i>
-									${{
-										Math.round(
-											(transaction.old_balance - transaction.new_balance) *
-												100
-										) / 100
-									}}
+									${{ Math.round((transaction.old_balance - transaction.new_balance) * 100) / 100 }}
 								</p>
 							</td>
 							<td>${{ transaction.new_balance }}</td>
@@ -111,7 +95,7 @@
 									class="btn btn-primary btn-sm"
 									:to="{
 										name: 'Transaction',
-										params: { vcard: '900000001', id: transaction.id },
+										params: { vcard: idVcard, id: transaction.id },
 									}"
 									><i class="bi-pencil-square" style="color: white"></i
 								></router-link>
