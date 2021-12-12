@@ -33,6 +33,7 @@
   <user-table
     :users="$store.getters.users"
     :showId="false"
+    @edit="editUser"
   ></user-table>
 </template>
 
@@ -67,6 +68,13 @@ export default {
           console.log(error);
         });
     },
+
+    editUser (user) {
+      this.$router.push({ name: 'User', params: { id: user.id } })
+    },
+
+
+
   },
   mounted() {
     this.getUsers();

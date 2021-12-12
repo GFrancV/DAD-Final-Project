@@ -2,10 +2,10 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">id</th>
-        <th scope="col">Photo</th>
+        <th v-if="showId" class="align-middle">#</th>
+        <th v-if="showPhoto" class="align-middle">Photo</th>
         <th scope="col">Name</th>
-        <th scope="col">email</th>
+        <th v-if="showEmail" class="align-middle">email</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
       </tr>
@@ -16,28 +16,19 @@
         <td v-if="showPhoto" class="align-middle">
           <img :src="photoFullUrl(user)" class="rounded-circle img_photo" />
         </td>
-        <th scope="row">{{ user.name }}</th>
+        <td class="align-middle">{{ user.name }}</td>
         <td v-if="showEmail" class="align-middle">{{ user.email }}</td>
 
-        <td>
-          <ul class="list-inline m-0">
-            <li class="list-inline-item">
-              <button type="button" class="btn btn-primary btn-sm">
-                <!-- <router-link
-                    aria-label="Add category"
-                    :to="{
-                      name: 'CategoryUpdate',
-                      params: {
-                        vcardId: '900000001',
-                        id: category.id,
-                      },
-                    }"
-                  >
-                    <i class="bi-pencil-square" style="color: white"></i>
-                  </router-link> -->
-              </button>
-            </li>
-          </ul>
+        <td class="text-end align-middle" v-if="showEditButton">
+          <div
+            class="d-flex justify-content-end"
+            v-if="canViewUserDetail(user.id)"
+          >
+            <button               class="btn btn-xs btn-light"
+              @click="editClick(user)"
+              v-if="showEditButton"><i class="bi bi-xs bi-pencil"></i>
+            </button>
+          </div>
         </td>
         <td>
           <li class="list-inline-item">
@@ -71,12 +62,35 @@ export default {
       type: Boolean,
       default: true,
     },
+    showPhoto: {
+      type: Boolean,
+      default: true,
+    },
+
+    showEditButton: {
+      type: Boolean,
+      default: true,
+    },
   },
+  emits: ["edit"],
   methods: {
+    canViewUserDetail(userId) {
+      if (!this.$store.state.user) {
+        return false;
+      }
+      return (
+        this.$store.state.user.type == "A" ||
+        this.$store.state.user.id == userId
+      );
+    },
+
     photoFullUrl(user) {
       return user.photo_url
         ? this.$serverUrl + "/storage/fotos/" + user.photo_url
         : "./assets/img/avatar-none.png";
+    },
+    editClick(user) {
+      this.$emit("edit", user);
     },
   },
 };

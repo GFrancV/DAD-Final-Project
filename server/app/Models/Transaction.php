@@ -18,6 +18,7 @@ class Transaction extends Model
     protected $table = 'transactions';
 
     protected $fillable = [
+        'id',
         'vcard',
         'date',
         'datetime',

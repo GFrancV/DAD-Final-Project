@@ -1,54 +1,54 @@
 <template>
-	<div>
-		<nav
-			class="
-				navbar navbar-expand-md navbar-light
-				bg-light
-				sticky-top
-				flex-md-nowrap
-				p-0
-				navbar-separator
-			"
-		>
-			<div class="container-fluid">
-				<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"
-					><img
-						src="./assets/logo.png"
-						alt=""
-						height="34"
-						class="d-inline-block align-text-top"
-						style="float: left"
-					/>
-					<h5>vCard App</h5></a
-				>
-				<button
-					id="buttonSidebarExpandId"
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#sidebarMenu"
-					aria-controls="sidebarMenu"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
+  <div>
+    <nav
+      class="
+        navbar navbar-expand-md navbar-light
+        bg-light
+        sticky-top
+        flex-md-nowrap
+        p-0
+        navbar-separator
+      "
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"
+          ><img
+            src="./assets/logo.png"
+            alt=""
+            height="34"
+            class="d-inline-block align-text-top"
+            style="float: left"
+          />
+          <h5>vCard App</h5></a
+        >
+        <button
+          id="buttonSidebarExpandId"
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#sidebarMenu"
+          aria-controls="sidebarMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" v-show="!user">
               <router-link class="nav-link" :to="{ name: 'Register' }"
                 ><i class="bi bi-person-check-fill"></i>
                 Register
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-show="!user">
               <router-link class="nav-link" :to="{ name: 'Login' }">
                 <i class="bi bi-box-arrow-in-right"></i>
                 Login
               </router-link>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" v-show="user">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -95,71 +95,75 @@
       </div>
     </nav>
 
-		<div class="container-fluid">
-			<div class="row">
-				<nav
-					id="sidebarMenu"
-					class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-				>
-					<div class="position-sticky pt-3 menu">
-						<ul class="nav flex-column">
-							<li class="nav-item">
-								<router-link
-									class="nav-link"
-									:class="{ active: $route.name === 'Dashboard' }"
-									aria-current="page"
-									:to="{ name: 'Dashboard' }"
-								>
-									<i class="bi bi-layers mr-2"></i>
-									Dashboard
-								</router-link>
-							</li>
-							<li
-								class="
-									nav-item
-									d-flex
-									justify-content-between
-									align-items-center
-									pe-3
-								"
-							>
-								<router-link
-									class="nav-link w-100 me-3"
-									:class="{ active: $route.name === 'Categories' }"
-									aria-current="page"
-									:to="{
-										name: 'Categories',
-										params: {
-											vcardId: '900000001',
-										},
-									}"
-								>
-									<i class="bi bi-list-stars"></i>
-									Categories
-								</router-link>
-							</li>
-							<li
-								class="
-									nav-item
-									d-flex
-									justify-content-between
-									align-items-center
-									pe-3
-								"
-							>
-								<router-link
-									class="nav-link w-100 me-3"
-									:class="{ active: $route.name === 'Payments' }"
-									aria-current="page"
-									:to="{ name: 'Payments' }"
-								>
-									<i class="bi bi-credit-card"></i>
-									Payment Types
-								</router-link>
-								<a class="link-secondary" href="#" aria-label="Add payment type">
-									<i class="bi bi-xs bi-plus-circle"></i>
-								</a>
-							</li>
+    <div class="container-fluid">
+      <div class="row">
+        <nav
+          id="sidebarMenu"
+          class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+        >
+          <div class="position-sticky pt-3 menu">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <router-link
+                  class="nav-link"
+                  :class="{ active: $route.name === 'Dashboard' }"
+                  aria-current="page"
+                  :to="{ name: 'Dashboard' }"
+                >
+                  <i class="bi bi-layers mr-2"></i>
+                  Dashboard
+                </router-link>
+              </li>
+              <li
+                class="
+                  nav-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                  pe-3
+                "
+              >
+                <router-link
+                  class="nav-link w-100 me-3"
+                  :class="{ active: $route.name === 'Categories' }"
+                  aria-current="page"
+                  :to="{
+                    name: 'Categories',
+                    params: {
+                      vcardId: '900000001',
+                    },
+                  }"
+                >
+                  <i class="bi bi-list-stars"></i>
+                  Categories
+                </router-link>
+              </li>
+              <li
+                class="
+                  nav-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                  pe-3
+                "
+              >
+                <router-link
+                  class="nav-link w-100 me-3"
+                  :class="{ active: $route.name === 'Payments' }"
+                  aria-current="page"
+                  :to="{ name: 'Payments' }"
+                >
+                  <i class="bi bi-credit-card"></i>
+                  Payment Types
+                </router-link>
+                <a
+                  class="link-secondary"
+                  href="#"
+                  aria-label="Add payment type"
+                >
+                  <i class="bi bi-xs bi-plus-circle"></i>
+                </a>
+              </li>
 
               <li class="nav-item">
                 <router-link
@@ -187,7 +191,7 @@
                   :to="{
                     name: 'Users',
                     params: {
-                      idUser: 900000001
+                      idUser: 900000001,
                     },
                   }"
                 >
@@ -302,7 +306,7 @@
 </template>
 
 <script>
-	// REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
+// REMOVE THESE IMPORTS WHEN VUE-ROUTER IS CONFIGURED
 
 export default {
   name: "RootComponent",
@@ -336,24 +340,24 @@ export default {
 </script>
 
 <style lang="css">
-	@import "./assets/css/dashboard.css";
+@import "./assets/css/dashboard.css";
 
-	.avatar-img {
-		margin: -1.2rem 0.8rem -2rem 0.8rem;
-		width: 3.3rem;
-		height: 3.3rem;
-	}
-	.avatar-text {
-		line-height: 2.2rem;
-		margin: 1rem 0.5rem -2rem 0;
-		padding-top: 1rem;
-	}
+.avatar-img {
+  margin: -1.2rem 0.8rem -2rem 0.8rem;
+  width: 3.3rem;
+  height: 3.3rem;
+}
+.avatar-text {
+  line-height: 2.2rem;
+  margin: 1rem 0.5rem -2rem 0;
+  padding-top: 1rem;
+}
 
-	.dropdown-item {
-		font-size: 0.875rem;
-	}
+.dropdown-item {
+  font-size: 0.875rem;
+}
 
-	.main-content {
-		background-color: #f4f5f8;
-	}
+.main-content {
+  background-color: #f4f5f8;
+}
 </style>

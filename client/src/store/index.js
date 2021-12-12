@@ -61,7 +61,36 @@ export default createStore({
         delete axios.defaults.headers.common.Authorization 
         context.commit('resetUser', null) 
       }
-    }
+    },
+    async loadUsers (context) {
+      try {
+        let response = await axios.get('users')
+        context.commit('setUsers', response.data.data)
+        return response.data.data
+      } catch (error) {
+        context.commit('resetUsers', null)
+        throw error
+      }
+    },
+    async loadLoggedInUser (context) {
+      try {
+        let response = await axios.get('users/me')
+        context.commit('setUser', response.data.data)
+      } catch (error) {
+        delete axios.defaults.headers.common.Authorization
+        context.commit('resetUser', null)
+        throw error
+      }
+    },
+    async refresh (context) {
+      let userPromise = context.dispatch('loadLoggedInUser')
+      let projectsPromise = context.dispatch('loadProjects')
+      let usersPromise = context.dispatch('loadUsers')
+
+      await userPromise
+      await projectsPromise
+      await usersPromise
+    },
   },
   getters:{
     users: (state) => {
