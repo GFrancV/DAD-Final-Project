@@ -1,36 +1,28 @@
 <template>
-	<div
-		class="
-			d-flex
-			justify-content-between
-			flex-wrap flex-md-nowrap
-			align-items-center
-			pt-3
-			pb-2
-			mb-3
-			border-bottom
-		"
-	>
-		<h1 class="h2">Users</h1>
-	</div>
-	<div>
-		<div class="mb-3 d-flex justify-content-left">
-			<router-link
-				class="link-secondary"
-				aria-label="Add User"
-				:to="{
-					name: 'UserCreate',
-					params: {
-						idUser: this.$store.state.user.id.toString(),
-					},
-				}"
-			>
-				<button type="button" class="btn btn-primary px-3">Add New User</button>
-			</router-link>
+	<h2 style="margin-top: 30px">Users</h2>
+	<div class="content">
+		<div class="row">
+			<div class="col-sm-8"></div>
+			<div class="col-sm-4" style="text-align: right">
+				<router-link
+					type="button"
+					class="btn btn-primary"
+					aria-label="Add User"
+					:to="{
+						name: 'UserCreate',
+						params: {
+							idUser: this.$store.state.user.id.toString(),
+						},
+					}"
+				>
+					<i class="bi bi-plus" style="color: white"></i>
+					Add New User
+				</router-link>
+			</div>
 		</div>
-	</div>
 
-	<user-table :users="$store.getters.users" :showId="false"></user-table>
+		<user-table :users="users"></user-table>
+	</div>
 </template>
 
 <script>
