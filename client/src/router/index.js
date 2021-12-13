@@ -73,25 +73,16 @@ const routes = [
 		component: Payments,
 	},
 
-	////USERS routes
-	{
-		path: "/users",
-		name: "Users",
-		component: Users,
-	},
-	{
-		path: "/users/me",
-		name: "User",
-		component: User,
-	},
+	/*
 	{
 		path: "/users/:idUser/create",
 		name: "UserCreate",
 		component: User,
 		props: route => ({ id: route.params.idUser, idUser: null }),
 	},
+	*/
 
-	//--------------------
+	//Login/Register routes
 	{
 		path: "/login",
 		name: "Login",
@@ -101,6 +92,23 @@ const routes = [
 		path: "/register",
 		name: "Register",
 		component: Register,
+	},
+
+	//Users view routes
+
+	{
+		path: "/users",
+		name: "Users",
+		component: Users,
+	},
+
+	{
+		path: "/users/:id",
+		name: "User",
+		component: User,
+		props: route => ({
+			idUser: route.params.id,
+		}),
 	},
 
 	//Transactions routes
@@ -157,11 +165,12 @@ router.beforeEach((to, from, next) => {
 		return
 	}
 	if (to.name == "User") {
-		if (store.state.user.type == "A" || store.state.user.id == to.params.id) {
+		if (store.state.user.user_type == "A" || store.state.user.id == to.params.id) {
 			next()
 			return
 		}
 		next(false)
+		console.log("estoy aqui")
 		return
 	}
 	next()
