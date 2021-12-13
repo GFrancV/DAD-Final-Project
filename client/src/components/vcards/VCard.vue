@@ -50,7 +50,7 @@
             type="text"
             class="form-control"
             id="inputConfirmationCode"
-            v-model="currentCredentials.currentCode"
+            v-model="this.vcard.currentCode"
             required
           />
         </div>
@@ -79,7 +79,7 @@
             type="text"
             class="form-control"
             id="inputConfirmationCode"
-            v-model="currentCredentials.currentPassword"
+            v-model="this.vcard.currentPassword"
             required
           />
         </div>
@@ -104,7 +104,7 @@
 
         <div class="mb-3">
           <img
-            :src="profilePhoto"
+            :src="this.profilePhoto"
             alt=""
             height="150"
             class="d-inline-block align-text-top"
@@ -114,24 +114,24 @@
       </div>
 
       <div>
-        <input
-          class="form-control"
-          ref="fileInput"
-          type="file"
-          @input="pickFile"
-        />
-      </div>
+        <form @submit="formSubmit" enctype="multipart/form-data">
+          <input type="file" class="form-control" v-on:change="onChange" />
+        </form>
 
-      <div v-if="this.previewImage" class="mb-10" style="margin-top: 5px">
+        <!--<input type="file" class="form-control" v-on:change="formSubmit" />-->
+      </div>
+      <!--
+      <div v-if="this.image" class="mb-10" style="margin-top: 5px">
         <div>
           {{ newImage }}
         </div>
         <div
           class="imagePreviewWrapper"
-          :style="{ 'background-image': `url(${previewImage})` }"
-          @click="selectImage"
+          :style="{ 'background-image': `url(${image})` }"
+          @click="onChange"
         ></div>
       </div>
+      -->
     </div>
 
     <div class="mb-3 d-flex justify-content-left">
@@ -163,26 +163,18 @@ export default {
   data() {
     return {
       vcard: {},
-      errors: null, //Variável para debug
-      previewImage: null,
-      currentCredentials: {
-        currentPassword: "",
-        currentCode: "",
-      },
+      errors: null,
+      profilePhoto: null,
+      image: "",
+      success: "",
     };
   },
   computed: {
     newImage() {
-      if (this.previewImage) {
+      if (this.image) {
         return "New Image:";
       }
       return "";
-    },
-    profilePhoto() {
-      if (this.vcard.photo_url) {
-        return this.$serverUrl + "/storage/fotos/" + this.vcard.photo_url;
-      }
-      return "./assets/img/avatar-exemplo-1.jpg";
     },
   },
   methods: {
@@ -209,8 +201,15 @@ export default {
         .then((response) => {
           this.vcard = response.data.data;
           this.originalValueStr = this.dataAsString();
-          //this.vcard.password = ""
-          //this.vcard.confirmation_code = ""
+          this.vcard.currentPassword = "";
+          this.vcard.currentCode = "";
+
+          if (this.vcard.photo_url) {
+            this.profilePhoto =
+              this.$serverUrl + "/storage/fotos/" + this.vcard.photo_url;
+          } else {
+            this.profilePhoto = "./assets/img/avatar-exemplo-1.jpg";
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -218,14 +217,14 @@ export default {
     },
     save() {
       this.$axios
-        .put("vcards/" + this.id, this.vcard, { newPassword: "1234" })
+        .put("vcards/" + this.id, this.vcard)
         .then((response) => {
           this.$toast.success(
             'User "' + response.data.data.name + '" was updated successfully.'
           );
           this.vcard = response.data.data;
           this.originalValueStr = this.dataAsString();
-          this.$router.back();
+          this.loadVcard();
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -246,22 +245,32 @@ export default {
     },
     cancel() {
       this.loadVcard();
-      this.previewImage = null;
+      this.image = "";
     },
-    selectImage() {
-      this.$refs.fileInput.click();
+    onChange(e) {
+      this.image = e.target.files[0];
+      this.formSubmit(e);
     },
-    pickFile() {
-      let input = this.$refs.fileInput;
-      let file = input.files;
-      if (file && file[0]) {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-          this.previewImage = e.target.result;
-        };
-        reader.readAsDataURL(file[0]);
-        this.$emit("input", file[0]);
-      }
+    formSubmit(e) {
+      e.preventDefault();
+
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
+
+      let data = new FormData();
+      data.append("file", this.image);
+
+      this.$axios
+        .post("/photo", data, config)
+        .then((response) => {
+          this.vcard.photo_url = response.data.substring(13);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   mounted() {

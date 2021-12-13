@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\TransactionController;
-use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\api\VcardController;
+use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,6 @@ Route::get('vcards/{vcard}', [VcardController::class, 'show']);
 Route::post('vcards', [VcardController::class, 'store']);
 Route::delete('vcards/{vcard}', [VcardController::class, 'destroy']);
 Route::put('vcards/{vcard}', [VcardController::class, 'update']);
+
+//Files
+Route::post('/photo', [FileController::class, 'upload']);
