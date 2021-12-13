@@ -164,7 +164,7 @@ router.beforeEach((to, from, next) => {
 		next()
 		return
 	}
-	if (to.name == "User") {
+	if (to.name == "User" || to.name == "Users") {
 		if (store.state.user.user_type == "A" || store.state.user.id == to.params.id) {
 			next()
 			return
