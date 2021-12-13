@@ -139,13 +139,6 @@
 						console.log(error)
 					})
 			},
-
-			addTask() {
-				this.$router.push({
-					name: "NewTransaction",
-					params: { id: this.idVcard },
-				})
-			},
 		},
 
 		mounted() {

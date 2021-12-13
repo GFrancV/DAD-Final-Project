@@ -67,7 +67,14 @@
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
 								<li>
-									<router-link class="dropdown-item" :to="{ name: 'User' }"
+									<router-link
+										class="dropdown-item"
+										:to="{
+											name: 'User',
+											params: {
+												id: userId,
+											},
+										}"
 										><i class="bi bi-person-square"></i>Profile</router-link
 									>
 								</li>
@@ -197,7 +204,7 @@
 									:to="{
 										name: 'Users',
 										params: {
-											idUser: userId,
+											idUser: 1,
 										},
 									}"
 								>
