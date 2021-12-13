@@ -32,10 +32,10 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
-    Route::get('users/{user}', [UserController::class, 'show'])->middleware('can:view,user');
     Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
 });
 
+Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('users', [UserController::class, 'index']);
 
 
