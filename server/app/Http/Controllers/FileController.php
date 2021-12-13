@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -15,6 +16,7 @@ class FileController extends Controller
 
         $path = $request->file('file')->store('public/fotos');
 
-        return $path;
+        //Devolve apenas o nome do ficheiro, cortando a parte "public/fotos"
+        return Str::substr($path, 13);
     }
 }

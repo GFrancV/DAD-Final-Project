@@ -143,10 +143,10 @@ const routes = [
 		component: Users
 	},
 	{
-		path: '/users/me',
-		name: 'User',
+		path: '/vcards/me',
+		name: 'Vcard',
 		component: VCard,
-		props: { id: "900000001" } //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
+		props: route => ({ id: route.params.id }), //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
 	},
 
 	//Statistics Routes

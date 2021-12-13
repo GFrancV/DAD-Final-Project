@@ -266,7 +266,7 @@ export default {
       this.$axios
         .post("/photo", data, config)
         .then((response) => {
-          this.vcard.photo_url = response.data.substring(13);
+          this.vcard.photo_url = response.data;
         })
         .catch((err) => {
           console.log(err);
