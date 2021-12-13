@@ -1,7 +1,7 @@
 <template>
 	<h2 style="margin-top: 30px">Login</h2>
 	<div class="content">
-		<form class="row g-3 needs-validation" novalidate @submit.prevent="login">
+		<form class="row g-3 needs-validation" novalidate @submit.prevent="checkForm">
 			<div class="mb-3">
 				<div class="mb-3">
 					<label for="inputUsername" class="form-label">Username</label>
@@ -12,7 +12,6 @@
 						required
 						v-model="credentials.username"
 					/>
-					<field-error-message :errors="errors" fieldName="username"></field-error-message>
 				</div>
 			</div>
 			<div class="mb-3">
@@ -25,11 +24,10 @@
 						required
 						v-model="credentials.password"
 					/>
-					<field-error-message :errors="errors" fieldName="password"></field-error-message>
 				</div>
 			</div>
 			<div class="mb-3 d-flex justify-content-center">
-				<button type="button" class="btn btn-primary px-5" @click="login">Login</button>
+				<button type="button" class="btn btn-primary px-5" @click="checkForm">Login</button>
 			</div>
 		</form>
 	</div>
@@ -49,6 +47,14 @@
 		},
 		emits: ["login"],
 		methods: {
+			checkForm() {
+				if (this.credentials.username == "") this.$toast.error("Username is required!")
+
+				if (this.credentials.password == "") this.$toast.error("Password is required!")
+
+				if (this.credentials.password != "" && this.credentials.username != "") this.login()
+			},
+
 			login() {
 				this.$store
 					.dispatch("login", this.credentials)
