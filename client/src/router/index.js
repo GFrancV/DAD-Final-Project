@@ -10,11 +10,15 @@ import Transaction from "../components/transactions/Transaction.vue"
 //Statistics
 import Statistics from "../components/statistics/Statistics.vue"
 
-import Categories from "../components/categories/Categories.vue"
-import Category from "../components/categories/Category.vue"
-
 import Users from "../components/users/Users.vue"
 import User from "../components/users/User.vue"
+//Categories
+import Categories from '../components/categories/Categories.vue'
+import Category from '../components/categories/Category.vue'
+
+//Vcards/Clientes
+import Users from '../components/vcards/Users.OLD.vue'
+import VCard from '../components/vcards/VCard.vue'
 
 import ChangePassword from "../components/auth/ChangePassword.vue"
 import Login from "../components/auth/Login.vue"
@@ -132,6 +136,19 @@ const routes = [
 			idTransaction: null,
 		}),
 	},
+
+	//VCards/Clientes
+	{
+		path: '/users',
+		name: 'Users',
+		component: Users
+	  },
+	  {
+		path: '/users/me',
+		name: 'User',
+		component: VCard,
+		props: { id: "900000001" } //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
+	  },
 
 	//Statistics Routes
 	{

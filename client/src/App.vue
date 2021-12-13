@@ -334,7 +334,19 @@
 		font-size: 0.875rem;
 	}
 
-	.main-content {
-		background-color: #f4f5f8;
-	}
+.main-content {
+  background-color: #f4f5f8;
+}
+
+.imagePreviewWrapper {
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 200px;
+  display: block;
+  cursor: pointer;
+  margin: 2px 0 0 0;
+  background-size: contain;
+  background-position: center center;
+  float: left;
+}
 </style>
