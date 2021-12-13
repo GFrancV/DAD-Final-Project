@@ -31,7 +31,7 @@
   </div>
 
   <user-table
-    :users="$store.getters.users"
+    :users="users"
     :showId="false"
   ></user-table>
 </template>
@@ -58,10 +58,14 @@ export default {
   },
   methods: {
     getUsers() {
+      console.log("getUsers")
       this.$axios
         .get("users")
         .then((response) => {
+          console.log("then")
+          console.log(response)
           this.users = response.data.data;
+          console.log(this.users)
         })
         .catch((error) => {
           console.log(error);
