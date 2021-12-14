@@ -10,14 +10,19 @@ import Transaction from "../components/transactions/Transaction.vue"
 //Statistics
 import Statistics from "../components/statistics/Statistics.vue"
 
-import Users from "../components/vcards/Users.vue"
-import User from "../components/vcards/User.vue"
+//Administrators
+import Users from "../components/users/Users.vue"
+import User from "../components/users/User.vue"
+
+//Vcards
+import Vcards from "../components/vcards/Vcards.vue"
+
 //Categories
-import Categories from '../components/categories/Categories.vue'
-import Category from '../components/categories/Category.vue'
+import Categories from "../components/categories/Categories.vue"
+import Category from "../components/categories/Category.vue"
 
 //Vcards/Clientes
-import VCard from '../components/vcards/VCard.vue'
+import VCard from "../components/vcards/VCard.vue"
 
 import ChangePassword from "../components/auth/ChangePassword.vue"
 import Login from "../components/auth/Login.vue"
@@ -76,17 +81,6 @@ const routes = [
 		component: Payments,
 	},
 
-	////USERS routes
-	{
-		path: "/users",
-		name: "Users",
-		component: Users,
-	},
-	{
-		path: "/users/me",
-		name: "User",
-		component: User,
-	},
 	{
 		path: "/users/:idUser/create",
 		name: "UserCreate",
@@ -94,7 +88,7 @@ const routes = [
 		props: route => ({ id: route.params.idUser, idUser: null }),
 	},
 
-	//--------------------
+	//Login/Register routes
 	{
 		path: "/login",
 		name: "Login",
@@ -104,6 +98,30 @@ const routes = [
 		path: "/register",
 		name: "Register",
 		component: Register,
+	},
+
+	//Users view routes
+
+	{
+		path: "/users",
+		name: "Users",
+		component: Users,
+	},
+
+	{
+		path: "/users/:id",
+		name: "User",
+		component: User,
+		props: route => ({
+			idUser: route.params.id,
+		}),
+	},
+
+	//Vcards view routes
+	{
+		path: "/vcards",
+		name: "Vcards",
+		component: Vcards,
 	},
 
 	//Transactions routes
@@ -138,15 +156,25 @@ const routes = [
 
 	//VCards/Clientes
 	{
-		path: '/users',
-		name: 'Users',
-		component: Users
+		path: "/users",
+		name: "Users",
+		component: Users,
 	},
+	/*
 	{
-		path: '/vcards/me',
-		name: 'Vcard',
+		path: "/users/me",
+		name: "User",
 		component: VCard,
-		props: route => ({ id: route.params.id }), //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
+		props: { id: "900000001" }, //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
+	},
+*/
+	{
+		path: "/vcards/:id",
+		name: "Vcard",
+		component: VCard,
+		props: route => ({
+			id: route.params.id,
+		}),
 	},
 
 	//Statistics Routes
@@ -172,12 +200,13 @@ router.beforeEach((to, from, next) => {
 		next()
 		return
 	}
-	if (to.name == "User") {
-		if (store.state.user.type == "A" || store.state.user.id == to.params.id) {
+	if (to.name == "User" || to.name == "Users" || to.name == "Vcards" || to.name == "Vcard") {
+		if (store.state.user.user_type == "A" || store.state.user.id == to.params.id) {
 			next()
 			return
 		}
 		next(false)
+		console.log("estoy aqui")
 		return
 	}
 	next()
