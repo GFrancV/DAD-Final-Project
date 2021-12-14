@@ -116,7 +116,7 @@ export default {
             if (error.response.status == 422) {
               this.$toast.error(
                 'Category "' +
-                  this.category.nam +
+                  this.category.name +
                   '" was not updated due to validation errors!'
               );
               this.errors = error.response.data.errors;

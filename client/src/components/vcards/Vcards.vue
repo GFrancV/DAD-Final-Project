@@ -1,5 +1,5 @@
 <template>
-	<h2 style="margin-top: 30px">Administrators</h2>
+	<h2 style="margin-top: 30px">Vcards</h2>
 	<div class="content">
 		<div class="row">
 			<div class="col-sm-8"></div>
@@ -34,25 +34,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="admin in admins" :key="admin.id">
+					<tr v-for="vcard in vcards" :key="vcard.id">
 						<th scope="col" class="align-middle">
 							<img
-								:src="photoFullUrl(admin)"
+								:src="photoFullUrl(vcard)"
 								class="rounded-circle"
 								alt="avatar image"
 								style="width: 50px"
 							/>
 						</th>
-						<th scope="col" class="align-middle">{{ admin.name }}</th>
-						<td scope="col" class="align-middle">{{ admin.email }}</td>
-						<td scope="col" class="align-middle">{{ admin.id }}</td>
+						<th scope="col" class="align-middle">{{ vcard.name }}</th>
+						<td scope="col" class="align-middle">{{ vcard.email }}</td>
+						<td scope="col" class="align-middle">{{ vcard.id }}</td>
 						<td scope="col" class="align-middle">
 							<router-link
 								type="button"
 								class="btn btn-primary btn-sm"
 								:to="{
-									name: 'User',
-									params: { id: admin.id },
+									name: 'Vcard',
+									params: { id: vcard.id },
 								}"
 								><i class="bi-pencil-square" style="color: white"></i
 							></router-link>
@@ -66,7 +66,7 @@
 
 <script>
 	export default {
-		name: "Users",
+		name: "Vcards",
 		props: {
 			/*
 			idUser: {
@@ -78,11 +78,11 @@
 		data() {
 			return {
 				allUsers: [],
-				admins: [],
+				vcards: [],
 			}
 		},
 		methods: {
-			async getAdministrators() {
+			async getVcards() {
 				var aux
 				var def = []
 
@@ -96,12 +96,12 @@
 					})
 
 				for (let i = 0; i < aux.length; i++) {
-					if (aux[i].user_type == "A") {
+					if (aux[i].user_type == "V") {
 						def.push(aux[i])
 					}
 				}
 
-				this.admins = def
+				this.vcards = def
 			},
 
 			photoFullUrl(user) {
@@ -112,9 +112,9 @@
 		},
 
 		mounted() {
-			this.getAdministrators()
+			this.getVcards()
 		},
 	}
 </script>
 
-<style scoped lang="scss"></style>
+<style></style>

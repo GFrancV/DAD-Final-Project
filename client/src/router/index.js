@@ -10,11 +10,19 @@ import Transaction from "../components/transactions/Transaction.vue"
 //Statistics
 import Statistics from "../components/statistics/Statistics.vue"
 
+//Administrators
+import Users from "../components/users/Users.vue"
+import User from "../components/users/User.vue"
+
+//Vcards
+import Vcards from "../components/vcards/Vcards.vue"
+
+//Categories
 import Categories from "../components/categories/Categories.vue"
 import Category from "../components/categories/Category.vue"
 
-import Users from "../components/users/Users.vue"
-import User from "../components/users/User.vue"
+//Vcards/Clientes
+import VCard from "../components/vcards/VCard.vue"
 
 import ChangePassword from "../components/auth/ChangePassword.vue"
 import Login from "../components/auth/Login.vue"
@@ -73,14 +81,12 @@ const routes = [
 		component: Payments,
 	},
 
-	/*
 	{
 		path: "/users/:idUser/create",
 		name: "UserCreate",
 		component: User,
 		props: route => ({ id: route.params.idUser, idUser: null }),
 	},
-	*/
 
 	//Login/Register routes
 	{
@@ -109,6 +115,13 @@ const routes = [
 		props: route => ({
 			idUser: route.params.id,
 		}),
+	},
+
+	//Vcards view routes
+	{
+		path: "/vcards",
+		name: "Vcards",
+		component: Vcards,
 	},
 
 	//Transactions routes
@@ -141,6 +154,29 @@ const routes = [
 		}),
 	},
 
+	//VCards/Clientes
+	{
+		path: "/users",
+		name: "Users",
+		component: Users,
+	},
+	/*
+	{
+		path: "/users/me",
+		name: "User",
+		component: VCard,
+		props: { id: "900000001" }, //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
+	},
+*/
+	{
+		path: "/vcards/:id",
+		name: "Vcard",
+		component: VCard,
+		props: route => ({
+			id: route.params.id,
+		}),
+	},
+
 	//Statistics Routes
 	{
 		path: "/statistics/:vcard",
@@ -164,7 +200,7 @@ router.beforeEach((to, from, next) => {
 		next()
 		return
 	}
-	if (to.name == "User" || to.name == "Users") {
+	if (to.name == "User" || to.name == "Users" || to.name == "Vcards" || to.name == "Vcard") {
 		if (store.state.user.user_type == "A" || store.state.user.id == to.params.id) {
 			next()
 			return

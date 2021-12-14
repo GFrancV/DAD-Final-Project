@@ -97,7 +97,6 @@
 				</div>
 			</div>
 		</nav>
-
 		<div class="container-fluid">
 			<div class="row">
 				<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -199,17 +198,32 @@
 							<li class="nav-item">
 								<router-link
 									class="nav-link"
+									:class="{ active: $route.name === 'Vcards' }"
+									aria-current="page"
+									:to="{
+										name: 'Vcards',
+									}"
+								>
+									<i class="bi bi-credit-card"></i>
+									vCards
+								</router-link>
+							</li>
+							<li class="nav-item">
+								<router-link
+									class="nav-link"
 									:class="{ active: $route.name === 'Users' }"
 									aria-current="page"
 									:to="{
 										name: 'Users',
+										/*
 										params: {
-											idUser: 1,
+											idUser: userId,
 										},
+										*/
 									}"
 								>
 									<i class="bi bi-people"></i>
-									Users
+									Administrators
 								</router-link>
 							</li>
 						</ul>
@@ -292,7 +306,7 @@
 				return this.$store.state.user
 			},
 			userId() {
-				return this.$store.state.user ? this.$store.state.user.id.toString() : -1
+				return this.$store.state.user ? this.$store.state.user.id : -1
 			},
 			userType() {
 				return this.$store.state.user ? this.$store.state.user.user_type : -1
@@ -343,5 +357,17 @@
 
 	.main-content {
 		background-color: #f4f5f8;
+	}
+
+	.imagePreviewWrapper {
+		background-repeat: no-repeat;
+		width: 200px;
+		height: 200px;
+		display: block;
+		cursor: pointer;
+		margin: 2px 0 0 0;
+		background-size: contain;
+		background-position: center center;
+		float: left;
 	}
 </style>
