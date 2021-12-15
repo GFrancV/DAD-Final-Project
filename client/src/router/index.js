@@ -113,7 +113,7 @@ const routes = [
 		name: "User",
 		component: User,
 		props: route => ({
-			idUser: route.params.id,
+			id: route.params.id,
 		}),
 	},
 

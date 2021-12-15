@@ -1,5 +1,5 @@
 <template>
-	<h2 style="margin-top: 30px">Administrators</h2>
+	<h2 style="margin-top: 30px">Administrators list</h2>
 	<div class="content">
 		<div class="row">
 			<div class="col-sm-8"></div>
