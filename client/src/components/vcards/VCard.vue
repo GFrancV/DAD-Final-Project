@@ -1,106 +1,41 @@
 <template>
-	<form class="row g-3 needs-validation" novalidate>
-		<h2 class="mt-5 mb-3">VCard {{ id }}</h2>
-		<hr />
+	<div>
+		<div class="mb-3 d-flex" style="margin-top: 30px">
+			<ul class="list-inline">
+				<li class="list-inline-item">
+					<button type="button" class="btn btn-secondary px-2" @click="back">
+						<i class="bi bi-box-arrow-left" style="color: white"></i>
+					</button>
+				</li>
+			</ul>
+		</div>
+		<h2 style="margin-top: 10px">VCard {{ id }}</h2>
+		<div class="content">
+			<form class="row g-3 needs-validation" novalidate>
+				<div class="col-sm-4" style="text-align: center">
+					<!--PROFILE PHOTO-->
+					<div class="mb-3">
+						<h6>
+							<label for="formFile" class="form-label">Profile Photo:</label>
+						</h6>
+						<div class="mb-3">
+							<img
+								:src="this.profilePhoto"
+								class="rounded-circle"
+								alt="avatar image"
+								style="width: 160px"
+							/>
+						</div>
+					</div>
 
-		<div class="mb-3">
-			<div class="mb-3">
-				<label for="inputVCard" class="form-label">Phone Number</label>
-				<input
-					id="inputVCard"
-					class="form-control"
-					type="text"
-					aria-label="vCard number"
-					:value="id"
-					readonly
-				/>
-			</div>
+					<div>
+						<form @submit="formSubmit" enctype="multipart/form-data">
+							<input type="file" class="form-control" v-on:change="onChange" />
+						</form>
 
-			<!--NAME-->
-			<div class="mb-3">
-				<label for="inputName" class="form-label">Name</label>
-				<input type="text" class="form-control" id="inputName" v-model="vcard.name" required />
-			</div>
-
-			<!--EMAIL-->
-			<div class="mb-3">
-				<label for="inputEmail" class="form-label">Email</label>
-				<input type="text" class="form-control" id="inputEmail" v-model="vcard.email" required />
-			</div>
-
-			<!--CONFIRMATION CODE-->
-			<div class="mb-3 row">
-				<div class="col">
-					<label for="inputConfirmationCode" class="form-label">Current Confirmation Code</label>
-					<input
-						type="text"
-						class="form-control"
-						id="inputConfirmationCode"
-						v-model="this.vcard.currentCode"
-						required
-					/>
-				</div>
-
-				<div class="col-sm">
-					<label for="inputConfirmationCode" class="form-label">New Confirmation Code</label>
-					<input
-						type="text"
-						class="form-control"
-						id="inputConfirmationCode"
-						v-model="this.vcard.confirmation_code"
-						required
-					/>
-				</div>
-			</div>
-
-			<!--PASSWORD-->
-			<div class="mb-3 row">
-				<div class="col">
-					<label for="inputConfirmationCode" class="form-label">Current Password</label>
-					<input
-						type="text"
-						class="form-control"
-						id="inputConfirmationCode"
-						v-model="this.vcard.currentPassword"
-						required
-					/>
-				</div>
-
-				<div class="col-sm">
-					<label for="inputConfirmationCode" class="form-label">New Password</label>
-					<input
-						type="text"
-						class="form-control"
-						id="inputConfirmationCode"
-						v-model="this.vcard.password"
-						required
-					/>
-				</div>
-			</div>
-
-			<!--PROFILE PHOTO-->
-			<div class="mb-3">
-				<label for="formFile" class="form-label">Profile Photo:</label>
-
-				<div class="mb-3">
-					<img
-						:src="this.profilePhoto"
-						alt=""
-						height="150"
-						class="d-inline-block align-text-top"
-						style="float: left; margin-bottom: 10px"
-					/>
-				</div>
-			</div>
-
-			<div>
-				<form @submit="formSubmit" enctype="multipart/form-data">
-					<input type="file" class="form-control" v-on:change="onChange" />
-				</form>
-
-				<!--<input type="file" class="form-control" v-on:change="formSubmit" />-->
-			</div>
-			<!--
+						<!--<input type="file" class="form-control" v-on:change="formSubmit" />-->
+					</div>
+					<!--
       <div v-if="this.image" class="mb-10" style="margin-top: 5px">
         <div>
           {{ newImage }}
@@ -112,19 +47,125 @@
         ></div>
       </div>
       -->
-		</div>
+				</div>
+				<div class="col-sm-8">
+					<div class="mb-3">
+						<div class="mb-3">
+							<h6>
+								<label for="inputVCard" class="form-label">Phone Number</label>
+							</h6>
+							<input
+								id="inputVCard"
+								class="form-control"
+								type="text"
+								aria-label="vCard number"
+								:value="id"
+								readonly
+							/>
+						</div>
 
-		<div class="mb-3 d-flex justify-content-left">
-			<ul class="list-inline">
-				<li class="list-inline-item">
-					<button type="button" class="btn btn-primary px-3" @click="save">Save</button>
-				</li>
-				<li class="list-inline-item">
-					<button type="button" class="btn btn-secondary px-3" @click="cancel">Cancel</button>
-				</li>
-			</ul>
+						<!--NAME-->
+						<div class="mb-3">
+							<h6>
+								<label for="inputName" class="form-label">Name</label>
+							</h6>
+							<input
+								type="text"
+								class="form-control"
+								id="inputName"
+								v-model="vcard.name"
+								required
+							/>
+						</div>
+
+						<!--EMAIL-->
+						<div class="mb-3">
+							<h6>
+								<label for="inputEmail" class="form-label">Email</label>
+							</h6>
+							<input
+								type="text"
+								class="form-control"
+								id="inputEmail"
+								v-model="vcard.email"
+								required
+							/>
+						</div>
+					</div>
+				</div>
+				<!--CONFIRMATION CODE-->
+				<div class="mb-3 row">
+					<div class="col">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label"
+								>Current Confirmation Code</label
+							>
+						</h6>
+						<input
+							type="text"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.currentCode"
+							required
+						/>
+					</div>
+
+					<div class="col-sm">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">New Confirmation Code</label>
+						</h6>
+						<input
+							type="text"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.confirmation_code"
+							required
+						/>
+					</div>
+				</div>
+
+				<!--PASSWORD-->
+				<div class="mb-3 row">
+					<div class="col">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">Current Password</label>
+						</h6>
+						<input
+							type="text"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.currentPassword"
+							required
+						/>
+					</div>
+
+					<div class="col-sm">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">New Password</label>
+						</h6>
+						<input
+							type="text"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.password"
+							required
+						/>
+					</div>
+				</div>
+
+				<div class="mb-3 d-flex justify-content-end">
+					<ul class="list-inline">
+						<li class="list-inline-item">
+							<button type="button" class="btn btn-primary px-5" @click="save">Save</button>
+						</li>
+						<li class="list-inline-item">
+							<button type="button" class="btn btn-secondary px-5" @click="cancel">Cancel</button>
+						</li>
+					</ul>
+				</div>
+			</form>
 		</div>
-	</form>
+	</div>
 </template>
 
 <script>
@@ -188,6 +229,9 @@
 					.catch(error => {
 						console.log(error)
 					})
+			},
+			back() {
+				this.$router.back()
 			},
 			save() {
 				this.$axios

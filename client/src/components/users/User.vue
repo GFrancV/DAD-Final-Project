@@ -6,7 +6,7 @@
 				<div class="row" style="margin-top: 20px">
 					<div class="col-sm-4" style="text-align: center">
 						<h6>
-							<label class="sr-only">User photo</label>
+							<label class="sr-only">Profile photo:</label>
 						</h6>
 						<img
 							:src="photoFullUrl()"
