@@ -66,11 +66,23 @@
 								<span class="avatar-text">{{ userName }}</span>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-								<li>
+								<li v-if="userType == 'A'">
 									<router-link
 										class="dropdown-item"
 										:to="{
 											name: 'User',
+											params: {
+												id: userId,
+											},
+										}"
+										><i class="bi bi-person-square"></i>Profile</router-link
+									>
+								</li>
+								<li v-else>
+									<router-link
+										class="dropdown-item"
+										:to="{
+											name: 'Vcard',
 											params: {
 												id: userId,
 											},
