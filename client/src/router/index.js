@@ -10,6 +10,9 @@ import Transaction from "../components/transactions/Transaction.vue"
 //Statistics
 import Statistics from "../components/statistics/Statistics.vue"
 
+//Adminis statistics
+import AdminStatistics from "../components/adminStatistics/Statistics.vue"
+
 //Administrators
 import Users from "../components/users/Users.vue"
 import User from "../components/users/User.vue"
@@ -185,6 +188,13 @@ const routes = [
 		props: route => ({
 			idVcard: route.params.vcard,
 		}),
+	},
+
+	//Statistics Admin Routes
+	{
+		path: "/statistics/",
+		name: "AdminStatistics",
+		component: AdminStatistics,
 	},
 ]
 

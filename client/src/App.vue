@@ -238,6 +238,19 @@
 									Administrators
 								</router-link>
 							</li>
+							<li class="nav-item">
+								<router-link
+									class="nav-link"
+									:class="{ active: $route.name == 'AdminStatistics' }"
+									aria-current="page"
+									:to="{
+										name: 'AdminStatistics',
+									}"
+								>
+									<i class="bi bi-bar-chart"></i>
+									Statistics
+								</router-link>
+							</li>
 						</ul>
 
 						<!-- Dropdown for phone-->
