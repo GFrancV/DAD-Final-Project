@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Admin;
 
 class UserController extends Controller
 {
@@ -26,7 +27,16 @@ class UserController extends Controller
     }
     public function update(UpdateUserRequest $request, User $user)
     {
+
         $user->update($request->validated());
+        $user->save();
+        return new UserResource($user);
+    }
+
+    public function destroy(User $user)
+    {
+       // $utilizador = Admin::where('id', $user->id)->get();
+       // dd($utilizador);
         return new UserResource($user);
     }
 

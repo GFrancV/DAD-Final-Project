@@ -27,7 +27,8 @@ const app = createApp(App)
 	.use(Toaster, toastOptions)
 	.use(VueChartkick)
 	.component("Datepicker", Datepicker)
-const url = "http://vcard_api.test"
+//const url = "http://vcard_api.test"
+const url = "http://localhost:8000"
 
 axios.defaults.baseURL = url + "/api/"
 app.config.globalProperties.$axios = axios

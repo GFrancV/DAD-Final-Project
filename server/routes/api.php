@@ -35,10 +35,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
     Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
 });
+<<<<<<< HEAD
 
+=======
+Route::put('users/{user}', [UserController::class, 'update']);
+>>>>>>> Criar um novo modelo para tratar dos User
 Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('users', [UserController::class, 'index']);
-
+Route::delete('users/{user}', [UserController::class, 'destroy']);
 
 //Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
