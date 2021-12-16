@@ -12,7 +12,7 @@ class PaymentType extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'payment_type';
+    protected $table = 'payment_types';
     protected $primaryKey = 'code';
     public $timestamps = false;
 

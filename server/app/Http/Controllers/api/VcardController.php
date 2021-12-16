@@ -14,6 +14,15 @@ use App\Http\Requests\StoreUpdateVCardsRequest;
 
 class VcardController extends Controller
 {
+
+    public function index()
+    {
+        $vcards = Vcard::all();
+        return VcardResource::collection($vcards);
+    }
+
+
+
     public function show(VCard $vcard)
     {
         return new VcardResource($vcard);

@@ -7,6 +7,7 @@ use App\Http\Controllers\api\VcardController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\PaymentTypeController;
 use App\Http\Controllers\api\TransactionController;
 
 /*
@@ -35,10 +36,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
     Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
 });
-
+Route::put('users/{user}', [UserController::class, 'update']);
 Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('users', [UserController::class, 'index']);
-
+Route::delete('users/{user}', [UserController::class, 'destroy']);
 
 //Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
@@ -48,6 +49,7 @@ Route::put('vcards/{vcard}/transactions/{transaction}', [TransactionController::
 Route::delete('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'destroy']);
 
 //Categories
+Route::get('vcards', [VcardController::class, 'index']);
 Route::get('vcards/{vcard}/categories', [CategoryController::class, 'getCategoriesOfVcard']);
 Route::get('vcards/{vcard}/categories/{category}', [CategoryController::class, 'show']);
 Route::post('vcards/{vcard}/categories', [CategoryController::class, 'store']);
@@ -62,3 +64,6 @@ Route::put('vcards/{vcard}', [VcardController::class, 'update']);
 
 //Files
 Route::post('/photo', [FileController::class, 'upload']);
+
+//Payment_types
+Route::get('paymentTypes', [PaymentTypeController::class, 'index']);
