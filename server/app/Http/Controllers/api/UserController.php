@@ -28,6 +28,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
 
+        $user = Admin::where('id', $user->id)->first();
         $user->update($request->validated());
         $user->save();
         return new UserResource($user);
