@@ -35,8 +35,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-       // $utilizador = Admin::where('id', $user->id)->get();
-       // dd($utilizador);
+        Admin::where('id', $user->id)->delete();
         return new UserResource($user);
     }
 
