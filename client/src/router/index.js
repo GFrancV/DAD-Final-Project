@@ -216,7 +216,15 @@ router.beforeEach((to, from, next) => {
 			return
 		}
 		next(false)
-		console.log("estoy aqui")
+		return
+	}
+	//Only de administrators can view this page
+	if (to.name == "AdminStatistics") {
+		if (store.state.user.user_type == "A") {
+			next()
+			return
+		}
+		next(false)
 		return
 	}
 	next()
