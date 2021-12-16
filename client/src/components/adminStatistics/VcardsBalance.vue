@@ -2,27 +2,15 @@
 	<h5>vCards Balance</h5>
 	<div class="content">
 		<div class="table-responsive">
-			<table class="table table-hover" style="width: 100%">
+			<table class="table table-hover">
 				<thead>
 					<th scope="col">vCard</th>
 					<th scope="col">Current balance</th>
 				</thead>
 				<tbody>
-					<tr>
-						<td>90000001</td>
-						<td>$300.00</td>
-					</tr>
-					<tr>
-						<td>90000001</td>
-						<td>$300.00</td>
-					</tr>
-					<tr>
-						<td>90000001</td>
-						<td>$300.00</td>
-					</tr>
-					<tr>
-						<td>90000001</td>
-						<td>$300.00</td>
+					<tr v-for="vcard in vcards" :key="vcard.phone_number">
+						<td>{{ vcard.phone_number }}</td>
+						<td>${{ vcard.balance }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -33,14 +21,16 @@
 <script>
 	export default {
 		name: "VcardsBalance",
+		props: {
+			vcards: {
+				type: Object,
+				required: true,
+			},
+		},
 		data() {
-			return {
-				vcardsInfo: [],
-			}
+			return {}
 		},
-		methods: {
-			getVcardsInfo() {},
-		},
+		methods: {},
 	}
 </script>
 

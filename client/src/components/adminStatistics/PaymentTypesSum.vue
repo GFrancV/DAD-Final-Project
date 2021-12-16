@@ -39,6 +39,17 @@
 <script>
 	export default {
 		name: "PaymentTypesSum",
+		props: {
+			vcards: {
+				type: Object,
+				required: true,
+			},
+		},
+		data() {
+			return {}
+		},
+		methods: {},
+		mounted() {},
 	}
 </script>
 
