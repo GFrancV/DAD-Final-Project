@@ -18,7 +18,7 @@ class UserController extends Controller
     }
 
     public function indexAdmins(){
-        $user = User::where('user_type', 'A')->get();
+        $user = User::where('user_type', 'A')->paginate('10');
         return UserResource::collection($user);
     }
 
