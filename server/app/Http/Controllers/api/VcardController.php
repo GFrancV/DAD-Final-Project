@@ -44,7 +44,7 @@ class VcardController extends Controller
             $newCode = $vcard->confirmation_code;
         } else {
             if (!Hash::check($request->confirmation_code, $vcard->confirmation_code)) {
-                return "ERROR: Wrong current confirmation_code";
+                abort(400, "ERROR: Wrong current confirmation_code");
             }
             //Hash confirmation_code
             $newCode = Hash::make($request->confirmation_code);
@@ -55,7 +55,7 @@ class VcardController extends Controller
             $newPassword = $vcard->password;
         } else {
             if (!Hash::check($request->currentPassword, $vcard->password)) {
-                return "Wrong current password";
+                abort(400, "Wrong current password");
             }
             //Hash password
             $newCode = Hash::make($request->password);

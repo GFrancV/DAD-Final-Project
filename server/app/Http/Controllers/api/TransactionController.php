@@ -50,7 +50,7 @@ class TransactionController extends Controller
 
         //Verificar código de confimação
         if (!Hash::check($request->confirmation_code, $vcard->confirmation_code)) {
-            return "ERROR: Wrong current confirmation_code";
+            abort(400, "ERROR: Wrong current confirmation_code");
         }
 
         //Calcular saldo antigo e novo saldo + verificação se há saldo suficiente
@@ -59,17 +59,17 @@ class TransactionController extends Controller
 
         //Se o tipo de pagamento for VCARD e não houver um pair_vcard, ou houver um pair_vcard e o tipo de pagamento não for VCARD, mostra erro
         if (($request->payment_type == "VCARD" && !$isPairTransaction) || ($isPairTransaction && $request->payment_type != "VCARD")) {
-            return "ERROR: Payment type VCARD needs a pair vcard";
+            abort(400, "ERROR: Payment type VCARD needs a pair vcard");
         }
         if ($request->vcard == $request->pair_vcard) {
-            return "ERROR: Can't make a transaction to your own vcard";
+            abort(400, "ERROR: Can't make a transaction to your own vcard");
         }
 
         //Se for uma transação de débito, verifica se tem saldo suficiente para efetuar a transação
         if ($request->type == "D") {
             $newBalance = $vcard->balance - $request->value;
             if ($newBalance < 0) {
-                return "ERROR: Insufficient balance";
+                abort(400, "ERROR: Insufficient balance");
             }
         } else {
             //Calcular saldo novo
