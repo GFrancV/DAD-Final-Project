@@ -61,16 +61,18 @@ class TransactionController extends Controller
         if (($request->payment_type == "VCARD" && !$isPairTransaction) || ($isPairTransaction && $request->payment_type != "VCARD")) {
             return "ERROR: Payment type VCARD needs a pair vcard";
         }
+        if ($request->vcard == $request->pair_vcard) {
+            return "ERROR: Can't make a transaction to your own vcard";
+        }
 
+        //Se for uma transação de débito, verifica se tem saldo suficiente para efetuar a transação
         if ($request->type == "D") {
             $newBalance = $vcard->balance - $request->value;
             if ($newBalance < 0) {
                 return "ERROR: Insufficient balance";
             }
         } else {
-            if ($isPairTransaction) {
-                return "ERROR: Can't make a credit transaction to your own vcard";
-            }
+            //Calcular saldo novo
             $newBalance = $vcard->balance + $request->value;
         }
 
