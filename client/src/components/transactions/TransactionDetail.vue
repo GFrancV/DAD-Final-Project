@@ -37,7 +37,22 @@
 						</div>
 					</div>
 
-					<div class="col-auto"></div>
+					<div class="col-auto">
+						<div class="row mb-3">
+							<div class="col">
+								<h6>
+									<label for="inputConfirmationCode" class="form-label">Confirmation code</label>
+								</h6>
+								<input
+									type="password"
+									class="form-control"
+									id="inputConfirmationCode"
+									:value="editingTransaction.confirmation_code"
+									required
+								/>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!--Payment reference-->
@@ -89,13 +104,13 @@
 				<div class="row" style="margin-top: 20px">
 					<!--Old balance/Current balance-->
 					<div class="col-sm-3">
-						<label for="inputVCard"><h6>Old balance</h6></label>
+						<label for="inputOldBalance"><h6>Old balance</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
 							</div>
 							<input
-								id="inputVCard"
+								id="inputOldBalance"
 								class="form-control"
 								type="text"
 								:value="editingTransaction.old_balance"
@@ -111,14 +126,14 @@
 
 					<!--Amount-->
 					<div class="col-sm-4">
-						<label for="inputVCard"><h6>Amount</h6></label>
+						<label for="inputAmount"><h6>Amount</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
 							</div>
 							<input
 								v-if="operationType != 'insert'"
-								id="inputVCard"
+								id="inputAmount"
 								class="form-control"
 								type="text"
 								:value="editingTransaction.value"
@@ -128,7 +143,7 @@
 							<input
 								v-else
 								@keyup="calculateNewValue"
-								id="inputVCard"
+								id="inputAmount"
 								class="form-control"
 								type="number"
 								required=""
@@ -144,14 +159,14 @@
 
 					<!--New balance-->
 					<div class="col-sm-3">
-						<label for="inputVCard"><h6>New balance</h6></label>
+						<label for="inputNewBalance"><h6>New balance</h6></label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
 							</div>
 							<input
 								v-if="operationType != 'insert'"
-								id="inputVCard"
+								id="inputNewBalance"
 								class="form-control"
 								type="text"
 								:value="editingTransaction.new_balance"
@@ -160,7 +175,7 @@
 							/>
 							<input
 								v-else
-								id="inputVCard"
+								id="inputNewBalance"
 								class="form-control"
 								type="text"
 								:value="newBalance"
@@ -221,21 +236,6 @@
 						rows="4"
 						v-model="editingTransaction.description"
 					></textarea>
-				</div>
-
-				<div class="mb-3 row">
-					<div class="col">
-						<h6>
-							<label for="inputConfirmationCode" class="form-label">Pin code</label>
-						</h6>
-						<input
-							type="text"
-							class="form-control"
-							id="inputConfirmationCode"
-							v-model="this.vcard.currentPassword"
-							required
-						/>
-					</div>
 				</div>
 
 				<div class="mb-3 d-flex justify-content-end">
