@@ -74,3 +74,4 @@ Route::post('/photo', [FileController::class, 'upload']);
 //Payment_types
 Route::get('paymentTypes', [PaymentTypeController::class, 'index']);
 Route::post('paymentType/{payment_type}',[PaymentTypeController::class,'createPaymentType']);
+Route::post('paymentType/allBalance/{payment_type}',[PaymentTypeController::class,'balanceAllPaymentTypes']);
