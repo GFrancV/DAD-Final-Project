@@ -103,21 +103,27 @@
 						</tr>
 					</tbody>
 				</table>
-				<nav aria-label="...">
-					<ul class="pagination">
-						<li class="page-item disabled">
-							<a class="page-link" href="#" tabindex="-1">Previous</a>
-						</li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item active">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item">
-							<a :class="nextPage" href="#">Next</a>
-						</li>
-					</ul>
-				</nav>
+				<br />
+				<div class="mb-3 d-flex justify-content-end">
+					<nav aria-label="...">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" v-on:click="previousPage()">Previous</a>
+							</li>
+							<div v-for="n in nPages" :key="n">
+								<li v-if="currentPage == n" class="page-item active">
+									<a class="page-link">{{ n }}</a>
+								</li>
+								<li v-else class="page-item">
+									<a class="page-link">{{ n }}</a>
+								</li>
+							</div>
+							<li class="page-item">
+								<a class="page-link" v-on:click="nextPage()">Next</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 		<br />
@@ -140,6 +146,7 @@
 			return {
 				categories: [],
 				transactions: [],
+				nPages: null,
 				currentPage: 1,
 			}
 		},
@@ -150,14 +157,29 @@
 					.get("vcards/" + this.idVcard + "/transactions?page=" + this.currentPage)
 					.then(response => {
 						this.transactions = response.data.data
+						this.nPages = response.data.meta.last_page
 					})
 					.catch(error => {
 						console.log(error)
 					})
 			},
 
+			previousPage() {
+				if (this.currentPage - 1 < 0) return
+
+				this.currentPage--
+				this.getTransactions()
+			},
+
 			nextPage() {
+				if (this.currentPage + 1 > this.nPages) return
+
 				this.currentPage++
+				this.getTransactions()
+			},
+
+			specificPage(page) {
+				this.currentPage == page
 				this.getTransactions()
 			},
 		},
