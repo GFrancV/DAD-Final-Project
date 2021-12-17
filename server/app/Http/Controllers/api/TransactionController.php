@@ -30,6 +30,7 @@ class TransactionController extends Controller
     {
         $newTransaction = Transaction::create($request->validated());
         $newTransaction->vcard = $vcard->phone_number;
+
         $newTransaction->save();
         return new TransactionResource($newTransaction);
     }

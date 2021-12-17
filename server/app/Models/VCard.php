@@ -38,5 +38,4 @@ class VCard extends Model
     {
         return $this->hasMany(Category::class, 'vcard', 'phone_number');
     }
-
 }
