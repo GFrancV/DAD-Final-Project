@@ -14,7 +14,6 @@ class Admin extends Model
     protected $table = 'users';
     public $timestamps = false;
     protected $fillable = [
-        'id',
         'name',
         'email',
         'password'
