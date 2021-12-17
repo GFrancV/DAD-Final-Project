@@ -210,8 +210,19 @@ router.beforeEach((to, from, next) => {
 		next()
 		return
 	}
-	if (to.name == "User" || to.name == "Users" || to.name == "Vcards" || to.name == "Vcard") {
-		if (store.state.user.user_type == "A" || store.state.user.id == to.params.id) {
+	if (
+		to.name == "User" ||
+		to.name == "Users" ||
+		to.name == "Vcards" ||
+		to.name == "Vcard" ||
+		to.name == "Transaction" ||
+		to.name == "NewTransaction"
+	) {
+		if (
+			store.state.user.user_type == "A" ||
+			store.state.user.id == to.params.id ||
+			store.state.user.id == to.params.vcard
+		) {
 			next()
 			return
 		}
