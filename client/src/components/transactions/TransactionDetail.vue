@@ -26,7 +26,10 @@
 						</div>
 					</div>
 
-					<div v-if="$store.state.user.user_type == 'V'" class="col-auto">
+					<div
+						v-if="$store.state.user.user_type == 'V' && operationType == 'insert'"
+						class="col-auto"
+					>
 						<div class="row mb-3">
 							<div class="col">
 								<h6>
@@ -197,7 +200,7 @@
 						>
 							<option value="">-- Select payment type --</option>
 							<option v-for="paymentType in paymentTypes" :key="paymentType.code">
-								{{ paymentType.name }}
+								{{ paymentType.code }}
 							</option>
 						</select>
 
@@ -208,19 +211,9 @@
 							v-model="editingTransaction.payment_type"
 						>
 							<option value="">-- Select payment type --</option>
-							<!-- 
-								
 							<option v-for="paymentType in paymentTypes" :key="paymentType.code">
-								{{ paymentType.name }}
+								{{ paymentType.code }}
 							</option>
-							-->
-							<option>IBAN</option>
-							<option>MASTERCARD</option>
-							<option>MB</option>
-							<option>MBWAY</option>
-							<option>PAYPAL</option>
-							<option>VCARD</option>
-							<option>VISA</option>
 						</select>
 					</div>
 
@@ -401,6 +394,12 @@
 
 			checkForm() {
 				var error = false
+
+				if (this.editingTransaction.payment_reference == this.idVcard) {
+					this.$toast.error("You can't send money to yourself!")
+					error = true
+				}
+
 				if (this.editingTransaction.payment_reference == "") {
 					this.$toast.error("Payment reference is required")
 					error = true

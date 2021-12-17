@@ -119,6 +119,8 @@
 							.catch(error => {
 								if (error.response.status == 422) {
 									this.$toast.error("Transaction was not created due to validation errors!")
+								} else if (error.response.status == 400) {
+									this.$toast.error("Transaction was not created, need confirmation code!")
 								} else {
 									this.$toast.error("Transaction was not created due to unknown server error!")
 								}
