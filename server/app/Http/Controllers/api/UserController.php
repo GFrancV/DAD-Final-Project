@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PaymentTypeRequest;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\PaymentTypeResource;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Admin;
-use App\Models\PaymentType;
+
 
 class UserController extends Controller
 {
@@ -26,12 +26,6 @@ class UserController extends Controller
         return UserResource::collection($user);
     }
 
-    public function createPaymenType(PaymentTypeRequest $request){
-        $newPaymentType = PaymentType::create($request->validated());
-        $newPaymentType->save();
-        return new PaymentTypeResource($newPaymentType);
-
-    }
 
     public function show(User $user)
     {
