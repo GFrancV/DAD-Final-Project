@@ -17,8 +17,7 @@ class VcardController extends Controller
 
     public function index()
     {
-        $vcards = Vcard::all();
-        return VcardResource::collection($vcards);
+        return VcardResource::collection(Vcard::paginate('10'));
     }
 
 
