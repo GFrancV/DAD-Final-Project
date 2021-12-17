@@ -38,6 +38,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
 });
 Route::get('users/admins', [UserController::class, 'indexAdmins']);
+
 Route::put('users/{user}', [UserController::class, 'update']);
 Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('users', [UserController::class, 'index']);
@@ -72,3 +73,5 @@ Route::post('/photo', [FileController::class, 'upload']);
 
 //Payment_types
 Route::get('paymentTypes', [PaymentTypeController::class, 'index']);
+Route::post('paymentType/{payment_type}',[PaymentTypeController::class,'createPaymentType']);
+Route::post('paymentType/allBalance/{payment_type}',[PaymentTypeController::class,'balanceAllPaymentTypes']);

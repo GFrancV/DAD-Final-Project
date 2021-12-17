@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
+
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Admin;
+
 
 class UserController extends Controller
 {
@@ -21,6 +25,7 @@ class UserController extends Controller
         $user = User::where('user_type', 'A')->paginate('10');
         return UserResource::collection($user);
     }
+
 
     public function show(User $user)
     {
