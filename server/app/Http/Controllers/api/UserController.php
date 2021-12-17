@@ -17,6 +17,11 @@ class UserController extends Controller
         return UserResource::collection(User::paginate('10'));
     }
 
+    public function indexAdmins(){
+        $user = User::where('user_type', 'A')->get();
+        return UserResource::collection($user);
+    }
+
     public function show(User $user)
     {
         return new UserResource($user);
