@@ -120,14 +120,12 @@ class TransactionController extends Controller
 
     public function storeAdmin(StoreUpdateTransactionRequest $request, VCard $vcard)
     {
-        //Se o tipo de pagamento for VCARD e não houver um pair_vcard, ou houver um pair_vcard e o tipo de pagamento não for VCARD, mostra erro
         if ($request->payment_type == "VCARD") {
             abort(400, "ERROR: Admins can't use VCARD payment type");
         }
 
-        //Se for uma transação de débito, verifica se tem saldo suficiente para efetuar a transação
         if ($request->type == "D") {
-            abort(400, "ERROR: Admin can't make debit transactions");
+            abort(400, "ERROR: Admins can't make debit transactions");
         }
         //Calcular saldo novo
         $newBalance = $vcard->balance + $request->value;
