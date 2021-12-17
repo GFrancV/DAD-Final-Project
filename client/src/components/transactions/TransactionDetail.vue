@@ -223,6 +223,21 @@
 					></textarea>
 				</div>
 
+				<div class="mb-3 row">
+					<div class="col">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">Pin code</label>
+						</h6>
+						<input
+							type="text"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.currentPassword"
+							required
+						/>
+					</div>
+				</div>
+
 				<div class="mb-3 d-flex justify-content-end">
 					<ul class="list-inline">
 						<li class="list-inline-item">

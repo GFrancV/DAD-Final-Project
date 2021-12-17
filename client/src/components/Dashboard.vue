@@ -76,6 +76,14 @@
 										</tr>
 									</tbody>
 								</table>
+								<br />
+								<div
+									v-if="transactions.length == 0"
+									class="text-secondary"
+									style="text-align: center"
+								>
+									<h5>You have not made any transaction yet</h5>
+								</div>
 							</div>
 							<router-link
 								class="mb-3 d-flex justify-content-end"

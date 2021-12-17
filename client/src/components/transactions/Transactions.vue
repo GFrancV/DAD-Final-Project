@@ -104,6 +104,10 @@
 					</tbody>
 				</table>
 				<br />
+				<div v-if="transactions.length == 0" class="text-secondary" style="text-align: center">
+					<h3>You have not made any transaction yet</h3>
+				</div>
+				<br />
 				<div class="mb-3 d-flex justify-content-end">
 					<nav aria-label="...">
 						<ul class="pagination">
