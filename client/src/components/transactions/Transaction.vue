@@ -91,7 +91,7 @@
 				}
 
 				if (this.operation == "insert") {
-					if ($store.state.user.user_type == "A") {
+					if (this.$store.state.user.user_type == "A") {
 						this.$axios
 							.post("admin/vcards/" + this.idVcard + "/transactions", transaction)
 							.then(response => {
