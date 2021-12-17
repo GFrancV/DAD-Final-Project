@@ -103,6 +103,21 @@
 						</tr>
 					</tbody>
 				</table>
+				<nav aria-label="...">
+					<ul class="pagination">
+						<li class="page-item disabled">
+							<a class="page-link" href="#" tabindex="-1">Previous</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item active">
+							<a class="page-link" href="#">2</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item">
+							<a :class="nextPage" href="#">Next</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 		<br />
@@ -125,19 +140,25 @@
 			return {
 				categories: [],
 				transactions: [],
+				currentPage: 1,
 			}
 		},
 
 		methods: {
 			getTransactions() {
 				this.$axios
-					.get("vcards/" + this.idVcard + "/transactions")
+					.get("vcards/" + this.idVcard + "/transactions?page=" + this.currentPage)
 					.then(response => {
 						this.transactions = response.data.data
 					})
 					.catch(error => {
 						console.log(error)
 					})
+			},
+
+			nextPage() {
+				this.currentPage++
+				this.getTransactions()
 			},
 		},
 
