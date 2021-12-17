@@ -44,7 +44,7 @@ class VcardController extends Controller
             $newCode = $vcard->confirmation_code;
         } else {
             if (!Hash::check($request->confirmation_code, $vcard->confirmation_code)) {
-                return "Wrong current confirmation_code";
+                return "ERROR: Wrong current confirmation_code";
             }
             //Hash confirmation_code
             $newCode = Hash::make($request->confirmation_code);
@@ -70,9 +70,7 @@ class VcardController extends Controller
             'max_debit' => 'required|numeric|min:0'
         ]);
 
-        $vcard->update($validator->validated());
-
-        $vcard->update(['password' => $newPassword, 'confirmation_code' => $newCode]);
+        $vcard->update($validator->validated() + ['password' => $newPassword, 'confirmation_code' => $newCode]);
         $vcard->save();
         return new VcardResource($vcard);
     }
