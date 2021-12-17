@@ -21,6 +21,7 @@ class Transaction extends Model
         'vcard',
         'date',
         'datetime',
+        'type',
         'value',
         'old_balance',
         'new_balance',

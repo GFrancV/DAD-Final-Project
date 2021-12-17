@@ -144,16 +144,13 @@
 							<li class="nav-item d-flex justify-content-between align-items-center pe-3">
 								<router-link
 									class="nav-link w-100 me-3"
-									:class="{ active: $route.name === 'Payments' }"
+									:class="{ active: $route.name === 'PaymentTypes' }"
 									aria-current="page"
-									:to="{ name: 'Payments' }"
+									:to="{ name: 'PaymentTypes' }"
 								>
 									<i class="bi bi-credit-card"></i>
 									Payment Types
 								</router-link>
-								<a class="link-secondary" href="#" aria-label="Add payment type">
-									<i class="bi bi-xs bi-plus-circle"></i>
-								</a>
 							</li>
 
 							<li class="nav-item">
