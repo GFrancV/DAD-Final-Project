@@ -6,6 +6,7 @@ import Payments from "../components/Payments.vue"
 //Transactions
 import Transactions from "../components/transactions/Transactions.vue"
 import Transaction from "../components/transactions/Transaction.vue"
+import TransactionsAdmin from "../components/transactions/TransactionsAdmin.vue"
 
 //Statistics
 import Statistics from "../components/statistics/Statistics.vue"
@@ -157,20 +158,19 @@ const routes = [
 		}),
 	},
 
+	{
+		path: "/transactions",
+		name: "TransactionsAdmin",
+		component: TransactionsAdmin,
+	},
+
 	//VCards/Clientes
 	{
 		path: "/users",
 		name: "Users",
 		component: Users,
 	},
-	/*
-	{
-		path: "/users/me",
-		name: "User",
-		component: VCard,
-		props: { id: "900000001" }, //TODO - Temporário -> Deve-se ir buscar o id do vcard (phone_number) depois com o vuex
-	},
-*/
+
 	{
 		path: "/vcards/:id",
 		name: "Vcard",
