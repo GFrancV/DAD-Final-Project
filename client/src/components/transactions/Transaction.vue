@@ -59,8 +59,6 @@
 					type: "",
 					datetime: "",
 					value: null,
-					old_balance: "",
-					new_balance: "",
 					payment_type: "",
 					payment_reference: "",
 					pair_transaction: null,
@@ -85,7 +83,6 @@
 							console.log(error)
 						})
 				}
-				console.log(this.transaction)
 			},
 
 			save(transaction) {
@@ -98,12 +95,12 @@
 						.post("vcards/" + this.idVcard + "/transactions", transaction)
 						.then(response => {
 							this.$toast.success(
-								"Transaction #" + response.data.data.idTransaction + " was created successfully."
+								"Transaction #" + response.data.data.id + " was created successfully."
 							)
 							this.$router.back()
 						})
 						.catch(error => {
-							if (error.response.status == 422) {
+							if (error.response == 422) {
 								this.$toast.error("Transaction was not created due to validation errors!")
 							} else {
 								this.$toast.error("Transaction was not created due to unknown server error!")

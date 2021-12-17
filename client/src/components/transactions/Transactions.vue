@@ -181,11 +181,6 @@
 				this.currentPage++
 				this.getTransactions()
 			},
-
-			specificPage(page) {
-				this.currentPage == page
-				this.getTransactions()
-			},
 		},
 
 		mounted() {

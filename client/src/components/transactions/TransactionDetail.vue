@@ -47,7 +47,7 @@
 									type="password"
 									class="form-control"
 									id="inputConfirmationCode"
-									:value="editingTransaction.confirmation_code"
+									v-model="this.editingTransaction.confirmation_code"
 									required
 								/>
 							</div>
@@ -201,6 +201,20 @@
 							readonly
 						/>
 						<select
+							v-else-if="$store.state.user.user_type == 'A'"
+							class="form-select"
+							id="inputyPaymentType"
+							v-model="editingTransaction.payment_type"
+						>
+							<option value="">-- Select payment type --</option>
+							<option>IBAN</option>
+							<option>MASTERCARD</option>
+							<option>MB</option>
+							<option>MBWAY</option>
+							<option>PAYPAL</option>
+							<option>VISA</option>
+						</select>
+						<select
 							v-else
 							class="form-select"
 							id="inputyPaymentType"
@@ -303,11 +317,19 @@
 			newBalance() {
 				var newValue = 0
 				if (this.editingTransaction.value != null && this.editingTransaction.value != "") {
-					newValue =
-						parseFloat(this.editingTransaction.old_balance) -
-						parseFloat(this.editingTransaction.value)
+					if (this.editingTransaction.type == "C") {
+						newValue =
+							parseFloat(this.editingTransaction.old_balance) +
+							parseFloat(this.editingTransaction.value)
 
-					return newValue
+						return newValue
+					} else {
+						newValue =
+							parseFloat(this.editingTransaction.old_balance) -
+							parseFloat(this.editingTransaction.value)
+
+						return newValue
+					}
 				} else {
 					return 0
 				}
@@ -315,10 +337,6 @@
 		},
 
 		methods: {
-			transactionType() {
-				if (this.operationType == "insert") this.editingTransaction.type = "D"
-			},
-
 			currentDate() {
 				const today = new Date()
 
@@ -340,6 +358,11 @@
 				this.editingTransaction.date = today.getFullYear() + "-" + month + "-" + day
 				this.editingTransaction.datetime =
 					today.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds
+			},
+
+			transactionType() {
+				if (this.$store.state.user.user_type == "A") this.editingTransaction.type = "C"
+				else this.editingTransaction.type = "D"
 			},
 
 			balance() {
@@ -391,10 +414,6 @@
 				//Insert de vcard of transaction
 				this.editingTransaction.vcard = this.idVcard
 
-				//If is a new transaction insert the new balance
-				if (this.operationType == "insert")
-					this.editingTransaction.new_balance = String(this.newBalance)
-
 				//Serch and insert the category name
 				for (let i = 0; i < this.categories.length; i++) {
 					if (this.categories[i].id == this.editingTransaction.category_id) {
@@ -414,8 +433,8 @@
 		},
 
 		mounted() {
-			this.transactionType()
 			this.currentDate()
+			this.transactionType()
 			this.balance()
 		},
 	}
