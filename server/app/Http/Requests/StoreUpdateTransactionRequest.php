@@ -30,6 +30,7 @@ class StoreUpdateTransactionRequest extends FormRequest
             'type' => 'required|in:C,D',
             'value' => 'required|numeric|min:0',
             'old_balance' => 'required|numeric|min:0',
+            'new_balance' => 'required|numeric|min:0',
             'payment_type' => 'required|max:50|min:3',
             'payment_reference' => 'required|max:50|min:3',
             'pair_transaction' => 'nullable|exists:transactions,id',
