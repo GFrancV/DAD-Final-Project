@@ -47,7 +47,7 @@
 									type="password"
 									class="form-control"
 									id="inputConfirmationCode"
-									:value="editingTransaction.confirmation_code"
+									v-model="this.editingTransaction.confirmation_code"
 									required
 								/>
 							</div>

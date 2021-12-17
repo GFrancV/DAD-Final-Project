@@ -95,7 +95,7 @@
 						.post("vcards/" + this.idVcard + "/transactions", transaction)
 						.then(response => {
 							this.$toast.success(
-								"Transaction #" + response.data.data.idTransaction + " was created successfully."
+								"Transaction #" + response.data.data.id + " was created successfully."
 							)
 							this.$router.back()
 						})
