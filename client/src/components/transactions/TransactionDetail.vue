@@ -199,6 +199,7 @@
 							<option v-for="paymentType in paymentTypes" :key="paymentType.code">
 								{{ paymentType.name }}
 							</option>
+							<option>VISA</option>
 						</select>
 
 						<select
@@ -401,6 +402,7 @@
 
 			checkForm() {
 				var error = false
+
 				if (this.editingTransaction.payment_reference == "") {
 					this.$toast.error("Payment reference is required")
 					error = true
