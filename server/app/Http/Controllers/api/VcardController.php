@@ -43,7 +43,7 @@ class VcardController extends Controller
         if ($request->currentCode == "") {
             $newCode = $vcard->confirmation_code;
         } else {
-            if (!Hash::check($request->currentCode, $vcard->confirmation_code)) {
+            if (!Hash::check($request->confirmation_code, $vcard->confirmation_code)) {
                 return "Wrong current confirmation_code";
             }
             //Hash confirmation_code
