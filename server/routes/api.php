@@ -38,6 +38,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
 });
 Route::get('users/admins', [UserController::class, 'indexAdmins']);
+Route::post('users/paymentType/{payment_type}',[UserController::class,'createPaymenType']);
 Route::put('users/{user}', [UserController::class, 'update']);
 Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('users', [UserController::class, 'index']);
