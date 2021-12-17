@@ -40,7 +40,7 @@
 				this.$axios
 					.get("vcards")
 					.then(response => {
-						this.vcards = response.data.data
+						this.vcards = response.data
 					})
 					.catch(error => {
 						console.log(error)
