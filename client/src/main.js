@@ -14,6 +14,11 @@ import "chartkick/chart.js"
 //Date picker
 import Datepicker from "vue3-date-time-picker"
 import "vue3-date-time-picker/dist/main.css"
+//VM connection
+/*
+const apiDomain = process.env.VUE_APP_API_DOMAIN
+const wsConnection = process.env.VUE_APP_WS_CONNECTION
+*/
 
 let toastOptions = {
 	position: "top",
@@ -31,7 +36,7 @@ const app = createApp(App)
 const url = "http://vcard_api.test"
 //const url = "http://localhost:8000"
 
-axios.defaults.baseURL = url + "/api/"
+axios.defaults.baseURL = url + "/api"
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.$serverUrl = url
 
