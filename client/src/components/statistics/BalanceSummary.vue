@@ -83,7 +83,7 @@
 		computed: {},
 		methods: {
 			getStatistics() {
-				var array = [["", 0]]
+				var array = []
 				var expenditure = 0
 
 				for (let i = 0; i < this.transactions.length; i++) {

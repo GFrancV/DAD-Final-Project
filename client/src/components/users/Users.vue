@@ -61,53 +61,72 @@
 				</tbody>
 			</table>
 		</div>
+		<br />
+		<div class="mb-3 d-flex justify-content-end">
+			<nav aria-label="...">
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" v-on:click="previousPage()">Previous</a>
+					</li>
+					<div v-for="n in nPages" :key="n">
+						<li v-if="currentPage == n" class="page-item active">
+							<a class="page-link">{{ n }}</a>
+						</li>
+						<li v-else class="page-item">
+							<a class="page-link">{{ n }}</a>
+						</li>
+					</div>
+					<li class="page-item">
+						<a class="page-link" v-on:click="nextPage()">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
+	<br />
 </template>
 
 <script>
 	export default {
 		name: "Users",
-		props: {
-			/*
-			idUser: {
-				type: String,
-				default: "",
-			},
-			*/
-		},
 		data() {
 			return {
-				allUsers: [],
 				admins: [],
+				nPages: null,
+				currentPage: 1,
 			}
 		},
 		methods: {
-			async getAdministrators() {
-				var aux
-				var def = []
-
-				await this.$axios
-					.get("users")
+			getAdministrators() {
+				this.$axios
+					.get("users/admins")
 					.then(response => {
-						aux = response.data.data
+						this.admins = response.data.data
+						this.nPages = response.data.meta.last_page
 					})
 					.catch(error => {
 						console.log(error)
 					})
-
-				for (let i = 0; i < aux.length; i++) {
-					if (aux[i].user_type == "A") {
-						def.push(aux[i])
-					}
-				}
-
-				this.admins = def
 			},
 
 			photoFullUrl(user) {
 				return user.photo_url
 					? this.$serverUrl + "/storage/fotos/" + user.photo_url
 					: "img/avatar-default.png"
+			},
+
+			previousPage() {
+				if (this.currentPage - 1 <= 0) return
+
+				this.currentPage--
+				this.getAdministrators()
+			},
+
+			nextPage() {
+				if (this.currentPage + 1 > this.nPages) return
+
+				this.currentPage++
+				this.getAdministrators()
 			},
 		},
 
