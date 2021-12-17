@@ -34,7 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="vcard in vcards" :key="vcard.id">
+					<tr v-for="vcard in vcards" :key="vcard.phone_number">
 						<th scope="col" class="align-middle">
 							<img
 								:src="photoFullUrl(vcard)"
@@ -45,14 +45,14 @@
 						</th>
 						<th scope="col" class="align-middle">{{ vcard.name }}</th>
 						<td scope="col" class="align-middle">{{ vcard.email }}</td>
-						<td scope="col" class="align-middle">{{ vcard.id }}</td>
+						<td scope="col" class="align-middle">{{ vcard.phone_number }}</td>
 						<td scope="col" class="align-middle">
 							<router-link
 								type="button"
 								class="btn btn-primary btn-sm"
 								:to="{
 									name: 'Vcard',
-									params: { id: vcard.id },
+									params: { id: vcard.phone_number },
 								}"
 								><i class="bi-pencil-square" style="color: white"></i
 							></router-link>
@@ -60,54 +60,73 @@
 					</tr>
 				</tbody>
 			</table>
+			<br />
+			<div class="mb-3 d-flex justify-content-end">
+				<nav aria-label="...">
+					<ul class="pagination">
+						<li class="page-item">
+							<a class="page-link" v-on:click="previousPage()">Previous</a>
+						</li>
+						<div v-for="n in nPages" :key="n">
+							<li v-if="currentPage == n" class="page-item active">
+								<a class="page-link">{{ n }}</a>
+							</li>
+							<li v-else class="page-item">
+								<a class="page-link">{{ n }}</a>
+							</li>
+						</div>
+						<li class="page-item">
+							<a class="page-link" v-on:click="nextPage()">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 	</div>
+	<br />
 </template>
 
 <script>
 	export default {
 		name: "Vcards",
-		props: {
-			/*
-			idUser: {
-				type: String,
-				default: "",
-			},
-			*/
-		},
 		data() {
 			return {
-				allUsers: [],
 				vcards: [],
+				nPages: null,
+				currentPage: 1,
 			}
 		},
 		methods: {
-			async getVcards() {
-				var aux
-				var def = []
-
-				await this.$axios
-					.get("users")
+			getVcards() {
+				this.$axios
+					.get("vcards?page=" + this.currentPage)
 					.then(response => {
-						aux = response.data.data
+						this.vcards = response.data.data
+						this.nPages = response.data.meta.last_page
 					})
 					.catch(error => {
 						console.log(error)
 					})
-
-				for (let i = 0; i < aux.length; i++) {
-					if (aux[i].user_type == "V") {
-						def.push(aux[i])
-					}
-				}
-
-				this.vcards = def
 			},
 
 			photoFullUrl(user) {
 				return user.photo_url
 					? this.$serverUrl + "/storage/fotos/" + user.photo_url
 					: "img/avatar-default.png"
+			},
+
+			previousPage() {
+				if (this.currentPage - 1 <= 0) return
+
+				this.currentPage--
+				this.getVcards()
+			},
+
+			nextPage() {
+				if (this.currentPage + 1 > this.nPages) return
+
+				this.currentPage++
+				this.getVcards()
 			},
 		},
 
