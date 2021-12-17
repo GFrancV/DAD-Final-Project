@@ -59,8 +59,6 @@
 					type: "",
 					datetime: "",
 					value: null,
-					old_balance: "",
-					new_balance: "",
 					payment_type: "",
 					payment_reference: "",
 					pair_transaction: null,
@@ -85,7 +83,6 @@
 							console.log(error)
 						})
 				}
-				console.log(this.transaction)
 			},
 
 			save(transaction) {
@@ -103,7 +100,7 @@
 							this.$router.back()
 						})
 						.catch(error => {
-							if (error.response.status == 422) {
+							if (error.response == 422) {
 								this.$toast.error("Transaction was not created due to validation errors!")
 							} else {
 								this.$toast.error("Transaction was not created due to unknown server error!")
