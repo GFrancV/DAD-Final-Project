@@ -3,17 +3,6 @@
 		<h2 style="margin-top: 30px">{{ transactionTitle }}</h2>
 		<div class="content">
 			<form class="row g-3 needs-validation" novalidate @submit.prevent="save">
-				<!--
-        <h6>ID transaction</h6>
-				<input
-					id="inputVCard"
-					class="form-control"
-					type="text"
-					:value="transaction.id"
-					aria-label="vCard number"
-					readonly
-				/>
-        -->
 				<!--Date-->
 				<div class="row" style="margin-top: 20px">
 					<!--Date transaction-->
@@ -37,7 +26,7 @@
 						</div>
 					</div>
 
-					<div class="col-auto">
+					<div v-if="$store.state.user.user_type == 'V'" class="col-auto">
 						<div class="row mb-3">
 							<div class="col">
 								<h6>
@@ -207,13 +196,11 @@
 							v-model="editingTransaction.payment_type"
 						>
 							<option value="">-- Select payment type --</option>
-							<option>IBAN</option>
-							<option>MASTERCARD</option>
-							<option>MB</option>
-							<option>MBWAY</option>
-							<option>PAYPAL</option>
-							<option>VISA</option>
+							<option v-for="paymentType in paymentTypes" :key="paymentType.code">
+								{{ paymentType.name }}
+							</option>
 						</select>
+
 						<select
 							v-else
 							class="form-select"
@@ -221,6 +208,12 @@
 							v-model="editingTransaction.payment_type"
 						>
 							<option value="">-- Select payment type --</option>
+							<!-- 
+								
+							<option v-for="paymentType in paymentTypes" :key="paymentType.code">
+								{{ paymentType.name }}
+							</option>
+							-->
 							<option>IBAN</option>
 							<option>MASTERCARD</option>
 							<option>MB</option>
@@ -295,6 +288,7 @@
 			return {
 				editingTransaction: this.transaction,
 				currentBalance: 0.0,
+				paymentTypes: [],
 			}
 		},
 
@@ -337,6 +331,33 @@
 		},
 
 		methods: {
+			async getPaymenthTypes() {
+				await this.$axios
+					.get("/paymentTypes")
+					.then(response => {
+						this.paymentTypes = response.data.data
+					})
+					.catch(error => {
+						console.log(error)
+					})
+
+				//Remove vCard option if the user is admin
+				if (this.$store.state.user.user_type == "A") {
+					var indexDelete
+					var aux = this.paymentTypes
+
+					for (let i = 0; i < this.paymentTypes.length; i++) {
+						if (this.paymentTypes[i].name == "vCard") {
+							indexDelete = i
+						}
+					}
+
+					aux.splice(indexDelete, 1)
+
+					this.paymentTypes = aux
+				}
+			},
+
 			currentDate() {
 				const today = new Date()
 
@@ -436,6 +457,7 @@
 			this.currentDate()
 			this.transactionType()
 			this.balance()
+			this.getPaymenthTypes()
 		},
 	}
 </script>

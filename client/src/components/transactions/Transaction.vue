@@ -91,21 +91,39 @@
 				}
 
 				if (this.operation == "insert") {
-					this.$axios
-						.post("vcards/" + this.idVcard + "/transactions", transaction)
-						.then(response => {
-							this.$toast.success(
-								"Transaction #" + response.data.data.id + " was created successfully."
-							)
-							this.$router.back()
-						})
-						.catch(error => {
-							if (error.response == 422) {
-								this.$toast.error("Transaction was not created due to validation errors!")
-							} else {
-								this.$toast.error("Transaction was not created due to unknown server error!")
-							}
-						})
+					if ($store.state.user.user_type == "A") {
+						this.$axios
+							.post("admin/vcards/" + this.idVcard + "/transactions", transaction)
+							.then(response => {
+								this.$toast.success(
+									"Transaction #" + response.data.data.id + " was created successfully."
+								)
+								this.$router.back()
+							})
+							.catch(error => {
+								if (error.response.status == 422) {
+									this.$toast.error("Transaction was not created due to validation errors!")
+								} else {
+									this.$toast.error("Transaction was not created due to unknown server error!")
+								}
+							})
+					} else {
+						this.$axios
+							.post("vcards/" + this.idVcard + "/transactions", transaction)
+							.then(response => {
+								this.$toast.success(
+									"Transaction #" + response.data.data.id + " was created successfully."
+								)
+								this.$router.back()
+							})
+							.catch(error => {
+								if (error.response.status == 422) {
+									this.$toast.error("Transaction was not created due to validation errors!")
+								} else {
+									this.$toast.error("Transaction was not created due to unknown server error!")
+								}
+							})
+					}
 				} else {
 					this.$axios
 						.put("vcards/" + this.idVcard + "/transactions/" + this.idTransaction, transaction)
