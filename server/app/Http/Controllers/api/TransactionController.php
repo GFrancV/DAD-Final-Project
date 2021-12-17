@@ -27,7 +27,8 @@ class TransactionController extends Controller
         return new TransactionResource($transaction);
     }
 
-    private function updateBalance(VCard $vcard, $newBalance){
+    private function updateBalance(VCard $vcard, $newBalance)
+    {
         $vcard->update(['balance' => $newBalance]);
         $vcard->save();
     }
@@ -50,26 +51,25 @@ class TransactionController extends Controller
 
         //Verificar código de confimação
         if (!Hash::check($request->confirmation_code, $vcard->confirmation_code)) {
-            return "ERROR: Wrong current confirmation_code";
+            abort(400, "ERROR: Wrong current confirmation_code");
         }
 
-        //Calcular saldo antigo e novo saldo + verificação se há saldo suficiente
-        $newBalance = 0;
         $isPairTransaction = $request->pair_vcard != null;
 
         //Se o tipo de pagamento for VCARD e não houver um pair_vcard, ou houver um pair_vcard e o tipo de pagamento não for VCARD, mostra erro
         if (($request->payment_type == "VCARD" && !$isPairTransaction) || ($isPairTransaction && $request->payment_type != "VCARD")) {
-            return "ERROR: Payment type VCARD needs a pair vcard";
+            abort(400, "ERROR: Payment type VCARD needs a pair vcard");
         }
         if ($request->vcard == $request->pair_vcard) {
-            return "ERROR: Can't make a transaction to your own vcard";
+            abort(400, "ERROR: Can't make a transaction to your own vcard");
         }
 
-        //Se for uma transação de débito, verifica se tem saldo suficiente para efetuar a transação
+        //Calcular saldo antigo e novo saldo + verificação se há saldo suficiente
+        $newBalance = 0;
         if ($request->type == "D") {
             $newBalance = $vcard->balance - $request->value;
             if ($newBalance < 0) {
-                return "ERROR: Insufficient balance";
+                abort(400, "ERROR: Insufficient balance");
             }
         } else {
             //Calcular saldo novo
@@ -114,6 +114,28 @@ class TransactionController extends Controller
         $this->updateBalance($pair_vcard, $pairNewBalance);
 
         $pairTransaction->save();
+        $newTransaction->save();
+        return new TransactionResource($newTransaction);
+    }
+
+    public function storeAdmin(StoreUpdateTransactionRequest $request, VCard $vcard)
+    {
+        if ($request->payment_type == "VCARD") {
+            abort(400, "ERROR: Admins can't use VCARD payment type");
+        }
+
+        if ($request->type == "D") {
+            abort(400, "ERROR: Admins can't make debit transactions");
+        }
+        //Calcular saldo novo
+        $newBalance = $vcard->balance + $request->value;
+
+        $newTransaction = Transaction::create($request->validated() +
+            ["old_balance" => $vcard->balance, "new_balance" => $newBalance, "vcard" => $vcard->phone_number]);
+
+        //Atualizar saldo do cartão
+        $this->updateBalance($vcard, $newBalance);
+
         $newTransaction->save();
         return new TransactionResource($newTransaction);
     }
