@@ -36,7 +36,6 @@ class PaymentTypeController extends Controller
             $sum = $transactions->sum(function($transaction){
                 return $transaction->value;
             });
-
         }
         return $sum;
     }

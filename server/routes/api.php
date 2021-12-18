@@ -48,6 +48,7 @@ Route::delete('users/{user}', [UserController::class, 'destroy']);
 
 //Transactions
 Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
+Route::get('vcards/{vcard}/AllTransactions', [TransactionController::class, 'getAllTransactions']);
 Route::get('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'show']);
 Route::post('vcards/{vcard}/transactions', [TransactionController::class, 'store']);
 Route::post('admin/vcards/{vcard}/transactions', [TransactionController::class, 'storeAdmin']);
