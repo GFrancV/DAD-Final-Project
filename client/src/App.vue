@@ -117,9 +117,9 @@
 							<li class="nav-item">
 								<router-link
 									class="nav-link"
-									:class="{ active: $route.name === 'Dashboard' }"
+									:class="{ active: $route.name === 'Home' }"
 									aria-current="page"
-									:to="{ name: 'Dashboard' }"
+									:to="{ name: 'Home' }"
 								>
 									<i class="bi bi-layers mr-2"></i>
 									Dashboard

@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-sm-5 col-md-8 content-primary">
 				<h2 style="margin-top: 30px">Dashboard</h2>
-				<div v-if="transactions.length != 0">
+				<div v-if="allTransactions">
 					<balance-summary :transactions="allTransactions"></balance-summary>
 				</div>
 				<!-- Force next columns to break to new line -->
@@ -221,7 +221,7 @@
 				vCardId: this.$store.state.user.id.toString(),
 				vCardInfo: [],
 				transactions: [],
-				allTransactions: [],
+				allTransactions: null,
 				categories: [],
 			}
 		},
