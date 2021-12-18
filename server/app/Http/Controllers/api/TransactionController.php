@@ -20,6 +20,11 @@ class TransactionController extends Controller
         $vcardPaginate = Transaction::where('vcard', $vcard->phone_number)->orderBy('datetime', 'desc')->paginate(10);
         return TransactionResource::collection($vcardPaginate);
     }
+    public function getAllTransactions(VCard $vcard)
+    {
+        return TransactionResource::collection($vcard->transactions);
+    }
+
 
     public function show(VCard $vcard, Transaction $transaction)
     {
