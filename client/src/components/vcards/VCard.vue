@@ -174,7 +174,7 @@
 				</div>
 
 				<div v-if="this.$store.state.user.user_type == 'A'" class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<h6>
 							<label for="inputConfirmationCode" class="form-label">vCard Status</label>
 						</h6>
@@ -186,7 +186,20 @@
 							required
 						/>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">Balance</label>
+						</h6>
+						<input
+							type="number"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.balance"
+							required
+							readonly
+						/>
+					</div>
+					<div class="col-md-4">
 						<h6>
 							<label for="inputConfirmationCode" class="form-label">Max Balance</label>
 						</h6>
