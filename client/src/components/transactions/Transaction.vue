@@ -93,7 +93,7 @@
 				if (this.operation == "insert") {
 					if (this.$store.state.user.user_type == "A") {
 						this.$axios
-							.post("admin/vcards/" + this.idVcard + "/transactions", transaction)
+							.post("vcards/" + this.idVcard + "/admin/transactions", transaction)
 							.then(response => {
 								this.$toast.success(
 									"Transaction #" + response.data.data.id + " was created successfully."

@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 
-use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Admin;
 
@@ -21,7 +20,8 @@ class UserController extends Controller
         return UserResource::collection(User::paginate('10'));
     }
 
-    public function indexAdmins(){
+    public function indexAdmins()
+    {
         $user = User::where('user_type', 'A')->paginate('10');
         return UserResource::collection($user);
     }
@@ -37,7 +37,6 @@ class UserController extends Controller
     }
     public function update(UpdateUserRequest $request, User $user)
     {
-
         $user = Admin::where('id', $user->id)->first();
         $user->update($request->validated());
         $user->save();
@@ -49,5 +48,4 @@ class UserController extends Controller
         Admin::where('id', $user->id)->delete();
         return new UserResource($user);
     }
-
 }

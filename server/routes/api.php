@@ -10,70 +10,77 @@ use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PaymentTypeController;
 use App\Http\Controllers\api\TransactionController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-//login
-
+//Login
 Route::post('login', [AuthController::class, 'login']);
 
-//Users
-
+//Register cliente
+Route::post('vcards', [VcardController::class, 'store']);
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('users/me', [UserController::class, 'show_me']);
+
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
 
+    //Users
+    Route::prefix('users')->group(function () {
+        Route::get('me', [UserController::class, 'show_me']);
+        Route::middleware('can:viewAny,App\Models\User')->group(function () {
+            Route::get('/', [UserController::class, 'index']);
+            Route::get('admins', [UserController::class, 'indexAdmins']);
+        });
+        Route::get('{user}', [UserController::class, 'show'])->middleware('can:view,user');
+        Route::put('{user}', [UserController::class, 'update'])->middleware('can:update,user');
+        Route::delete('{user}', [UserController::class, 'destroy'])->middleware('can:delete,user');
+    });
 
-    Route::get('users', [UserController::class, 'index'])->middleware('can:view,user');
-    Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:update,user');
+    Route::prefix('vcards/{vcard}')->group(function () {
+        //Transactions
+        Route::prefix('transactions')->group(function () {
+            Route::middleware('can:view,vcard,App\Models\VCard')->group(function () {
+                Route::get('/', [TransactionController::class, 'getTransactionsOfVcard']);
+                Route::get('{transaction}', [TransactionController::class, 'show']);
+            });
+            Route::post('/', [TransactionController::class, 'store'])->middleware('can:create,vcard,App\Models\VCard');
+            Route::post('transactions/admin', [TransactionController::class, 'storeAdmin'])->middleware('can:createAdmin,App\Models\VCard');
+            Route::put('{transaction}', [TransactionController::class, 'update'])->middleware('can:update,vcard,App\Models\VCard');
+            Route::delete('{transaction}', [TransactionController::class, 'destroy'])->middleware('can:delete,vcard');
+        });
+        Route::get('AllTransactions', [TransactionController::class, 'getAllTransactions'])->middleware('can:view,vcard,App\Models\VCard');
+
+        //Categories
+        Route::prefix('categories')->group(function () {
+            Route::middleware('can:view,vcard,App\Models\VCard')->group(function () {
+                Route::get('/', [CategoryController::class, 'getCategoriesOfVcard']);
+                Route::get('{category}', [CategoryController::class, 'show']);
+            });
+
+            Route::post('/', [CategoryController::class, 'store'])->middleware('can:update,vcard,App\Models\VCard');
+            Route::put('{category}', [CategoryController::class, 'update'])->middleware('can:update,vcard,App\Models\VCard');
+            Route::delete('{category}', [CategoryController::class, 'destroy'])->middleware('can:update,vcard,App\Models\VCard');
+        });
+
+        //Vcards
+        Route::get('/', [VcardController::class, 'show'])->middleware('can:view,vcard');
+        Route::middleware('can:update,vcard,App\Models\VCard')->group(function () {
+            Route::patch('/', [VcardController::class, 'update']);
+            Route::patch('/admin', [VcardController::class, 'updateAdmin']);
+        });
+        Route::delete('/', [VcardController::class, 'destroy'])->middleware('can:delete,vcard');
+    });
+    Route::middleware('can:viewAny,App\Models\User')->group(function () {
+        Route::get('vcards', [VcardController::class, 'index']);
+        Route::get('vcardsAll', [VcardController::class, 'indexAll']);
+    });
+
+    //Payment_types
+    Route::prefix('paymentTypes')->group(function () {
+        Route::get('', [PaymentTypeController::class, 'index']);
+
+        Route::patch('{payment_type}', [PaymentTypeController::class, 'updateDescription'])->middleware('can:update,App\Models\User');
+        Route::post('{payment_type}', [PaymentTypeController::class, 'store'])->middleware('can:create,App\Models\User');
+        Route::delete('{payment_type}', [PaymentTypeController::class, 'destroy'])->middleware('can:delete,App\Models\User');
+        Route::post('allBalance/{payment_type}', [PaymentTypeController::class, 'balanceAllPaymentTypes']);
+    });
+
+    //Files
+    Route::post('/photo', [FileController::class, 'upload']);
 });
-Route::get('users/admins', [UserController::class, 'indexAdmins']);
-
-Route::put('users/{user}', [UserController::class, 'update']);
-Route::get('users/{user}', [UserController::class, 'show']);
-Route::get('users', [UserController::class, 'index']);
-
-
-Route::delete('users/{user}', [UserController::class, 'destroy']);
-
-//Transactions
-Route::get('vcards/{vcard}/transactions', [TransactionController::class, 'getTransactionsOfVcard']);
-Route::get('vcards/{vcard}/AllTransactions', [TransactionController::class, 'getAllTransactions']);
-Route::get('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'show']);
-Route::post('vcards/{vcard}/transactions', [TransactionController::class, 'store']);
-Route::post('admin/vcards/{vcard}/transactions', [TransactionController::class, 'storeAdmin']);
-Route::put('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'update']);
-Route::delete('vcards/{vcard}/transactions/{transaction}', [TransactionController::class, 'destroy']);
-
-//Categories
-Route::get('vcards', [VcardController::class, 'index']);
-Route::get('vcardsAll', [VcardController::class, 'indexAll']);
-Route::get('vcards/{vcard}/categories', [CategoryController::class, 'getCategoriesOfVcard']);
-Route::get('vcards/{vcard}/categories/{category}', [CategoryController::class, 'show']);
-Route::post('vcards/{vcard}/categories', [CategoryController::class, 'store']);
-Route::put('vcards/{vcard}/categories/{category}', [CategoryController::class, 'update']);
-Route::delete('vcards/{vcard}/categories/{category}', [CategoryController::class, 'destroy']);
-
-//Vcard
-Route::get('vcards/{vcard}', [VcardController::class, 'show']);
-Route::post('vcards', [VcardController::class, 'store']);
-Route::delete('vcards/{vcard}', [VcardController::class, 'destroy']);
-Route::put('vcards/{vcard}', [VcardController::class, 'update']);
-
-//Files
-Route::post('/photo', [FileController::class, 'upload']);
-
-//Payment_types
-Route::get('paymentTypes', [PaymentTypeController::class, 'index']);
-Route::post('paymentType/{payment_type}',[PaymentTypeController::class,'createPaymentType']);
-Route::post('paymentType/allBalance/{payment_type}',[PaymentTypeController::class,'balanceAllPaymentTypes']);

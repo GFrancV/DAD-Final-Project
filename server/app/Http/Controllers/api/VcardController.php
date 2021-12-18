@@ -80,6 +80,13 @@ class VcardController extends Controller
         return new VcardResource($vcard);
     }
 
+    public function updateAdmin(StoreUpdateVCardsRequest $request, VCard $vcard)
+    {
+        $vcard->update(["max_debit" => $request->max_debit, "blocked" => $request->blocked]);
+        $vcard->save();
+        return new VcardResource($vcard);
+    }
+
     public function destroy(VCard $vcard)
     {
         Transaction::where("vcard", $vcard->phone_number)->delete();

@@ -18,5 +18,4 @@ class Admin extends Model
         'email',
         'password'
     ];
-
 }

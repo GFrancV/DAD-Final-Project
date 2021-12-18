@@ -18,7 +18,6 @@ class PaymentType extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        //DATETIME?
         'code',
         'name',
         'description'
@@ -26,8 +25,6 @@ class PaymentType extends Model
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class,'payment_type','code');
+        return $this->hasMany(Transaction::class, 'payment_type', 'code');
     }
-
-
 }

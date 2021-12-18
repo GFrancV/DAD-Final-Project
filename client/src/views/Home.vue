@@ -2,7 +2,7 @@
 	<div class="home">
 		<div v-if="this.$store.state.user != null">
 			<div v-if="this.$store.state.user.user_type == 'A'">
-				<h2 style="margin-top: 30px">Welcom to vCard App {{ this.$store.state.user.name }}</h2>
+				<h2 style="margin-top: 30px">Welcome to vCard App {{ this.$store.state.user.name }}</h2>
 				<div class="content">
 					<p>What do you want to do?</p>
 					<!--Administrator tools-->
@@ -81,7 +81,7 @@
 			</div>
 		</div>
 		<div v-else>
-			<h2 style="margin-top: 30px">Welcom to vCard App</h2>
+			<h2 style="margin-top: 30px">Welcome to vCard App</h2>
 			<div class="content">
 				<login></login>
 			</div>

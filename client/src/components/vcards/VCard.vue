@@ -262,7 +262,7 @@
 			},
 			save() {
 				this.$axios
-					.put("vcards/" + this.id, this.vcard)
+					.patch("vcards/" + this.id, this.vcard)
 					.then(response => {
 						this.$toast.success('User "' + response.data.data.name + '" was updated successfully.')
 						this.vcard = response.data.data
