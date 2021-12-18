@@ -24,6 +24,10 @@ class StoreUpdateVCardsRequest extends FormRequest
     public function rules()
     {
         return [
+            'phone_number' => 'required|min:9|max:9',
+            'password' => 'required|min:4',
+            'confirmation_code' => 'required|min:4|max:4',
+            'blocked' => 'required|boolean',
             'name' => 'required|max:50|min:3',
             'email' => 'required|email',
             'photo_url' => 'nullable|string',

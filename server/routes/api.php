@@ -10,11 +10,9 @@ use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PaymentTypeController;
 use App\Http\Controllers\api\TransactionController;
 
-//Login
+//Login&Register
 Route::post('login', [AuthController::class, 'login']);
-
-//Register cliente
-Route::post('vcards', [VcardController::class, 'store']);
+Route::post('register', [VcardController::class, 'store']);
 
 Route::middleware('auth:api')->group(function () {
 

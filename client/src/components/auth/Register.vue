@@ -1,90 +1,143 @@
 <template>
-  <form class="row g-3 needs-validation" novalidate>
-    <h3 class="mt-5 mb-3">Register - TODO - CÓPIA DO LOGIN</h3>
-    <hr />
-    <div class="mb-3">
+  <h2 style="margin-top: 30px">Register</h2>
+  <div class="content">
+    <form
+      class="row g-3 needs-validation"
+      novalidate
+      @submit.prevent="checkForm"
+    >
       <div class="mb-3">
-        <label for="inputUsername" class="form-label">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputUsername"
-          required
-          v-model="credentials.username"
-        />
-        <field-error-message
-          :errors="errors"
-          fieldName="username"
-        ></field-error-message>
+        <!--NAME-->
+        <div class="mb-3">
+          <h6>
+            <label for="inputName" class="form-label">Name</label>
+          </h6>
+          <input
+            type="text"
+            class="form-control"
+            id="inputName"
+            v-model="vcard.name"
+            required
+          />
+        </div>
+
+        <!--USERNAME-->
+        <div class="mb-3">
+          <h6>
+            <label for="inputUsername" class="form-label">Username</label>
+          </h6>
+          <input
+            type="text"
+            class="form-control"
+            id="inputUsername"
+            required
+            v-model="vcard.phone_number"
+          />
+        </div>
+
+        <!--EMAIL-->
+        <div class="mb-3">
+          <h6>
+            <label for="inputEmail" class="form-label">Email</label>
+          </h6>
+          <input
+            type="text"
+            class="form-control"
+            id="inputEmail"
+            v-model="vcard.email"
+            required
+          />
+        </div>
+
+        <!--CONFIRMATION CODE-->
+        <div class="mb-3 row">
+          <div class="col-sm">
+            <h6>
+              <label for="inputConfirmationCode" class="form-label"
+                >New Confirmation Code</label
+              >
+            </h6>
+            <input
+              type="text"
+              class="form-control"
+              id="inputConfirmationCode"
+              v-model="vcard.confirmation_code"
+              required
+            />
+          </div>
+        </div>
+
+        <!--PASSWORD-->
+        <div class="mb-3">
+          <div class="mb-3">
+            <h6>
+              <label for="inputPassword" class="form-label">Password</label>
+            </h6>
+
+            <input
+              type="password"
+              class="form-control"
+              id="inputPassword"
+              required
+              v-model="vcard.password"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="mb-3">
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="inputPassword"
-          required
-          v-model="credentials.password"
-        />
-        <field-error-message
-          :errors="errors"
-          fieldName="password"
-        ></field-error-message>
+      <div class="mb-3 d-flex justify-content-center">
+        <button type="button" class="btn btn-primary px-5" @click="checkForm">
+          register
+        </button>
       </div>
-    </div>
-    <div class="mb-3 d-flex justify-content-center">
-      <button type="button" class="btn btn-primary px-5" @click.prevent="login">
-        Login
-      </button>
-    </div>
-  </form>
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
-      credentials: {
-        username: "",
+      vcard: {
+        phone_number: null,
+        name: "",
+        email: "",
+        photo_url: "",
         password: "",
+        confirmation_code: "",
+        blocked: false,
+        balance: 0,
+        max_debit: 5000,
       },
       errors: null,
     };
   },
-  emits: ["login"],
   methods: {
-    login() {
+    checkForm() {
+      if (this.vcard.phone_number == "")
+        this.$toast.error("Username is required!");
+
+      if (this.vcard.password == "") this.$toast.error("Password is required!");
+
+      if (this.vcard.password != "" && this.vcard.phone_number != "")
+        this.register();
+    },
+
+    register() {
       this.$axios
-        .post("login", this.credentials)
-        .then((response) => {
+        .post("register", this.vcard)
+        .then(() => {
           this.$toast.success(
-            "User " +
-              this.credentials.username +
-              " has entered the application."
+            "User " + this.$vcard.phone_number + " created and ready to login."
           );
-          this.$axios.defaults.headers.common.Authorization =
-            "Bearer " + response.data.access_token;
-          sessionStorage.setItem("token", response.data.access_token);
-          this.$store.dispatch("loadUser").then(() => {
-            this.$emit("login");
-            this.$router.push({ name: "Home" });
-          });
-          this.$emit("login");
-          this.$router.back();
         })
         .catch(() => {
-          delete this.$axios.defaults.headers.common.Authorization;
-          this.$store.commit("resetUser");
-          this.credentials.password = "";
-          this.$toast.error("User credentials are invalid!");
+          this.vcard.password = "";
+          this.$toast.error("Invalid vcard!");
         });
     },
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -14,7 +14,6 @@ use App\Http\Requests\StoreUpdateVCardsRequest;
 
 class VcardController extends Controller
 {
-
     public function index()
     {
         return VcardResource::collection(Vcard::paginate('10'));
@@ -25,8 +24,6 @@ class VcardController extends Controller
         return VcardResource::collection(Vcard::all());
     }
 
-
-
     public function show(VCard $vcard)
     {
         return new VcardResource($vcard);
@@ -34,7 +31,15 @@ class VcardController extends Controller
 
     public function store(StoreUpdateVCardsRequest $request)
     {
-        $newVcard = VCard::create($request->validated());
+        request()->request->add([
+            "balance" => 0.00,
+            "max_debit" => 5000.00,
+            "confirmation_code" => Hash::make($request->confirmation_code),
+            "password" => Hash::make($request->password),
+            "blocked" => false
+        ]);
+
+        $newVcard = VCard::create($request->all());
         $newVcard->save();
         return new VcardResource($newVcard);
     }
