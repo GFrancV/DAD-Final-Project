@@ -14,8 +14,6 @@ import "chartkick/chart.js"
 //Date picker
 import Datepicker from "vue3-date-time-picker"
 import "vue3-date-time-picker/dist/main.css"
-//Switch
-import ToggleSwitch from "vuejs-toggle-switch"
 
 //VM connection
 /*
@@ -35,7 +33,6 @@ const app = createApp(App)
 	.use(Toaster, toastOptions)
 	.use(VueChartkick)
 	.component("Datepicker", Datepicker)
-	.use(ToggleSwitch)
 
 const url = "http://vcard_api.test"
 //const url = "http://localhost:8000"

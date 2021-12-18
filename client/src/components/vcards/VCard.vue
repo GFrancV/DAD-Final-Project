@@ -153,6 +153,8 @@
 					</div>
 				</div>
 
+				<toggle-switch :options="myOptions" />
+
 				<div class="mb-3 d-flex justify-content-end">
 					<ul class="list-inline">
 						<li class="list-inline-item">
