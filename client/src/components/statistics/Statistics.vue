@@ -48,7 +48,7 @@
 		methods: {
 			getTransactions() {
 				this.$axios
-					.get("vcards/" + this.idVcard + "/transactions")
+					.get("vcards/" + this.idVcard + "/AllTransactions")
 					.then(response => {
 						this.transactions = response.data.data
 					})
