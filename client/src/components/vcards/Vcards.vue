@@ -47,15 +47,29 @@
 						<td scope="col" class="align-middle">{{ vcard.email }}</td>
 						<td scope="col" class="align-middle">{{ vcard.phone_number }}</td>
 						<td scope="col" class="align-middle">
-							<router-link
-								type="button"
-								class="btn btn-primary btn-sm"
-								:to="{
-									name: 'Vcard',
-									params: { id: vcard.phone_number },
-								}"
-								><i class="bi-pencil-square" style="color: white"></i
-							></router-link>
+							<ul class="list-inline m-0">
+								<li class="list-inline-item">
+									<router-link
+										type="button"
+										class="btn btn-primary btn-sm"
+										:to="{
+											name: 'Vcard',
+											params: { id: vcard.phone_number },
+										}"
+										><i class="bi-pencil-square" style="color: white"></i
+									></router-link>
+								</li>
+								<li class="list-inline-item">
+									<router-link
+										type="button"
+										class="btn btn-primary"
+										:to="{ name: 'NewTransaction', params: { vcard: vcard.phone_number } }"
+									>
+										<i class="bi bi-plus" style="color: white"></i>
+										Add Credit to vCard
+									</router-link>
+								</li>
+							</ul>
 						</td>
 					</tr>
 				</tbody>

@@ -207,19 +207,6 @@
 							<li class="nav-item">
 								<router-link
 									class="nav-link"
-									:class="{ active: $route.name === 'TransactionsAdmin' }"
-									aria-current="page"
-									:to="{
-										name: 'TransactionsAdmin',
-									}"
-								>
-									<i class="bi bi-currency-dollar"></i>
-									Transactions
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link
-									class="nav-link"
 									:class="{ active: $route.name === 'Vcards' }"
 									aria-current="page"
 									:to="{

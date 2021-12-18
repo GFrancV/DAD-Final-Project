@@ -28,7 +28,7 @@
 						</div>
 					</div>
 
-					<div>
+					<div v-if="this.$store.state.user.user_type == 'V'">
 						<form @submit="formSubmit" enctype="multipart/form-data">
 							<input type="file" class="form-control" v-on:change="onChange" />
 						</form>
@@ -70,6 +70,16 @@
 								<label for="inputName" class="form-label">Name</label>
 							</h6>
 							<input
+								v-if="this.$store.state.user.user_type == 'A'"
+								type="text"
+								class="form-control"
+								id="inputName"
+								v-model="vcard.name"
+								required
+								readonly
+							/>
+							<input
+								v-else
 								type="text"
 								class="form-control"
 								id="inputName"
@@ -84,6 +94,16 @@
 								<label for="inputEmail" class="form-label">Email</label>
 							</h6>
 							<input
+								v-if="this.$store.state.user.user_type == 'A'"
+								type="text"
+								class="form-control"
+								id="inputEmail"
+								v-model="vcard.email"
+								required
+								readonly
+							/>
+							<input
+								v-else
 								type="text"
 								class="form-control"
 								id="inputEmail"
@@ -94,7 +114,7 @@
 					</div>
 				</div>
 				<!--CONFIRMATION CODE-->
-				<div class="mb-3 row">
+				<div v-if="this.$store.state.user.user_type == 'V'" class="mb-3 row">
 					<div class="col">
 						<h6>
 							<label for="inputConfirmationCode" class="form-label"
@@ -125,7 +145,7 @@
 				</div>
 
 				<!--PASSWORD-->
-				<div class="mb-3 row">
+				<div v-if="this.$store.state.user.user_type == 'V'" class="mb-3 row">
 					<div class="col">
 						<h6>
 							<label for="inputConfirmationCode" class="form-label">Current Password</label>
