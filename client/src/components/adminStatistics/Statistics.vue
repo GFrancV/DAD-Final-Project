@@ -7,28 +7,25 @@
 				<br />
 				<active-vcards :vcards="vcards"></active-vcards>
 				<br />
-				<payment-type-sum :vcards="vcards"></payment-type-sum>
 			</div>
 			<div class="col-md-6">
-				<vcards-balance :vcards="vcards"></vcards-balance>
+				<vcards-balance></vcards-balance>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	import VcardsBalance from "./VcardsBalance.vue"
-	import ActiveVcards from "./ActiveVcards.vue"
-	import PaymentTypeSum from "./PaymentTypesSum.vue"
 	import BalanceSum from "./BalanceSum.vue"
+	import ActiveVcards from "./ActiveVcards.vue"
+	import VcardsBalance from "./VcardsBalance.vue"
 
 	export default {
 		name: "AdminStatistics",
 		components: {
-			VcardsBalance,
-			ActiveVcards,
-			PaymentTypeSum,
 			BalanceSum,
+			ActiveVcards,
+			VcardsBalance,
 		},
 		data() {
 			return {
@@ -38,9 +35,9 @@
 		methods: {
 			getVcards() {
 				this.$axios
-					.get("vcards")
+					.get("vcardsAll")
 					.then(response => {
-						this.vcards = response.data
+						this.vcards = response.data.data
 					})
 					.catch(error => {
 						console.log(error)

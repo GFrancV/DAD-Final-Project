@@ -8,7 +8,7 @@
 					<th scope="col">Current balance</th>
 				</thead>
 				<tbody>
-					<tr v-for="vcard in newVcards" :key="vcard.phone_number">
+					<tr v-for="vcard in vcards" :key="vcard.phone_number">
 						<td>{{ vcard.phone_number }}</td>
 						<td>${{ vcard.balance }}</td>
 					</tr>
@@ -42,16 +42,10 @@
 <script>
 	export default {
 		name: "VcardsBalance",
-		props: {
-			vcards: {
-				type: Object,
-				required: true,
-			},
-		},
 		data() {
 			return {
-				newVcards: this.vcards.data,
-				nPages: this.vcards.meta.last_page,
+				vcards: [],
+				nPages: 0,
 				currentPage: 1,
 			}
 		},
@@ -60,7 +54,7 @@
 				this.$axios
 					.get("vcards?page=" + this.currentPage)
 					.then(response => {
-						this.newVcards = response.data.data
+						this.vcards = response.data.data
 						this.nPages = response.data.meta.last_page
 					})
 					.catch(error => {
@@ -81,6 +75,9 @@
 				this.currentPage++
 				this.getVcards()
 			},
+		},
+		mounted() {
+			this.getVcards()
 		},
 	}
 </script>
