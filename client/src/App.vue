@@ -237,11 +237,6 @@
 									aria-current="page"
 									:to="{
 										name: 'Users',
-										/*
-										params: {
-											idUser: userId,
-										},
-										*/
 									}"
 								>
 									<i class="bi bi-people"></i>
