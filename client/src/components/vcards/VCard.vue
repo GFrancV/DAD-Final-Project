@@ -153,7 +153,32 @@
 					</div>
 				</div>
 
-				<toggle-switch :options="myOptions" />
+				<div v-if="this.$store.state.user.user_type == 'A'" class="row">
+					<div class="col-md-6">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">vCard Status</label>
+						</h6>
+						<input
+							type="text"
+							class="btn btn-primary px-5"
+							id="inputConfirmationCode"
+							v-model="this.vcard.blocked"
+							required
+						/>
+					</div>
+					<div class="col-md-6">
+						<h6>
+							<label for="inputConfirmationCode" class="form-label">Max Balance</label>
+						</h6>
+						<input
+							type="number"
+							class="form-control"
+							id="inputConfirmationCode"
+							v-model="this.vcard.max_debit"
+							required
+						/>
+					</div>
+				</div>
 
 				<div class="mb-3 d-flex justify-content-end">
 					<ul class="list-inline">
