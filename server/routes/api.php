@@ -57,6 +57,7 @@ Route::delete('vcards/{vcard}/transactions/{transaction}', [TransactionControlle
 
 //Categories
 Route::get('vcards', [VcardController::class, 'index']);
+Route::get('vcardsAll', [VcardController::class, 'indexAll']);
 Route::get('vcards/{vcard}/categories', [CategoryController::class, 'getCategoriesOfVcard']);
 Route::get('vcards/{vcard}/categories/{category}', [CategoryController::class, 'show']);
 Route::post('vcards/{vcard}/categories', [CategoryController::class, 'store']);

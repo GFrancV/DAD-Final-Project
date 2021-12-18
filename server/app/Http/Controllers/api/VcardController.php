@@ -20,6 +20,11 @@ class VcardController extends Controller
         return VcardResource::collection(Vcard::paginate('10'));
     }
 
+    public function indexAll()
+    {
+        return VcardResource::collection(Vcard::all());
+    }
+
 
 
     public function show(VCard $vcard)
